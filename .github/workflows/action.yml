@@ -1,0 +1,36 @@
+name: Golang
+
+on:
+  push:
+    branches: 
+    - '**'
+  pull_request:
+    branches: 
+    - '**'
+
+jobs:
+  build:
+
+    name: TestApplication
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [macos-latest, ubuntu-latest, windows-latest]
+        include:
+        - os: macos-latest
+        - os: ubuntu-latest
+        - os: windows-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Setup
+      uses: actions/setup-go@v2
+      with:
+        go-version: 1.*
+
+    - name: Build
+      working-directory: ./
+      run: go build ./...
+
+    - name: Test
+      working-directory: ./
+      run: go test -count=3 ./...
