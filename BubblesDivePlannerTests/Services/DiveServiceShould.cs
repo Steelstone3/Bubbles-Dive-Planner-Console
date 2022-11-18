@@ -6,40 +6,46 @@ namespace BubblesDivePlannerTests.Services
 {
     public class DiveServiceShould
     {
-        private Mock<IDivePlan> divePlan;
-        private Mock<IDiveSetup> diveSetup;
+        private Mock<IDiveSetupPresenter> diveSetupPresenter;
+        private Mock<IDiveStepPresenter> diveStepPresenter;
 
         public DiveServiceShould()
         {
-            divePlan = new Mock<IDivePlan>();
-            diveSetup = new Mock<IDiveSetup>();
+            diveSetupPresenter = new Mock<IDiveSetupPresenter>();
+            diveStepPresenter = new Mock<IDiveStepPresenter>();
         }
 
         [Fact]
         public void SetupADivePlan()
         {
             // Given
-            divePlan = new Mock<IDivePlan>();
-            divePlan.Setup(dp => dp.WelcomeMessage());
-            divePlan.Setup(dp => dp.SelectDiveModel());
-            IDiveService diveService = new DiveService(diveSetup.Object, divePlan.Object);
+            diveSetupPresenter = new Mock<IDiveSetupPresenter>();
+            diveSetupPresenter.Setup(dp => dp.WelcomeMessage());
+            diveSetupPresenter.Setup(dp => dp.SelectDiveModel());
+            diveSetupPresenter.Setup(dp => dp.CreateCylinders());
+            IDiveService diveService = new DiveService(diveStepPresenter.Object, diveSetupPresenter.Object);
 
             // When
             diveService.SetupDivePlan();
 
             // Then
-            divePlan.VerifyAll();
+            diveSetupPresenter.VerifyAll();
         }
 
-        [Fact(Skip="Next")]
+        [Fact]
         public void SetupADiveStep()
         {
             // Given
-
+            diveStepPresenter = new Mock<IDiveStepPresenter>();
+            diveStepPresenter.Setup(ds => ds.CreateDiveStep());
+            diveStepPresenter.Setup(ds => ds.SelectCylinder(null));
+            IDiveService diveService = new DiveService(diveStepPresenter.Object, diveSetupPresenter.Object);
 
             // When
-        
+            diveService.SetupDiveStep();
+
             // Then
+            diveStepPresenter.VerifyAll();
         }
 
         [Fact(Skip = "Not implemented")]

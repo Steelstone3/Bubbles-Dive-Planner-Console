@@ -4,7 +4,7 @@ using BubblesDivePlanner.Models.DiveModels;
 
 namespace BubblesDivePlanner.Presenters
 {
-    public interface IDivePlan
+    public interface IDiveSetupPresenter
     {
         void WelcomeMessage();
         IDiveModel SelectDiveModel();

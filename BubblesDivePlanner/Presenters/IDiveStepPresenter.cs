@@ -4,7 +4,7 @@ using BubblesDivePlanner.Models.Cylinders;
 
 namespace BubblesDivePlanner.Presenters
 {
-    public interface IDiveSetup
+    public interface IDiveStepPresenter
     {
         IDiveStep CreateDiveStep();
         ICylinder SelectCylinder(List<ICylinder> cylinders);

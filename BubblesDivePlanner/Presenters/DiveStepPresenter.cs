@@ -5,11 +5,11 @@ using Spectre.Console;
 
 namespace BubblesDivePlanner.Presenters
 {
-    public class DiveSetup : IDiveSetup
+    public class DiveStepPresenter : IDiveStepPresenter
     {
         private readonly IPresenter presenter;
 
-        public DiveSetup(IPresenter presenter)
+        public DiveStepPresenter(IPresenter presenter)
         {
             this.presenter = presenter;
         }

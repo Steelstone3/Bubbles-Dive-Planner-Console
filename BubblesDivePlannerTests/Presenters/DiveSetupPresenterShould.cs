@@ -7,17 +7,17 @@ namespace Name
     public class DivePlanShould
     {
         private Mock<IPresenter> presenter = new();
-        private IDivePlan divePlan;
+        private IDiveSetupPresenter diveSetupPresenter;
 
         [Fact]
         public void DisplayAWelcomeMessage()
         {
             // Given
             presenter.Setup(p => p.Print("Bubbles Dive Planner Console"));
-            divePlan = new DivePlan(presenter.Object);
+            diveSetupPresenter = new DiveSetupPresenter(presenter.Object);
 
             // When
-            divePlan.WelcomeMessage();
+            diveSetupPresenter.WelcomeMessage();
 
             // Then
             presenter.VerifyAll();
@@ -33,10 +33,10 @@ namespace Name
             presenter.Setup(p => p.GetUshort("Enter Cylinder Volume:"));
             presenter.Setup(p => p.GetUshort("Enter Cylinder Pressure:"));
             presenter.Setup(p => p.GetByte("Enter Surface Air Consumption Rate:"));
-            divePlan = new DivePlan(presenter.Object);
+            diveSetupPresenter = new DiveSetupPresenter(presenter.Object);
 
             // When
-            divePlan.CreateCylinders();
+            diveSetupPresenter.CreateCylinders();
 
             // Then
             presenter.VerifyAll();

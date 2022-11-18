@@ -7,7 +7,7 @@ namespace BubblesDivePlannerTests.Presenters
     public class DiveSetupShould
     {
         private Mock<IPresenter> presenter = new();
-        private IDiveSetup diveSetup;
+        private IDiveStepPresenter diveStepPresenter;
 
         [Fact]
         public void CreateADiveStep()
@@ -15,10 +15,10 @@ namespace BubblesDivePlannerTests.Presenters
             // Given
             presenter.Setup(p => p.GetByte("Enter Depth:"));
             presenter.Setup(p => p.GetByte("Enter Time:"));
-            diveSetup = new DiveSetup(presenter.Object);
+            diveStepPresenter = new DiveStepPresenter(presenter.Object);
 
             // When
-            diveSetup.CreateDiveStep();
+            diveStepPresenter.CreateDiveStep();
 
             // Then
             presenter.VerifyAll();
