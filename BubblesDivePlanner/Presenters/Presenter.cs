@@ -6,7 +6,7 @@ namespace BubblesDivePlanner.Presenters
     {
         public void Print(string message)
         {
-            AnsiConsole.Markup(message);
+            AnsiConsole.WriteLine(message);
         }
 
         public byte GetByte(string message)
@@ -22,6 +22,10 @@ namespace BubblesDivePlanner.Presenters
         public double GetDouble(string message)
         {
             return AnsiConsole.Ask<double>(message);
+        }
+
+        public bool GetConfirmation(string message) {
+            return AnsiConsole.Confirm(message);
         }
     }
 }
