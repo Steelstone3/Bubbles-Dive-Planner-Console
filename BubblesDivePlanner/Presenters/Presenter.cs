@@ -14,7 +14,7 @@ namespace BubblesDivePlanner.Presenters
             return AnsiConsole.Ask<byte>(message);
         }
 
-        public ushort GetUnsignedInteger16(string message)
+        public ushort GetUshort(string message)
         {
             return AnsiConsole.Ask<ushort>(message);
         }

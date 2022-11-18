@@ -4,7 +4,7 @@ namespace BubblesDivePlanner.Presenters
     {
         void Print(string message);
         byte GetByte(string message);
-        ushort GetUnsignedInteger16(string message);
+        ushort GetUshort(string message);
         double GetDouble(string message);
     }
 }

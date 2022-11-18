@@ -44,8 +44,8 @@ namespace BubblesDivePlannerTests.Presenters
             // Given
             presenter.Setup(p => p.GetByte("Enter Oxygen:"));
             presenter.Setup(p => p.GetByte("Enter Helium:"));
-            presenter.Setup(p => p.GetUnsignedInteger16("Enter Cylinder Volume:"));
-            presenter.Setup(p => p.GetUnsignedInteger16("Enter Cylinder Pressure:"));
+            presenter.Setup(p => p.GetUshort("Enter Cylinder Volume:"));
+            presenter.Setup(p => p.GetUshort("Enter Cylinder Pressure:"));
             presenter.Setup(p => p.GetByte("Enter Surface Air Consumption Rate:"));
             diveSetup = new DiveSetup(presenter.Object);
 

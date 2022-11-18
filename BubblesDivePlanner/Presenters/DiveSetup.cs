@@ -25,7 +25,7 @@ namespace BubblesDivePlanner.Presenters
         public Cylinder CreateCylinder()
         {
             var gasMixture = new GasMixture(presenter.GetByte("Enter Oxygen:"), presenter.GetByte("Enter Helium:"));
-            return new Cylinder(presenter.GetUnsignedInteger16("Enter Cylinder Volume:"), presenter.GetUnsignedInteger16("Enter Cylinder Pressure:"), gasMixture, presenter.GetByte("Enter Surface Air Consumption Rate:"));
+            return new Cylinder(presenter.GetUshort("Enter Cylinder Volume:"), presenter.GetUshort("Enter Cylinder Pressure:"), gasMixture, presenter.GetByte("Enter Surface Air Consumption Rate:"));
         }
     }
 }
