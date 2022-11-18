@@ -7,7 +7,14 @@ namespace BubblesDivePlanner.Presenters
 {
     public class DivePlan : IDivePlan
     {
-        public void WelcomeMessage(IPresenter presenter)
+        private IPresenter presenter;
+
+        public DivePlan(IPresenter @object)
+        {
+            this.presenter = @object;
+        }
+
+        public void WelcomeMessage()
         {
             presenter.Print("Bubbles Dive Planner Console");
         }

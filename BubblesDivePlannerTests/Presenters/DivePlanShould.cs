@@ -14,10 +14,10 @@ namespace Name
         {
             // Given
             presenter.Setup(p => p.Print("Bubbles Dive Planner Console"));
-            divePlan = new DivePlan();
+            divePlan = new DivePlan(presenter.Object);
 
             // When
-            divePlan.WelcomeMessage(presenter.Object);
+            divePlan.WelcomeMessage();
 
             // Then
             presenter.VerifyAll();

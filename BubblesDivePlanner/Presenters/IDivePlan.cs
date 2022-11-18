@@ -6,7 +6,7 @@ namespace BubblesDivePlanner.Presenters
 {
     public interface IDivePlan
     {
-        void WelcomeMessage(IPresenter presenter);
+        void WelcomeMessage();
         IDiveModel SelectDiveModel();
         ICylinder SelectCylinder(List<ICylinder> cylinders);
     }
