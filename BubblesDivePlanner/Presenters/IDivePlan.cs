@@ -8,6 +8,6 @@ namespace BubblesDivePlanner.Presenters
     {
         void WelcomeMessage();
         IDiveModel SelectDiveModel();
-        ICylinder SelectCylinder(List<ICylinder> cylinders);
+        List<ICylinder> CreateCylinders();
     }
 }

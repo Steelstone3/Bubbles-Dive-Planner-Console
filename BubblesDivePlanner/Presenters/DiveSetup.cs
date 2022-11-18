@@ -1,5 +1,7 @@
+using System.Collections.Generic;
 using BubblesDivePlanner.Models;
 using BubblesDivePlanner.Models.Cylinders;
+using Spectre.Console;
 
 namespace BubblesDivePlanner.Presenters
 {
@@ -12,15 +14,16 @@ namespace BubblesDivePlanner.Presenters
             this.presenter = presenter;
         }
 
-        public DiveStep CreateDiveStep()
+        public IDiveStep CreateDiveStep()
         {
             return new DiveStep(presenter.GetByte("Enter Depth:"), presenter.GetByte("Enter Time:"));
         }
 
-        public Cylinder CreateCylinder()
+        public ICylinder SelectCylinder(List<ICylinder> cylinders)
         {
-            var gasMixture = new GasMixture(presenter.GetByte("Enter Oxygen:"), presenter.GetByte("Enter Helium:"));
-            return new Cylinder(presenter.GetUshort("Enter Cylinder Volume:"), presenter.GetUshort("Enter Cylinder Pressure:"), gasMixture, presenter.GetByte("Enter Surface Air Consumption Rate:"));
+            return AnsiConsole.Prompt(new SelectionPrompt<ICylinder>()
+            .Title("Select Cylinder:")
+            .AddChoices(cylinders));
         }
     }
 }

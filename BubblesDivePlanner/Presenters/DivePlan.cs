@@ -28,11 +28,21 @@ namespace BubblesDivePlanner.Presenters
             }));
         }
 
-        public ICylinder SelectCylinder(List<ICylinder> cylinders)
+        public List<ICylinder> CreateCylinders()
         {
-            return AnsiConsole.Prompt(new SelectionPrompt<ICylinder>()
-            .Title("Select Cylinder:")
-            .AddChoices(cylinders));
+            var cylinders = new List<ICylinder>();
+            do
+            {
+                cylinders.Add(CreateCylinder());
+            } while (presenter.GetConfirmation("Create Another Cylinder?"));
+
+            return cylinders;
+        }
+
+        private Cylinder CreateCylinder()
+        {
+            var gasMixture = new GasMixture(presenter.GetByte("Enter Oxygen:"), presenter.GetByte("Enter Helium:"));
+            return new Cylinder(presenter.GetUshort("Enter Cylinder Volume:"), presenter.GetUshort("Enter Cylinder Pressure:"), gasMixture, presenter.GetByte("Enter Surface Air Consumption Rate:"));
         }
     }
 }
