@@ -18,7 +18,7 @@ namespace BubblesDivePlannerTests.Controllers.DiveStages
                 TestFixture.ExpectedTotalTissuePressures,
                 TestFixture.ExpectedMaxSurfacePressures,
                 null,
-                null, 
+                null,
                 null,
                 TestFixture.DefaultList,
                 0,

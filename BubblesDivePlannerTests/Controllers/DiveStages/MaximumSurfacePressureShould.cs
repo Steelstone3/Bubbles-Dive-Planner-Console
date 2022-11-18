@@ -18,7 +18,7 @@ namespace BubblesDivePlannerTests.Controllers.DiveStages
                 null,
                 TestFixture.DefaultList,
                 null,
-                TestFixture.ExpectedAValues, 
+                TestFixture.ExpectedAValues,
                 TestFixture.ExpectedBValues,
                 null,
                 0,

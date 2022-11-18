@@ -29,7 +29,7 @@ namespace BubblesDivePlanner.Models
         {
             var settings = new JsonSerializerSettings
             {
-                Converters = 
+                Converters =
                 {
                     new AbstractConverter<DivePlan, IDivePlan>(),
                     new AbstractConverter<Zhl16Buhlmann, IDiveModel>(),

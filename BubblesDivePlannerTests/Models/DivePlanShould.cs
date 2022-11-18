@@ -86,14 +86,14 @@ namespace BubblesDivePlannerTests.Models
         public void Deserialise(string expectedJsonString)
         {
             IDivePlan actualDivePlan = new DivePlan(null, null);
-            
+
             actualDivePlan.Deserialise(expectedJsonString);
 
             AssertDiveModel(divePlan.DiveModel, actualDivePlan.DiveModel);
             AssertCylinders(divePlan.Cylinders, actualDivePlan.Cylinders);
         }
 
-        [Fact(Skip="Doesn't populate values")]
+        [Fact(Skip = "Doesn't populate values")]
         public void DeserialiseRanDivePlan()
         {
             var defaultValue = 12.5;

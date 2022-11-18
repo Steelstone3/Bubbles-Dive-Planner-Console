@@ -86,12 +86,13 @@ namespace BubblesDivePlannerTests.Models.DiveModels
         }
 
         [Fact]
-        public void ConstructDiveProfile() {
-            double[] defaultList = new double[]{1,2,3,4,5,6,7,8,9,10};
+        public void ConstructDiveProfile()
+        {
+            double[] defaultList = new double[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
             diveProfile = new DiveProfile
             (
-                defaultList, 
-                defaultList, 
+                defaultList,
+                defaultList,
                 defaultList,
                 defaultList,
                 defaultList,
@@ -116,13 +117,14 @@ namespace BubblesDivePlannerTests.Models.DiveModels
             Assert.Equal(EXPECTED_PRESSURE_AT_DEPTH, diveProfile.NitrogenPressureAtDepth);
         }
 
-         [Fact]
-        public void UpdateDiveProfile() {
-            double[] defaultList = new double[]{1,2,3,4,5,6,7,8,9,10};
+        [Fact]
+        public void UpdateDiveProfile()
+        {
+            double[] defaultList = new double[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
             diveProfile.UpdateDiveProfile(new DiveProfile
             (
-                defaultList, 
-                defaultList, 
+                defaultList,
+                defaultList,
                 defaultList,
                 defaultList,
                 defaultList,
