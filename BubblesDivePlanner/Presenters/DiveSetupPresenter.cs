@@ -9,9 +9,9 @@ namespace BubblesDivePlanner.Presenters
     {
         private IPresenter presenter;
 
-        public DiveSetupPresenter(IPresenter @object)
+        public DiveSetupPresenter(IPresenter presenter)
         {
-            this.presenter = @object;
+            this.presenter = presenter;
         }
 
         public void WelcomeMessage()
