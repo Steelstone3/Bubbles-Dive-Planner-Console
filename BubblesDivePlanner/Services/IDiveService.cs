@@ -4,5 +4,6 @@ namespace BubblesDivePlannerTests.Services
     {
         void SetupDivePlan();
         void SetupDiveStep();
+        void RunDiveProfile();
     }
 }

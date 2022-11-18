@@ -1,3 +1,4 @@
+using BubblesDivePlanner.Controllers;
 using BubblesDivePlanner.Presenters;
 using Moq;
 using Xunit;
@@ -6,14 +7,10 @@ namespace BubblesDivePlannerTests.Services
 {
     public class DiveServiceShould
     {
-        private Mock<IDiveSetupPresenter> diveSetupPresenter;
-        private Mock<IDiveStepPresenter> diveStepPresenter;
-
-        public DiveServiceShould()
-        {
-            diveSetupPresenter = new Mock<IDiveSetupPresenter>();
-            diveStepPresenter = new Mock<IDiveStepPresenter>();
-        }
+        private Mock<IDiveSetupPresenter> diveSetupPresenter = new Mock<IDiveSetupPresenter>();
+        private Mock<IDiveStepPresenter> diveStepPresenter =new Mock<IDiveStepPresenter>();
+        private Mock<IDiveController> diveController = new Mock<IDiveController>();
+        private IDiveService diveService;
 
         [Fact]
         public void SetupADivePlan()
@@ -23,7 +20,7 @@ namespace BubblesDivePlannerTests.Services
             diveSetupPresenter.Setup(dp => dp.WelcomeMessage());
             diveSetupPresenter.Setup(dp => dp.SelectDiveModel());
             diveSetupPresenter.Setup(dp => dp.CreateCylinders());
-            IDiveService diveService = new DiveService(diveStepPresenter.Object, diveSetupPresenter.Object);
+            diveService = new DiveService(diveStepPresenter.Object, diveSetupPresenter.Object, diveController.Object);
 
             // When
             diveService.SetupDivePlan();
@@ -39,7 +36,7 @@ namespace BubblesDivePlannerTests.Services
             diveStepPresenter = new Mock<IDiveStepPresenter>();
             diveStepPresenter.Setup(ds => ds.CreateDiveStep());
             diveStepPresenter.Setup(ds => ds.SelectCylinder(null));
-            IDiveService diveService = new DiveService(diveStepPresenter.Object, diveSetupPresenter.Object);
+            diveService = new DiveService(diveStepPresenter.Object, diveSetupPresenter.Object, diveController.Object);
 
             // When
             diveService.SetupDiveStep();
@@ -48,14 +45,18 @@ namespace BubblesDivePlannerTests.Services
             diveStepPresenter.VerifyAll();
         }
 
-        [Fact(Skip = "Not implemented")]
+        [Fact]
         public void RunADiveProfile()
         {
             // Given
-
+            diveController = new Mock<IDiveController>();
+            diveController.Setup(dc => dc.Run());
+            diveService = new DiveService(diveStepPresenter.Object, diveSetupPresenter.Object, diveController.Object);
             // When
+            diveService.RunDiveProfile();
 
             // Then
+            diveController.VerifyAll();
         }
     }
 }

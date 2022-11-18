@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using BubblesDivePlanner.Controllers;
 using BubblesDivePlanner.Models;
 using BubblesDivePlanner.Models.Cylinders;
 using BubblesDivePlanner.Models.DiveModels;
@@ -10,15 +11,17 @@ namespace BubblesDivePlannerTests.Services
     {
         private readonly IDiveStepPresenter diveStepPresenter;
         private readonly IDiveSetupPresenter diveSetupPresenter;
+        private readonly IDiveController diveController;
         private IDiveModel diveModel;
         private List<ICylinder> cylinders;
         private IDiveStep diveStep;
         private ICylinder cylinder;
 
-        public DiveService(IDiveStepPresenter diveStepPresenter, IDiveSetupPresenter diveSetupPresenter)
+        public DiveService(IDiveStepPresenter diveStepPresenter, IDiveSetupPresenter diveSetupPresenter, IDiveController diveController)
         {
             this.diveStepPresenter = diveStepPresenter;
             this.diveSetupPresenter = diveSetupPresenter;
+            this.diveController = diveController;
         }
 
         public void SetupDivePlan()
@@ -32,6 +35,11 @@ namespace BubblesDivePlannerTests.Services
         {
             diveStep = diveStepPresenter.CreateDiveStep();
             cylinder = diveStepPresenter.SelectCylinder(cylinders);
+        }
+
+        public void RunDiveProfile()
+        {
+            diveController.Run();
         }
     }
 }
