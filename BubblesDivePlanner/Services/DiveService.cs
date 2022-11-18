@@ -12,6 +12,7 @@ namespace BubblesDivePlannerTests.Services
         private readonly IDiveStepPresenter diveStepPresenter;
         private readonly IDiveSetupPresenter diveSetupPresenter;
         private readonly IDiveController diveController;
+        
         private IDiveModel diveModel;
         private List<ICylinder> cylinders;
         private IDiveStep diveStep;

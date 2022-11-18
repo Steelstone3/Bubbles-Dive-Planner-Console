@@ -7,9 +7,11 @@ namespace BubblesDivePlanner.Models
     public interface IDivePlan
     {
         IDiveModel DiveModel { get; }
-        IDiveStep DiveStep { get; }
         IList<ICylinder> Cylinders { get; }
+        IDiveStep DiveStep { get; }
+        ICylinder SelectedCylinder { get; }
         void UpdateDiveStep(IDiveStep diveStep);
+        void UpdateSelectedCylinder(ICylinder cylinder);
         string Serialise();
         void Deserialise(string expectedDivePlanJson);
     }
