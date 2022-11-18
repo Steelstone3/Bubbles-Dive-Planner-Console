@@ -1,6 +1,27 @@
+using Spectre.Console;
+
 namespace BubblesDivePlanner.Presenters
 {
     public class Presenter : IPresenter
     {
+        public void Print(string message)
+        {
+            AnsiConsole.Markup(message);
+        }
+
+        public byte GetByte(string message)
+        {
+            return AnsiConsole.Ask<byte>(message);
+        }
+
+        public ushort GetUnsignedInteger16(string message)
+        {
+            return AnsiConsole.Ask<ushort>(message);
+        }
+
+        public double GetDouble(string message)
+        {
+            return AnsiConsole.Ask<double>(message);
+        }
     }
 }
