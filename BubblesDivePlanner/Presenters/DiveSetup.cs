@@ -12,11 +12,6 @@ namespace BubblesDivePlanner.Presenters
             this.presenter = presenter;
         }
 
-        public void WelcomeMessage()
-        {
-            presenter.Print("Bubbles Dive Planner Console");
-        }
-
         public DiveStep CreateDiveStep()
         {
             return new DiveStep(presenter.GetByte("Enter Depth:"), presenter.GetByte("Enter Time:"));

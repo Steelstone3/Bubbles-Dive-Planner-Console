@@ -5,8 +5,13 @@ using Spectre.Console;
 
 namespace BubblesDivePlanner.Presenters
 {
-    public class DivePlan
+    public class DivePlan : IDivePlan
     {
+        public void WelcomeMessage(IPresenter presenter)
+        {
+            presenter.Print("Bubbles Dive Planner Console");
+        }
+
         public IDiveModel SelectDiveModel()
         {
             return AnsiConsole.Prompt(new SelectionPrompt<IDiveModel>()

@@ -10,20 +10,6 @@ namespace BubblesDivePlannerTests.Presenters
         private IDiveSetup diveSetup;
 
         [Fact]
-        public void DisplayAWelcomeMessage()
-        {
-            // Given
-            presenter.Setup(p => p.Print("Bubbles Dive Planner Console"));
-            diveSetup = new DiveSetup(presenter.Object);
-
-            // When
-            diveSetup.WelcomeMessage();
-
-            // Then
-            presenter.VerifyAll();
-        }
-
-        [Fact]
         public void CreateADiveStep()
         {
             // Given
