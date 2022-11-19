@@ -3,7 +3,7 @@ using BubblesDivePlanner.Models.DiveModels;
 
 namespace BubblesDivePlannerTests.Services
 {
-    public interface IDiveService
+    public interface IDivePlannerService
     {
         void SetupDivePlan();
         IDivePlan SetupDiveStep();

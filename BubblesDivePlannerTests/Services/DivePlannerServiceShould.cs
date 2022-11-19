@@ -12,7 +12,7 @@ namespace BubblesDivePlannerTests.Services
         private Mock<IDiveSetupPresenter> diveSetupPresenter = new Mock<IDiveSetupPresenter>();
         private Mock<IDiveStepPresenter> diveStepPresenter = new Mock<IDiveStepPresenter>();
         private Mock<IDiveController> diveController = new Mock<IDiveController>();
-        private IDiveService diveService;
+        private IDivePlannerService divePlannerService;
 
         [Fact]
         public void SetupADivePlan()
@@ -22,10 +22,10 @@ namespace BubblesDivePlannerTests.Services
             diveSetupPresenter.Setup(dp => dp.WelcomeMessage());
             diveSetupPresenter.Setup(dp => dp.SelectDiveModel());
             diveSetupPresenter.Setup(dp => dp.CreateCylinders());
-            diveService = new DiveService(diveStepPresenter.Object, diveSetupPresenter.Object, diveController.Object);
+            divePlannerService = new DivePlannerService(diveStepPresenter.Object, diveSetupPresenter.Object, diveController.Object);
 
             // When
-            diveService.SetupDivePlan();
+            divePlannerService.SetupDivePlan();
 
             // Then
             diveSetupPresenter.VerifyAll();
@@ -37,10 +37,10 @@ namespace BubblesDivePlannerTests.Services
             // Given
             diveStepPresenter.Setup(ds => ds.CreateDiveStep());
             diveStepPresenter.Setup(ds => ds.SelectCylinder(null));
-            diveService = new DiveService(diveStepPresenter.Object, diveSetupPresenter.Object, diveController.Object);
+            divePlannerService = new DivePlannerService(diveStepPresenter.Object, diveSetupPresenter.Object, diveController.Object);
 
             // When
-            diveService.SetupDiveStep();
+            divePlannerService.SetupDiveStep();
 
             // Then
             diveStepPresenter.VerifyAll();
@@ -52,9 +52,9 @@ namespace BubblesDivePlannerTests.Services
             // Given
             var divePlan = new Mock<IDivePlan>();
             diveController.Setup(dc => dc.Run(divePlan.Object));
-            diveService = new DiveService(diveStepPresenter.Object, diveSetupPresenter.Object, diveController.Object);
+            divePlannerService = new DivePlannerService(diveStepPresenter.Object, diveSetupPresenter.Object, diveController.Object);
             // When
-            diveService.RunDiveProfile(divePlan.Object);
+            divePlannerService.RunDiveProfile(divePlan.Object);
 
             // Then
             diveController.VerifyAll();
@@ -66,10 +66,10 @@ namespace BubblesDivePlannerTests.Services
             // Given
             var diveModel = new Zhl16Buhlmann();
             diveSetupPresenter.Setup(dsp => dsp.PrintDiveResults(diveModel.DiveProfile));
-            diveService = new DiveService(diveStepPresenter.Object, diveSetupPresenter.Object, diveController.Object);
+            divePlannerService = new DivePlannerService(diveStepPresenter.Object, diveSetupPresenter.Object, diveController.Object);
 
             // When
-            diveService.PrintDiveResults(diveModel.DiveProfile);
+            divePlannerService.PrintDiveResults(diveModel.DiveProfile);
 
             // Then
             diveSetupPresenter.VerifyAll();

@@ -7,7 +7,7 @@ using BubblesDivePlanner.Presenters;
 
 namespace BubblesDivePlannerTests.Services
 {
-    public class DiveService : IDiveService
+    public class DivePlannerService : IDivePlannerService
     {
         private readonly IDiveStepPresenter diveStepPresenter;
         private readonly IDiveSetupPresenter diveSetupPresenter;
@@ -15,7 +15,7 @@ namespace BubblesDivePlannerTests.Services
         private IDiveModel diveModel;
         private List<ICylinder> cylinders;
 
-        public DiveService(IDiveStepPresenter diveStepPresenter, IDiveSetupPresenter diveSetupPresenter, IDiveController diveController)
+        public DivePlannerService(IDiveStepPresenter diveStepPresenter, IDiveSetupPresenter diveSetupPresenter, IDiveController diveController)
         {
             this.diveStepPresenter = diveStepPresenter;
             this.diveSetupPresenter = diveSetupPresenter;
