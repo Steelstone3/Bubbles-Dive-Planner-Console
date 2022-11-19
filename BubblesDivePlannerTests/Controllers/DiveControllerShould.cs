@@ -1,10 +1,8 @@
-using System.Security.Cryptography;
 using BubblesDivePlanner.Controllers;
 using BubblesDivePlanner.Models;
 using BubblesDivePlanner.Models.Cylinders;
 using BubblesDivePlanner.Models.DiveModels;
 using BubblesDivePlanner.Presenters;
-using BubblesDivePlannerTests.Services;
 using Moq;
 using Xunit;
 
@@ -99,7 +97,7 @@ namespace BubblesDivePlannerTests.Controllers
         {
             // Given
             var selectedCylinder = new Mock<ICylinder>();
-            diveSetupPresenter.Setup(dsp=> dsp.PrintCylinder(selectedCylinder.Object));
+            diveSetupPresenter.Setup(dsp => dsp.PrintCylinder(selectedCylinder.Object));
             diveController = new DiveController(diveStepPresenter.Object, diveSetupPresenter.Object, diveStagesController.Object);
 
             // When

@@ -14,7 +14,7 @@ namespace BubblesDivePlanner
             IDiveStagesController diveStagesController = new DiveStagesController();
             IDiveController diveController = new DiveController(diveStepPresenter, diveSetupPresenter, diveStagesController);
             IDivePlannerService divePlannerService = new DivePlannerService(diveController);
-            
+
             divePlannerService.Run(presenter);
         }
     }
