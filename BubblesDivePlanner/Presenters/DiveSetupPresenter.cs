@@ -21,7 +21,10 @@ namespace BubblesDivePlanner.Presenters
 
         public IDiveModel SelectDiveModel()
         {
-            return AnsiConsole.Prompt(new SelectionPrompt<IDiveModel>()
+            var selectionPrompt = new SelectionPrompt<IDiveModel>();
+            selectionPrompt.Converter = diveModel => diveModel.Name;
+
+            return AnsiConsole.Prompt(selectionPrompt
             .Title("Select Dive Model:")
             .AddChoices(new[] {
                 new Zhl16Buhlmann()
@@ -55,10 +58,10 @@ namespace BubblesDivePlanner.Presenters
         private Cylinder CreateCylinder()
         {
             return new Cylinder(
-                presenter.GetString("Enter Cylinder Name:"), 
-                 presenter.GetUshort("Enter Cylinder Volume:"), 
-                presenter.GetUshort("Enter Cylinder Pressure:"), 
-                presenter.GetByte("Enter Surface Air Consumption Rate:"), 
+                presenter.GetString("Enter Cylinder Name:"),
+                 presenter.GetUshort("Enter Cylinder Volume:"),
+                presenter.GetUshort("Enter Cylinder Pressure:"),
+                presenter.GetByte("Enter Surface Air Consumption Rate:"),
                 new GasMixture(presenter.GetByte("Enter Oxygen:"), presenter.GetByte("Enter Helium:"))
             );
         }
