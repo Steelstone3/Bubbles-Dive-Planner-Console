@@ -6,9 +6,9 @@ using BubblesDivePlanner.Presenters;
 
 namespace BubblesDivePlanner.Controllers
 {
-public class DiveController : IDiveController
-{
-    private readonly IDiveStepPresenter diveStepPresenter;
+    public class DiveController : IDiveController
+    {
+        private readonly IDiveStepPresenter diveStepPresenter;
         private readonly IDiveSetupPresenter diveSetupPresenter;
         private readonly IDiveStagesController diveController;
         private IDiveModel diveModel;
@@ -42,5 +42,5 @@ public class DiveController : IDiveController
         {
             diveSetupPresenter.PrintDiveResults(diveProfile);
         }
-}
+    }
 }

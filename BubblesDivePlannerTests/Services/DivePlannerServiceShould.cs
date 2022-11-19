@@ -25,10 +25,10 @@ namespace BubblesDivePlannerTests.Services
             diveController.Setup(dc => dc.PrintDiveResults(divePlan.Object.DiveModel.DiveProfile));
             var diveStagesController = new Mock<IDiveStagesController>();
             IDivePlannerService divePlannerService = new DivePlannerService(diveController.Object);
-            
+
             // When
             divePlannerService.Run(presenter.Object);
-        
+
             // Then
             presenter.VerifyAll();
             diveController.VerifyAll();
