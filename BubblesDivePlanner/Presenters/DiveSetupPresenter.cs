@@ -42,8 +42,11 @@ namespace BubblesDivePlanner.Presenters
             return cylinders;
         }
 
-        public void PrintDiveResults(IDiveProfile diveProfile)
+        public void PrintDiveResults(IDiveModel diveModel)
         {
+            var diveProfile = diveModel.DiveProfile;
+            presenter.Print($"Dive Model: {diveModel.Name}");
+
             for (int compartment = 0; compartment < diveProfile.CompartmentLoads.Length; compartment++)
             {
                 presenter.Print($"| C: {compartment + 1} | TPt: {diveProfile.TotalTissuePressures[compartment]} | TAP: {diveProfile.ToleratedAmbientPressures[compartment]} | MSP: {diveProfile.MaxSurfacePressures[compartment]} | CLp: {diveProfile.CompartmentLoads[compartment]} |");

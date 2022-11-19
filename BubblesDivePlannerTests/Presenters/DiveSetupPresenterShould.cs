@@ -66,11 +66,12 @@ namespace Name
             // Given
             var diveModel = TestFixture.FixtureDiveModel;
             var diveProfile = diveModel.DiveProfile;
+            presenter.Setup(p => p.Print($"Dive Model: {diveModel.Name}"));
             presenter.Setup(p => p.Print($"| C: {compartment + 1} | TPt: {diveProfile.TotalTissuePressures[compartment]} | TAP: {diveProfile.ToleratedAmbientPressures[compartment]} | MSP: {diveProfile.MaxSurfacePressures[compartment]} | CLp: {diveProfile.CompartmentLoads[compartment]} |"));
             diveSetupPresenter = new DiveSetupPresenter(presenter.Object);
 
             // When
-            diveSetupPresenter.PrintDiveResults(diveModel.DiveProfile);
+            diveSetupPresenter.PrintDiveResults(diveModel);
 
             // Then
             presenter.VerifyAll();

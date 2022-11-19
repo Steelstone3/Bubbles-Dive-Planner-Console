@@ -17,13 +17,12 @@ namespace BubblesDivePlannerTests.Services
             presenter.Setup(p => p.GetConfirmation("Continue?")).Returns(false);
             var divePlan = new Mock<IDivePlan>();
             divePlan.Setup(dp => dp.DiveModel).Returns(TestFixture.FixtureDiveModel);
-            divePlan.Setup(dp => dp.DiveModel.DiveProfile).Returns(TestFixture.FixtureDiveModel.DiveProfile);
             var diveController = new Mock<IDiveController>();
             diveController.Setup(dc => dc.SetupDivePlan());
             diveController.Setup(dc => dc.SetupDiveStep()).Returns(divePlan.Object);
             diveController.Setup(dc => dc.RunDiveProfile(divePlan.Object)).Returns(divePlan.Object);
             diveController.Setup(dc => dc.RunGasManagement(divePlan.Object.SelectedCylinder, divePlan.Object.DiveStep));
-            diveController.Setup(dc => dc.PrintDiveResults(divePlan.Object.DiveModel.DiveProfile));
+            diveController.Setup(dc => dc.PrintDiveResults(divePlan.Object.DiveModel));
             diveController.Setup(dc => dc.PrintCylinder(divePlan.Object.SelectedCylinder));
             var diveStagesController = new Mock<IDiveStagesController>();
             IDivePlannerService divePlannerService = new DivePlannerService(diveController.Object);

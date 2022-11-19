@@ -9,7 +9,7 @@ namespace BubblesDivePlanner.Presenters
         void WelcomeMessage();
         IDiveModel SelectDiveModel();
         List<ICylinder> CreateCylinders();
-        void PrintDiveResults(IDiveProfile diveProfile);
+        void PrintDiveResults(IDiveModel diveModel);
         void PrintCylinder(ICylinder selectedCylinder);
     }
 }
