@@ -7,6 +7,7 @@ namespace BubblesDivePlannerTests.Models.Cylinders
 {
     public class CylinderShould
     {
+        private readonly string name = "Air";
         private readonly byte cylinderVolume = 12;
         private readonly ushort cylinderPressure = 200;
         private readonly byte surfaceAirConsumptionRate = 12;
@@ -16,7 +17,13 @@ namespace BubblesDivePlannerTests.Models.Cylinders
 
         public CylinderShould()
         {
-            cylinder = new Cylinder(cylinderVolume, cylinderPressure, dummyGasMixture.Object, surfaceAirConsumptionRate);
+            cylinder = new Cylinder(name, cylinderVolume, cylinderPressure, dummyGasMixture.Object, surfaceAirConsumptionRate);
+        }
+
+        [Fact]
+        public void TestName()
+        {
+            Assert.Equal(name, cylinder.Name);
         }
 
         [Fact]
@@ -68,7 +75,7 @@ namespace BubblesDivePlannerTests.Models.Cylinders
         [InlineData(31, 301, 9000)]
         public void CalculateInitialPressurisedVolume(byte cylinderVolume, ushort cylinderPressure, ushort expectedInitialPressurisedVolume)
         {
-            cylinder = new Cylinder(cylinderVolume, cylinderPressure, dummyGasMixture.Object, surfaceAirConsumptionRate);
+            cylinder = new Cylinder(name, cylinderVolume, cylinderPressure, dummyGasMixture.Object, surfaceAirConsumptionRate);
 
             Assert.Equal(expectedInitialPressurisedVolume, cylinder.InitialPressurisedVolume);
         }
@@ -85,7 +92,7 @@ namespace BubblesDivePlannerTests.Models.Cylinders
         [InlineData(12, 200, 0, 0, 0, 3, 2397)]
         public void CalculateGasUsage(byte cylinderVolume, ushort cylinderPressure, byte surfaceAirConsumptionRate, byte depth, byte time, ushort expectedUsedGas, ushort expectedRemainingGas)
         {
-            cylinder = new Cylinder(cylinderVolume, cylinderPressure, dummyGasMixture.Object, surfaceAirConsumptionRate);
+            cylinder = new Cylinder(name, cylinderVolume, cylinderPressure, dummyGasMixture.Object, surfaceAirConsumptionRate);
             IDiveStep diveStep = new DiveStep(depth, time);
 
             cylinder.UpdateCylinderGasConsumption(diveStep);

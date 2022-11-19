@@ -13,6 +13,7 @@ namespace BubblesDivePlannerTests
         public static DiveStep FixtureDiveStep => new(50, 10);
 
         public static Cylinder FixtureSelectedCylinder => new(
+            "Air",
         12,
         200,
         new GasMixture(21, 0),

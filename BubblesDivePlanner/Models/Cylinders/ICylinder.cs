@@ -1,7 +1,10 @@
+using System.Collections.Generic;
+
 namespace BubblesDivePlanner.Models.Cylinders
 {
     public interface ICylinder
     {
+        string Name { get; }
         ushort CylinderVolume { get; }
         ushort CylinderPressure { get; }
         ushort InitialPressurisedVolume { get; }
@@ -9,6 +12,7 @@ namespace BubblesDivePlanner.Models.Cylinders
         ushort UsedGas { get; }
         byte SurfaceAirConsumptionRate { get; }
         IGasMixture GasMixture { get; }
+
         void UpdateCylinderGasConsumption(IDiveStep diveStep);
     }
 }

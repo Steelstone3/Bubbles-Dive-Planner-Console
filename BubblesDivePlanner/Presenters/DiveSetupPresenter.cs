@@ -49,13 +49,17 @@ namespace BubblesDivePlanner.Presenters
 
         public void PrintCylinder(ICylinder selectedCylinder)
         {
-            presenter.Print($"| Cylinder: Cylinder Name | Initial Pressurised Volume: {selectedCylinder.InitialPressurisedVolume} | Remaining Gas: {selectedCylinder.RemainingGas} | Used Gas: {selectedCylinder.UsedGas} | Oxygen: {selectedCylinder.GasMixture.Oxygen}% | Nitrogen: {selectedCylinder.GasMixture.Nitrogen}% | Helium: {selectedCylinder.GasMixture.Helium}% |");
+            presenter.Print($"| Cylinder: {selectedCylinder.Name} | Initial Pressurised Volume: {selectedCylinder.InitialPressurisedVolume} | Remaining Gas: {selectedCylinder.RemainingGas} | Used Gas: {selectedCylinder.UsedGas} | Oxygen: {selectedCylinder.GasMixture.Oxygen}% | Nitrogen: {selectedCylinder.GasMixture.Nitrogen}% | Helium: {selectedCylinder.GasMixture.Helium}% |");
         }
 
         private Cylinder CreateCylinder()
         {
+            var name = presenter.GetString("Enter Cylinder Name:");
+            var cylinderVolume = presenter.GetUshort("Enter Cylinder Volume:");
+            var cylinderPressure = presenter.GetUshort("Enter Cylinder Pressure:");
+            var surfaceAirConsumptionRate = presenter.GetByte("Enter Surface Air Consumption Rate:");
             var gasMixture = new GasMixture(presenter.GetByte("Enter Oxygen:"), presenter.GetByte("Enter Helium:"));
-            return new Cylinder(presenter.GetUshort("Enter Cylinder Volume:"), presenter.GetUshort("Enter Cylinder Pressure:"), gasMixture, presenter.GetByte("Enter Surface Air Consumption Rate:"));
+            return new Cylinder(name, cylinderVolume, cylinderPressure, gasMixture, surfaceAirConsumptionRate);
         }
     }
 }

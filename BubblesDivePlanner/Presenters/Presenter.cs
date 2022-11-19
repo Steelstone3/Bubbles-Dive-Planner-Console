@@ -24,6 +24,11 @@ namespace BubblesDivePlanner.Presenters
             return AnsiConsole.Ask<double>(message);
         }
 
+        public string GetString(string message)
+        {
+            return AnsiConsole.Ask<string>(message);
+        }
+
         public bool GetConfirmation(string message)
         {
             return AnsiConsole.Confirm(message);

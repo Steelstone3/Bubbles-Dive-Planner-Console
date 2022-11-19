@@ -7,7 +7,7 @@ namespace Name
 {
     public class DivePlanShould
     {
-        private Mock<IPresenter> presenter = new();
+        private readonly Mock<IPresenter> presenter = new();
         private IDiveSetupPresenter diveSetupPresenter;
 
         [Fact]
@@ -29,6 +29,7 @@ namespace Name
         {
             // Given
             presenter.Setup(p => p.GetConfirmation("Create Another Cylinder?")).Returns(false);
+            presenter.Setup(p => p.GetString("Enter Cylinder Name:"));
             presenter.Setup(p => p.GetByte("Enter Oxygen:"));
             presenter.Setup(p => p.GetByte("Enter Helium:"));
             presenter.Setup(p => p.GetUshort("Enter Cylinder Volume:"));
@@ -80,7 +81,7 @@ namespace Name
         {
             // Given
             var selectedCylinder = TestFixture.FixtureSelectedCylinder;
-            presenter.Setup(p=>p.Print($"| Cylinder: Cylinder Name | Initial Pressurised Volume: {selectedCylinder.InitialPressurisedVolume} | Remaining Gas: {selectedCylinder.RemainingGas} | Used Gas: {selectedCylinder.UsedGas} | Oxygen: {selectedCylinder.GasMixture.Oxygen}% | Nitrogen: {selectedCylinder.GasMixture.Nitrogen}% | Helium: {selectedCylinder.GasMixture.Helium}% |"));
+            presenter.Setup(p=>p.Print($"| Cylinder: {selectedCylinder.Name} | Initial Pressurised Volume: {selectedCylinder.InitialPressurisedVolume} | Remaining Gas: {selectedCylinder.RemainingGas} | Used Gas: {selectedCylinder.UsedGas} | Oxygen: {selectedCylinder.GasMixture.Oxygen}% | Nitrogen: {selectedCylinder.GasMixture.Nitrogen}% | Helium: {selectedCylinder.GasMixture.Helium}% |"));
             diveSetupPresenter = new DiveSetupPresenter(presenter.Object);
         
             // When
