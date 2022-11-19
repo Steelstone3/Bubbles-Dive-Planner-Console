@@ -12,16 +12,16 @@ namespace BubblesDivePlanner
             var presenter = new Presenter();
             var diveSetupPresenter = new DiveSetupPresenter(presenter);
             var diveStepPresenter = new DiveStepPresenter(presenter);
-            var diveController = new DiveStagesController();
-            var diveService = new DivePlannerService(diveStepPresenter, diveSetupPresenter, diveController);
+            var diveStagesController = new DiveStagesController();
+            var diveController = new DiveController(diveStepPresenter, diveSetupPresenter, diveStagesController);
 
-            diveService.SetupDivePlan();
+            diveController.SetupDivePlan();
 
             do
             {
-                var divePlan = diveService.SetupDiveStep();
-                var updatedDivePlan = diveService.RunDiveProfile(divePlan);
-                diveService.PrintDiveResults(updatedDivePlan.DiveModel.DiveProfile);
+                var divePlan = diveController.SetupDiveStep();
+                var updatedDivePlan = diveController.RunDiveProfile(divePlan);
+                diveController.PrintDiveResults(updatedDivePlan.DiveModel.DiveProfile);
             } while (presenter.GetConfirmation("Continue?"));
         }
     }
