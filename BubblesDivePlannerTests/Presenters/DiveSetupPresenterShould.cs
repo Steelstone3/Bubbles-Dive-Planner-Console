@@ -1,4 +1,5 @@
 using BubblesDivePlanner.Presenters;
+using BubblesDivePlannerTests;
 using Moq;
 using Xunit;
 
@@ -37,6 +38,38 @@ namespace Name
 
             // When
             diveSetupPresenter.CreateCylinders();
+
+            // Then
+            presenter.VerifyAll();
+        }
+
+        [Theory]
+        [InlineData(0)]
+        [InlineData(1)]
+        [InlineData(2)]
+        [InlineData(3)]
+        [InlineData(4)]
+        [InlineData(5)]
+        [InlineData(6)]
+        [InlineData(7)]
+        [InlineData(8)]
+        [InlineData(9)]
+        [InlineData(10)]
+        [InlineData(11)]
+        [InlineData(12)]
+        [InlineData(13)]
+        [InlineData(14)]
+        [InlineData(15)]
+        public void PrintDiveResults(int compartment)
+        {
+            // Given
+            var diveModel = TestFixture.FixtureDiveModel;
+            var diveProfile = diveModel.DiveProfile;
+            presenter.Setup(p => p.Print($"| C: {compartment + 1} | TPt: {diveProfile.TotalTissuePressures[compartment]} | TAP: {diveProfile.ToleratedAmbientPressures[compartment]} | MSP: {diveProfile.MaxSurfacePressures[compartment]} | CLp: {diveProfile.CompartmentLoads[compartment]} |"));
+            diveSetupPresenter = new DiveSetupPresenter(presenter.Object);
+
+            // When
+            diveSetupPresenter.PrintDiveResults(diveModel.DiveProfile);
 
             // Then
             presenter.VerifyAll();
