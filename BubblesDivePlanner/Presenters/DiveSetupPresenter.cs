@@ -49,7 +49,7 @@ namespace BubblesDivePlanner.Presenters
 
         public void PrintCylinder(ICylinder selectedCylinder)
         {
-            throw new System.NotImplementedException();
+            presenter.Print($"| Cylinder: Cylinder Name | Initial Pressurised Volume: {selectedCylinder.InitialPressurisedVolume} | Remaining Gas: {selectedCylinder.RemainingGas} | Used Gas: {selectedCylinder.UsedGas} | Oxygen: {selectedCylinder.GasMixture.Oxygen}% | Nitrogen: {selectedCylinder.GasMixture.Nitrogen}% | Helium: {selectedCylinder.GasMixture.Helium}% |");
         }
 
         private Cylinder CreateCylinder()

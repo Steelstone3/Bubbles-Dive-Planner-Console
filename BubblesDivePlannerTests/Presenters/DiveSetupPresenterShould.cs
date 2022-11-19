@@ -74,5 +74,20 @@ namespace Name
             // Then
             presenter.VerifyAll();
         }
+
+        [Fact]
+        public void PrintSelectedCylinder()
+        {
+            // Given
+            var selectedCylinder = TestFixture.FixtureSelectedCylinder;
+            presenter.Setup(p=>p.Print($"| Cylinder: Cylinder Name | Initial Pressurised Volume: {selectedCylinder.InitialPressurisedVolume} | Remaining Gas: {selectedCylinder.RemainingGas} | Used Gas: {selectedCylinder.UsedGas} | Oxygen: {selectedCylinder.GasMixture.Oxygen}% | Nitrogen: {selectedCylinder.GasMixture.Nitrogen}% | Helium: {selectedCylinder.GasMixture.Helium}% |"));
+            diveSetupPresenter = new DiveSetupPresenter(presenter.Object);
+        
+            // When
+            diveSetupPresenter.PrintCylinder(selectedCylinder);
+
+            // Then
+            presenter.VerifyAll();
+        }
     }
 }

@@ -94,7 +94,7 @@ namespace BubblesDivePlannerTests.Controllers
             selectedCylinder.VerifyAll();
         }
 
-        [Fact(Skip="Next")]
+        [Fact]
         public void PrintCylinder()
         {
             // Given

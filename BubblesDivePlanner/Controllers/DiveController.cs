@@ -50,7 +50,7 @@ namespace BubblesDivePlanner.Controllers
 
         public void PrintCylinder(ICylinder selectedCylinder)
         {
-            throw new System.NotImplementedException();
+            diveSetupPresenter.PrintCylinder(selectedCylinder);
         }
     }
 }
