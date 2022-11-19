@@ -16,8 +16,8 @@ namespace BubblesDivePlannerTests
             "Air",
         12,
         200,
-        new GasMixture(21, 0),
-        12
+        12,
+        new GasMixture(21, 0)
         );
 
         public static double[] DefaultTissuesList => new double[COMPARTMENT_COUNT] { 0.79, 0.79, 0.79, 0.79, 0.79, 0.79, 0.79, 0.79, 0.79, 0.79, 0.79, 0.79, 0.79, 0.79, 0.79, 0.79 };

@@ -2,7 +2,7 @@ namespace BubblesDivePlanner.Models.Cylinders
 {
     public class Cylinder : ICylinder
     {
-        public Cylinder(string name, ushort cylinderVolume, ushort cylinderPressure, IGasMixture gasMixture, byte surfaceAirConsumptionRate)
+        public Cylinder(string name, ushort cylinderVolume, ushort cylinderPressure, byte surfaceAirConsumptionRate, IGasMixture gasMixture)
         {
             Name = name;
             CylinderVolume = AssignCylinderVolume(cylinderVolume);
