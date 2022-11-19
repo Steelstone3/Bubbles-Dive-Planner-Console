@@ -47,6 +47,11 @@ namespace BubblesDivePlanner.Presenters
             }
         }
 
+        public void PrintCylinder(ICylinder selectedCylinder)
+        {
+            throw new System.NotImplementedException();
+        }
+
         private Cylinder CreateCylinder()
         {
             var gasMixture = new GasMixture(presenter.GetByte("Enter Oxygen:"), presenter.GetByte("Enter Helium:"));

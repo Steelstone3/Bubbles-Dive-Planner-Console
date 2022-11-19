@@ -21,6 +21,8 @@ namespace BubblesDivePlannerTests.Services
                 var divePlan = diveController.SetupDiveStep();
                 divePlan = diveController.RunDiveProfile(divePlan);
                 diveController.PrintDiveResults(divePlan.DiveModel.DiveProfile);
+                diveController.RunGasManagement(divePlan.SelectedCylinder, divePlan.DiveStep);
+                diveController.PrintCylinder(divePlan.SelectedCylinder);
             } while (presenter.GetConfirmation("Continue?"));
         }
     }

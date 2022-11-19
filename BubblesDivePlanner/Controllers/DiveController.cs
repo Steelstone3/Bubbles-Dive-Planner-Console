@@ -42,5 +42,15 @@ namespace BubblesDivePlanner.Controllers
         {
             diveSetupPresenter.PrintDiveResults(diveProfile);
         }
+
+        public void RunGasManagement(ICylinder selectedCylinder, IDiveStep diveStep)
+        {
+            selectedCylinder.UpdateCylinderGasConsumption(diveStep);
+        }
+
+        public void PrintCylinder(ICylinder selectedCylinder)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }
