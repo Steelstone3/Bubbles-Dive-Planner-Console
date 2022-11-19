@@ -13,6 +13,8 @@ namespace BubblesDivePlannerTests.Services
         public void RunDivePlannerService()
         {
             // Given
+            var presenter = new Mock<IPresenter>();
+            presenter.Setup(p => p.GetConfirmation("Continue?")).Returns(false);
             var divePlan = new Mock<IDivePlan>();
             divePlan.Setup(dp => dp.DiveModel).Returns(TestFixture.FixtureDiveModel);
             divePlan.Setup(dp => dp.DiveModel.DiveProfile).Returns(TestFixture.FixtureDiveModel.DiveProfile);
@@ -25,9 +27,10 @@ namespace BubblesDivePlannerTests.Services
             IDivePlannerService divePlannerService = new DivePlannerService(diveController.Object);
             
             // When
-            divePlannerService.Run();
+            divePlannerService.Run(presenter.Object);
         
             // Then
+            presenter.VerifyAll();
             diveController.VerifyAll();
         }
     }

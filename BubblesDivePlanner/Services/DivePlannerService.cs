@@ -1,4 +1,5 @@
 using BubblesDivePlanner.Controllers;
+using BubblesDivePlanner.Presenters;
 
 namespace BubblesDivePlannerTests.Services
 {
@@ -11,12 +12,15 @@ namespace BubblesDivePlannerTests.Services
             this.diveController = diveController;
         }
 
-        public void Run()
+        public void Run(IPresenter presenter)
         {
             diveController.SetupDivePlan();
-            var divePlan = diveController.SetupDiveStep();
-            divePlan = diveController.RunDiveProfile(divePlan);
-            diveController.PrintDiveResults(divePlan.DiveModel.DiveProfile);
+            do
+            {
+                var divePlan = diveController.SetupDiveStep();
+                divePlan = diveController.RunDiveProfile(divePlan);
+                diveController.PrintDiveResults(divePlan.DiveModel.DiveProfile);
+            } while (presenter.GetConfirmation("Continue?"));
         }
     }
 }
