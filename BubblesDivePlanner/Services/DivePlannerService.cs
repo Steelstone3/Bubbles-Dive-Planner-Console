@@ -11,11 +11,11 @@ namespace BubblesDivePlannerTests.Services
     {
         private readonly IDiveStepPresenter diveStepPresenter;
         private readonly IDiveSetupPresenter diveSetupPresenter;
-        private readonly IDiveController diveController;
+        private readonly IDiveStagesController diveController;
         private IDiveModel diveModel;
         private List<ICylinder> cylinders;
 
-        public DivePlannerService(IDiveStepPresenter diveStepPresenter, IDiveSetupPresenter diveSetupPresenter, IDiveController diveController)
+        public DivePlannerService(IDiveStepPresenter diveStepPresenter, IDiveSetupPresenter diveSetupPresenter, IDiveStagesController diveController)
         {
             this.diveStepPresenter = diveStepPresenter;
             this.diveSetupPresenter = diveSetupPresenter;

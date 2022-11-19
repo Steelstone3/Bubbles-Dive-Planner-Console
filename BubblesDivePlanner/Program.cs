@@ -12,7 +12,7 @@ namespace BubblesDivePlanner
             var presenter = new Presenter();
             var diveSetupPresenter = new DiveSetupPresenter(presenter);
             var diveStepPresenter = new DiveStepPresenter(presenter);
-            var diveController = new DiveController();
+            var diveController = new DiveStagesController();
             var diveService = new DivePlannerService(diveStepPresenter, diveSetupPresenter, diveController);
 
             diveService.SetupDivePlan();

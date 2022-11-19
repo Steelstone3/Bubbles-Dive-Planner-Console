@@ -2,7 +2,7 @@ using BubblesDivePlanner.Models;
 
 namespace BubblesDivePlanner.Controllers
 {
-    public interface IDiveController
+    public interface IDiveStagesController
     {
         IDivePlan Run(IDivePlan divePlan);
     }

@@ -6,12 +6,12 @@ using Xunit;
 
 namespace BubblesDivePlannerTests.Controllers
 {
-    public class DiveControllerShould
+    public class DiveStagesControllerShould
     {
         private IDivePlan divePlan;
-        private IDiveController diveController;
+        private IDiveStagesController diveController;
 
-        public DiveControllerShould()
+        public DiveStagesControllerShould()
         {
             var cylinders = new List<ICylinder>() { TestFixture.FixtureSelectedCylinder };
             divePlan = new DivePlan(TestFixture.FixtureDiveModel, cylinders, TestFixture.FixtureDiveStep, TestFixture.FixtureSelectedCylinder);
@@ -21,7 +21,7 @@ namespace BubblesDivePlannerTests.Controllers
         public void RunADiveStage()
         {
             // Given
-            diveController = new DiveController();
+            diveController = new DiveStagesController();
 
             // When
             diveController.Run(divePlan);

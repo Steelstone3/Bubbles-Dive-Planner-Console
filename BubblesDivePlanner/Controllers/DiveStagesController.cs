@@ -3,7 +3,7 @@ using BubblesDivePlanner.Models;
 
 namespace BubblesDivePlanner.Controllers
 {
-    public class DiveController : IDiveController
+    public class DiveStagesController : IDiveStagesController
     {
         public IDivePlan Run(IDivePlan divePlan)
         {

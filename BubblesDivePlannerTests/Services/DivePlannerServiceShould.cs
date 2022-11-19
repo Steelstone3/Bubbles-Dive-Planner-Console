@@ -11,7 +11,7 @@ namespace BubblesDivePlannerTests.Services
     {
         private Mock<IDiveSetupPresenter> diveSetupPresenter = new Mock<IDiveSetupPresenter>();
         private Mock<IDiveStepPresenter> diveStepPresenter = new Mock<IDiveStepPresenter>();
-        private Mock<IDiveController> diveController = new Mock<IDiveController>();
+        private Mock<IDiveStagesController> diveController = new Mock<IDiveStagesController>();
         private IDivePlannerService divePlannerService;
 
         [Fact]
