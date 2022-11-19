@@ -10,8 +10,6 @@ namespace BubblesDivePlanner.Models
         IList<ICylinder> Cylinders { get; }
         IDiveStep DiveStep { get; }
         ICylinder SelectedCylinder { get; }
-        void UpdateDiveStep(IDiveStep diveStep);
-        void UpdateSelectedCylinder(ICylinder cylinder);
         string Serialise();
         void Deserialise(string expectedDivePlanJson);
     }

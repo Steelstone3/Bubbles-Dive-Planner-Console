@@ -1,5 +1,7 @@
 using BubblesDivePlanner.Controllers;
+using BubblesDivePlanner.Models;
 using BubblesDivePlanner.Presenters;
+using BubblesDivePlannerTests.Models;
 using Moq;
 using Xunit;
 
@@ -8,7 +10,7 @@ namespace BubblesDivePlannerTests.Services
     public class DiveServiceShould
     {
         private Mock<IDiveSetupPresenter> diveSetupPresenter = new Mock<IDiveSetupPresenter>();
-        private Mock<IDiveStepPresenter> diveStepPresenter =new Mock<IDiveStepPresenter>();
+        private Mock<IDiveStepPresenter> diveStepPresenter = new Mock<IDiveStepPresenter>();
         private Mock<IDiveController> diveController = new Mock<IDiveController>();
         private IDiveService diveService;
 
@@ -33,7 +35,6 @@ namespace BubblesDivePlannerTests.Services
         public void SetupADiveStep()
         {
             // Given
-            diveStepPresenter = new Mock<IDiveStepPresenter>();
             diveStepPresenter.Setup(ds => ds.CreateDiveStep());
             diveStepPresenter.Setup(ds => ds.SelectCylinder(null));
             diveService = new DiveService(diveStepPresenter.Object, diveSetupPresenter.Object, diveController.Object);
@@ -49,11 +50,11 @@ namespace BubblesDivePlannerTests.Services
         public void RunADiveProfile()
         {
             // Given
-            diveController = new Mock<IDiveController>();
-            diveController.Setup(dc => dc.Run());
+            var divePlan = new Mock<IDivePlan>();
+            diveController.Setup(dc => dc.Run(divePlan.Object));
             diveService = new DiveService(diveStepPresenter.Object, diveSetupPresenter.Object, diveController.Object);
             // When
-            diveService.RunDiveProfile();
+            diveService.RunDiveProfile(divePlan.Object);
 
             // Then
             diveController.VerifyAll();

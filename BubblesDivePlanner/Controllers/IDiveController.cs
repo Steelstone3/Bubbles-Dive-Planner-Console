@@ -2,6 +2,6 @@ namespace BubblesDivePlanner.Controllers
 {
     public interface IDiveController
     {
-        void Run();
+        void Run(Models.IDivePlan divePlan);
     }
 }

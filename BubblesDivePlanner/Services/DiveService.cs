@@ -12,11 +12,8 @@ namespace BubblesDivePlannerTests.Services
         private readonly IDiveStepPresenter diveStepPresenter;
         private readonly IDiveSetupPresenter diveSetupPresenter;
         private readonly IDiveController diveController;
-        
         private IDiveModel diveModel;
         private List<ICylinder> cylinders;
-        private IDiveStep diveStep;
-        private ICylinder cylinder;
 
         public DiveService(IDiveStepPresenter diveStepPresenter, IDiveSetupPresenter diveSetupPresenter, IDiveController diveController)
         {
@@ -32,15 +29,14 @@ namespace BubblesDivePlannerTests.Services
             cylinders = diveSetupPresenter.CreateCylinders();
         }
 
-        public void SetupDiveStep()
+        public IDivePlan SetupDiveStep()
         {
-            diveStep = diveStepPresenter.CreateDiveStep();
-            cylinder = diveStepPresenter.SelectCylinder(cylinders);
+            return new DivePlan(diveModel, cylinders, diveStepPresenter.CreateDiveStep(),diveStepPresenter.SelectCylinder(cylinders) );
         }
 
-        public void RunDiveProfile()
+        public void RunDiveProfile(IDivePlan divePlan)
         {
-            diveController.Run();
+            diveController.Run(divePlan);
         }
     }
 }

@@ -8,19 +8,18 @@ namespace BubblesDivePlanner.Models
 {
     public class DivePlan : IDivePlan
     {
-        public DivePlan(IDiveModel diveModel, IList<ICylinder> cylinders)
+        public DivePlan(IDiveModel diveModel, IList<ICylinder> cylinders, IDiveStep diveStep, ICylinder selectedCylinder)
         {
             DiveModel = diveModel;
             Cylinders = cylinders;
+            DiveStep = diveStep;
+            SelectedCylinder = selectedCylinder;
         }
 
         public IDiveModel DiveModel { get; private set; }
         public IList<ICylinder> Cylinders { get; private set; }
         public IDiveStep DiveStep { get; private set; }
         public ICylinder SelectedCylinder { get; private set; }
-
-        public void UpdateDiveStep(IDiveStep diveStep) => DiveStep = diveStep;
-        public void UpdateSelectedCylinder(ICylinder cylinder) => SelectedCylinder = cylinder;
 
         public string Serialise()
         {

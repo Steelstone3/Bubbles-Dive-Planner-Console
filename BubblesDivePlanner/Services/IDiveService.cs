@@ -1,9 +1,11 @@
+using BubblesDivePlanner.Models;
+
 namespace BubblesDivePlannerTests.Services
 {
     public interface IDiveService
     {
         void SetupDivePlan();
-        void SetupDiveStep();
-        void RunDiveProfile();
+        IDivePlan SetupDiveStep();
+        void RunDiveProfile(IDivePlan divePlan);
     }
 }
