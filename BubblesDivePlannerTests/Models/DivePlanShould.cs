@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Runtime.InteropServices;
 using BubblesDivePlanner.Models;
 using BubblesDivePlanner.Models.Cylinders;
@@ -16,6 +18,7 @@ namespace BubblesDivePlannerTests.Models
         private readonly ICylinder cylinder = TestFixture.FixtureSelectedCylinder;
         private readonly IDiveStep diveStep = TestFixture.FixtureDiveStep;
         private readonly List<ICylinder> cylinders = new();
+        private readonly double defaultValue = 12.5;
         private readonly IDivePlan divePlan;
 
         public DivePlanShould()
@@ -60,6 +63,32 @@ namespace BubblesDivePlannerTests.Models
             Assert.Equal(EXPECTED_DIVE_PLAN_JSON_UNIX, divePlanJson);
         }
 
+        [SkippableFact(Skip="Doesn't work")]
+        public void SerialiseRanDivePlanUnix()
+        {
+            Skip.If(RuntimeInformation.IsOSPlatform(OSPlatform.Windows));
+
+            var defaultList = CreateDefaultValueList();
+            divePlan.DiveModel.DiveProfile.UpdateDiveProfile(new DiveProfile
+            (
+                defaultList,
+                defaultList,
+                defaultList,
+                defaultList,
+                defaultList,
+                defaultList,
+                defaultList,
+                defaultList,
+                defaultValue,
+                defaultValue,
+                defaultValue
+            ));
+
+            var divePlanJson = divePlan.Serialise();
+
+            Assert.Equal(EXPECTED_RAN_DIVE_PLAN_JSON_UNIX, divePlanJson);
+        }
+
         [SkippableFact]
         public void SerialiseWindows()
         {
@@ -83,29 +112,10 @@ namespace BubblesDivePlannerTests.Models
             AssertCylinders(divePlan.Cylinders, actualDivePlan.Cylinders);
         }
 
-        [Fact(Skip = "Doesn't populate values")]
+        [Fact(Skip="Doesn't work")]
         public void DeserialiseRanDivePlan()
         {
-            var defaultValue = 12.5;
-            var defaultList = new double[16]
-            {
-                defaultValue,
-                defaultValue,
-                defaultValue,
-                defaultValue,
-                defaultValue,
-                defaultValue,
-                defaultValue,
-                defaultValue,
-                defaultValue,
-                defaultValue,
-                defaultValue,
-                defaultValue,
-                defaultValue,
-                defaultValue,
-                defaultValue,
-                defaultValue,
-            };
+            var defaultList = CreateDefaultValueList();
             divePlan.DiveModel.DiveProfile.UpdateDiveProfile(new DiveProfile
             (
                 defaultList,
@@ -124,8 +134,31 @@ namespace BubblesDivePlannerTests.Models
 
             actualDivePlan.Deserialise(EXPECTED_RAN_DIVE_PLAN_JSON_UNIX);
 
-            AssertDiveModel(divePlan.DiveModel, actualDivePlan.DiveModel);
             AssertCylinders(divePlan.Cylinders, actualDivePlan.Cylinders);
+            AssertDiveModel(divePlan.DiveModel, actualDivePlan.DiveModel);
+        }
+
+        private double[] CreateDefaultValueList()
+        {
+            return new double[16]
+            {
+                defaultValue,
+                defaultValue,
+                defaultValue,
+                defaultValue,
+                defaultValue,
+                defaultValue,
+                defaultValue,
+                defaultValue,
+                defaultValue,
+                defaultValue,
+                defaultValue,
+                defaultValue,
+                defaultValue,
+                defaultValue,
+                defaultValue,
+                defaultValue,
+            };
         }
 
         private static void AssertDiveModel(IDiveModel expected, IDiveModel actual)
