@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using BubblesDivePlanner.Models;
 using BubblesDivePlanner.Models.Cylinders;
@@ -21,7 +22,12 @@ namespace BubblesDivePlanner.Presenters
 
         public ICylinder SelectCylinder(List<ICylinder> cylinders)
         {
-            return AnsiConsole.Prompt(new SelectionPrompt<ICylinder>()
+            Func<ICylinder, string> cylinder = c => c.Name;
+
+            var selectionPrompt = new SelectionPrompt<ICylinder>();
+            selectionPrompt.Converter = cylinder;
+
+            return AnsiConsole.Prompt(selectionPrompt
             .Title("Select Cylinder:")
             .AddChoices(cylinders));
         }
