@@ -15,6 +15,7 @@ namespace BubblesDivePlannerTests.Services
         public void Run(IPresenter presenter)
         {
             diveController.SetupDivePlan();
+            
             do
             {
                 var divePlan = diveController.SetupDiveStep();

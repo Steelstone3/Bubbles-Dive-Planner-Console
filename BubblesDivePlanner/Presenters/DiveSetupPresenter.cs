@@ -7,7 +7,7 @@ namespace BubblesDivePlanner.Presenters
 {
     public class DiveSetupPresenter : IDiveSetupPresenter
     {
-        private IPresenter presenter;
+        private readonly IPresenter presenter;
 
         public DiveSetupPresenter(IPresenter presenter)
         {
