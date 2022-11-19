@@ -1,4 +1,5 @@
 using BubblesDivePlanner.Controllers.DiveStages;
+using BubblesDivePlanner.DiveStages;
 using BubblesDivePlanner.Models;
 
 namespace BubblesDivePlanner.Controllers
@@ -19,6 +20,7 @@ namespace BubblesDivePlanner.Controllers
 
         private IDiveStageCommand[] CreateDiveStageCommands(IDivePlan divePlan)
         {
+            var diveModel = divePlan.DiveModel;
             var diveProfile = divePlan.DiveModel.DiveProfile;
             var diveStep = divePlan.DiveStep;
             var gasMixture = divePlan.SelectedCylinder.GasMixture;
@@ -26,7 +28,11 @@ namespace BubblesDivePlanner.Controllers
             return new IDiveStageCommand[]
             {
                 new AmbientPressure(diveProfile, gasMixture, diveStep),
-
+                new TissuePressure(diveModel, diveStep),
+                new AbValues(diveModel),
+                new ToleratedAmbientPressure(diveModel),
+                new MaximumSurfacePressure(diveModel),
+                new CompartmentLoad(diveModel)
             };
         }
     }

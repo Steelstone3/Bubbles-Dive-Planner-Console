@@ -41,9 +41,9 @@ namespace BubblesDivePlanner.Presenters
 
         public void PrintDiveResults(IDiveProfile diveProfile)
         {
-            for (int i = 0; i < diveProfile.CompartmentLoads.Length - 1; i++)
+            for (int compartment = 0; compartment < diveProfile.CompartmentLoads.Length; compartment++)
             {
-                presenter.Print($"{diveProfile.CompartmentLoads[i]}");
+                presenter.Print($"| C: {compartment + 1} | TPt: {diveProfile.TotalTissuePressures[compartment]} | TAP: {diveProfile.ToleratedAmbientPressures[compartment]} | MSP: {diveProfile.MaxSurfacePressures[compartment]} | CLp: {diveProfile.CompartmentLoads[compartment]} |");
             }
         }
 
