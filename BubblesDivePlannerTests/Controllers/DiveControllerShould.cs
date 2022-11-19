@@ -17,7 +17,7 @@ namespace BubblesDivePlannerTests.Controllers
             divePlan = new DivePlan(TestFixture.FixtureDiveModel, cylinders, TestFixture.FixtureDiveStep, TestFixture.FixtureSelectedCylinder);
         }
 
-        [Fact(Skip="Need to finish off assertions")]
+        [Fact]
         public void RunADiveStage()
         {
             // Given
