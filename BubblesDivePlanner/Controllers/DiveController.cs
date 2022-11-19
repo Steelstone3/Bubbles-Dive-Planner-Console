@@ -5,14 +5,16 @@ namespace BubblesDivePlanner.Controllers
 {
     public class DiveController : IDiveController
     {
-        public void Run(IDivePlan divePlan)
+        public IDivePlan Run(IDivePlan divePlan)
         {
             var diveStageCommands = CreateDiveStageCommands(divePlan);
-            
+
             foreach (var diveStage in diveStageCommands)
             {
                 diveStage.RunDiveStage();
             }
+
+            return divePlan;
         }
 
         private IDiveStageCommand[] CreateDiveStageCommands(IDivePlan divePlan)

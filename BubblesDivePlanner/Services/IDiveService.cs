@@ -1,4 +1,5 @@
 using BubblesDivePlanner.Models;
+using BubblesDivePlanner.Models.DiveModels;
 
 namespace BubblesDivePlannerTests.Services
 {
@@ -6,6 +7,7 @@ namespace BubblesDivePlannerTests.Services
     {
         void SetupDivePlan();
         IDivePlan SetupDiveStep();
-        void RunDiveProfile(IDivePlan divePlan);
+        IDivePlan RunDiveProfile(IDivePlan divePlan);
+        void PrintDiveResults(IDiveProfile diveProfile);
     }
 }

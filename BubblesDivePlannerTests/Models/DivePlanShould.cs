@@ -60,7 +60,7 @@ namespace BubblesDivePlannerTests.Models
             Assert.Equal(EXPECTED_DIVE_PLAN_JSON_UNIX, divePlanJson);
         }
 
-        [SkippableFact(Skip="Required testing on a windows machine")]
+        [SkippableFact(Skip = "Required testing on a windows machine")]
         public void SerialiseWindows()
         {
             Skip.IfNot(RuntimeInformation.IsOSPlatform(OSPlatform.Windows));

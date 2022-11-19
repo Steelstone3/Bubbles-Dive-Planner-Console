@@ -31,12 +31,17 @@ namespace BubblesDivePlannerTests.Services
 
         public IDivePlan SetupDiveStep()
         {
-            return new DivePlan(diveModel, cylinders, diveStepPresenter.CreateDiveStep(),diveStepPresenter.SelectCylinder(cylinders) );
+            return new DivePlan(diveModel, cylinders, diveStepPresenter.CreateDiveStep(), diveStepPresenter.SelectCylinder(cylinders));
         }
 
-        public void RunDiveProfile(IDivePlan divePlan)
+        public IDivePlan RunDiveProfile(IDivePlan divePlan)
         {
-            diveController.Run(divePlan);
+            return diveController.Run(divePlan);
+        }
+
+        public void PrintDiveResults(IDiveProfile diveProfile)
+        {
+            diveSetupPresenter.PrintDiveResults(diveProfile);
         }
     }
 }

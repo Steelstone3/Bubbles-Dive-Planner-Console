@@ -1,7 +1,9 @@
+using BubblesDivePlanner.Models;
+
 namespace BubblesDivePlanner.Controllers
 {
     public interface IDiveController
     {
-        void Run(Models.IDivePlan divePlan);
+        IDivePlan Run(IDivePlan divePlan);
     }
 }

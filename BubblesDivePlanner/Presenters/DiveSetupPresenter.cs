@@ -39,6 +39,14 @@ namespace BubblesDivePlanner.Presenters
             return cylinders;
         }
 
+        public void PrintDiveResults(IDiveProfile diveProfile)
+        {
+            for (int i = 0; i < diveProfile.CompartmentLoads.Length - 1; i++)
+            {
+                presenter.Print($"{diveProfile.CompartmentLoads[i]}");
+            }
+        }
+
         private Cylinder CreateCylinder()
         {
             var gasMixture = new GasMixture(presenter.GetByte("Enter Oxygen:"), presenter.GetByte("Enter Helium:"));

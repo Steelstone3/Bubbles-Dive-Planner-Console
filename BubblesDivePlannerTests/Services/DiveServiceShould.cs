@@ -1,7 +1,7 @@
 using BubblesDivePlanner.Controllers;
 using BubblesDivePlanner.Models;
+using BubblesDivePlanner.Models.DiveModels;
 using BubblesDivePlanner.Presenters;
-using BubblesDivePlannerTests.Models;
 using Moq;
 using Xunit;
 
@@ -58,6 +58,21 @@ namespace BubblesDivePlannerTests.Services
 
             // Then
             diveController.VerifyAll();
+        }
+
+        [Fact]
+        public void PrintDiveResults()
+        {
+            // Given
+            var diveModel = new Zhl16Buhlmann();
+            diveSetupPresenter.Setup(dsp => dsp.PrintDiveResults(diveModel.DiveProfile));
+            diveService = new DiveService(diveStepPresenter.Object, diveSetupPresenter.Object, diveController.Object);
+
+            // When
+            diveService.PrintDiveResults(diveModel.DiveProfile);
+
+            // Then
+            diveSetupPresenter.VerifyAll();
         }
     }
 }
