@@ -6,7 +6,7 @@ namespace BubblesDivePlannerTests.Models.DiveModels
     public class Zhl16BuhlmannShould
     {
         private const byte COMPARTMENT_COUNT = 16;
-        private readonly IDiveModel diveModel = new Zhl16Buhlmann();
+        private readonly IDiveModel diveModel = new Zhl16Buhlmann(null);
 
         [Fact]
         public void ContainsDiveModelName()
@@ -69,8 +69,28 @@ namespace BubblesDivePlannerTests.Models.DiveModels
         }
 
         [Fact]
+        public void ContainsDiveProfileDefault()
+        {
+            Assert.NotNull(diveModel.DiveProfile);
+        }
+
+        [Fact]
+        public void ContainsDiveProfileDefaultDiveProfile()
+        {
+            // Given
+            var diveModel = new Zhl16Buhlmann(new DiveProfile(16));
+        
+            // Then
+            Assert.NotNull(diveModel.DiveProfile);
+        }
+
+        [Fact]
         public void ContainsDiveProfile()
         {
+            // Given
+            var diveModel = new Zhl16Buhlmann(TestFixture.FixtureDiveModel.DiveProfile);
+        
+            // Then
             Assert.NotNull(diveModel.DiveProfile);
         }
     }

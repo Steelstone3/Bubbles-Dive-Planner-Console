@@ -27,7 +27,7 @@ namespace BubblesDivePlanner.Presenters
             return AnsiConsole.Prompt(selectionPrompt
             .Title("Select Dive Model:")
             .AddChoices(new[] {
-                new Zhl16Buhlmann()
+                new Zhl16Buhlmann(null)
             }));
         }
 

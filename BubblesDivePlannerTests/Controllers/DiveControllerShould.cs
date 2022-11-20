@@ -65,7 +65,7 @@ namespace BubblesDivePlannerTests.Controllers
         public void PrintDiveResults()
         {
             // Given
-            var diveModel = new Zhl16Buhlmann();
+            var diveModel = new Zhl16Buhlmann(null);
             diveSetupPresenter.Setup(dsp => dsp.PrintDiveResults(diveModel));
             diveController = new DiveController(diveStepPresenter.Object, diveSetupPresenter.Object, diveStagesController.Object);
 

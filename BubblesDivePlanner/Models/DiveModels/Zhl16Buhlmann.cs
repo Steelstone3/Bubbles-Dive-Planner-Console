@@ -5,13 +5,16 @@ namespace BubblesDivePlanner.Models.DiveModels
     public class Zhl16Buhlmann : IDiveModel
     {
         [JsonConstructor]
-        public Zhl16Buhlmann(IDiveProfile diveProfile) {
-            DiveProfile = diveProfile;
-        }
-
-        public Zhl16Buhlmann()
+        public Zhl16Buhlmann(IDiveProfile diveProfile)
         {
-            DiveProfile = new DiveProfile(CompartmentCount);
+            if (diveProfile == null)
+            {
+                DiveProfile = new DiveProfile(CompartmentCount);
+            }
+            else
+            {
+                DiveProfile = diveProfile;
+            }
         }
 
         public string Name => "Zhl16-B Model";
