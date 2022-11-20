@@ -1,3 +1,5 @@
+using System;
+using System.IO;
 using BubblesDivePlanner.Models;
 using BubblesDivePlanner.Presenters;
 
@@ -5,6 +7,7 @@ namespace BubblesDivePlanner.Controllers.Json
 {
     public class FileController : IFileController
     {
+        private const string FILE_NAME = "dive_plan.json";
         private readonly IPresenter presenter;
 
         public FileController(IPresenter presenter)
@@ -16,7 +19,17 @@ namespace BubblesDivePlanner.Controllers.Json
         {
             if (presenter.GetConfirmation("Save File?"))
             {
-                divePlan.Serialise();
+                try
+                {
+                    using (StreamWriter writer = new StreamWriter(FILE_NAME))
+                    {
+                        writer.Write(divePlan.Serialise());
+                    }
+                }
+                catch (Exception ex)
+                {
+                    presenter.Print(ex.Message);
+                }
             }
         }
 
@@ -26,6 +39,7 @@ namespace BubblesDivePlanner.Controllers.Json
         }
     }
 }
+
 
 /*public void SerialiseApplication(List<IEntityModel> entityModels, string fileName)
    {
