@@ -13,6 +13,7 @@ namespace BubblesDivePlannerTests.Controllers
         private Mock<IDiveSetupPresenter> diveSetupPresenter = new();
         private readonly Mock<IDiveStepPresenter> diveStepPresenter = new();
         private readonly Mock<IDiveStagesController> diveStagesController = new();
+        private readonly Mock<IDivePlan> divePlan = new();
         private IDiveController diveController;
 
         [Fact]
@@ -26,10 +27,71 @@ namespace BubblesDivePlannerTests.Controllers
             diveController = new DiveController(diveStepPresenter.Object, diveSetupPresenter.Object, diveStagesController.Object);
 
             // When
-            diveController.SetupDivePlan();
+            diveController.SetupDivePlan(null);
 
             // Then
             diveSetupPresenter.VerifyAll();
+        }
+
+        [Fact]
+        public void LoadFromFileDivePlan()
+        {
+            // Given
+            divePlan.Setup(dp => dp.DiveModel).Returns(TestFixture.FixtureDiveModel);
+            divePlan.Setup(dp => dp.Cylinders).Returns(TestFixture.FixtureCylinders());
+            diveSetupPresenter = new Mock<IDiveSetupPresenter>();
+            diveSetupPresenter.Setup(dp => dp.WelcomeMessage());
+            diveSetupPresenter.Setup(dp => dp.SelectDiveModel());
+            diveSetupPresenter.Setup(dp => dp.CreateCylinders());
+            diveController = new DiveController(diveStepPresenter.Object, diveSetupPresenter.Object, diveStagesController.Object);
+
+            // When
+            diveController.SetupDivePlan(divePlan.Object);
+
+            // Then
+            diveSetupPresenter.Verify(dsp => dsp.WelcomeMessage(), Times.Once);
+            diveSetupPresenter.Verify(dsp => dsp.SelectDiveModel(), Times.Never);
+            diveSetupPresenter.Verify(dsp => dsp.CreateCylinders(), Times.Never);
+        }
+
+        [Fact]
+        public void LoadDiveModelFromFileDivePlan()
+        {
+            // Given
+            divePlan.Setup(dp => dp.DiveModel).Returns(TestFixture.FixtureDiveModel);
+            diveSetupPresenter = new Mock<IDiveSetupPresenter>();
+            diveSetupPresenter.Setup(dp => dp.WelcomeMessage());
+            diveSetupPresenter.Setup(dp => dp.SelectDiveModel());
+            diveSetupPresenter.Setup(dp => dp.CreateCylinders());
+            diveController = new DiveController(diveStepPresenter.Object, diveSetupPresenter.Object, diveStagesController.Object);
+
+            // When
+            diveController.SetupDivePlan(divePlan.Object);
+
+            // Then
+            diveSetupPresenter.Verify(dsp => dsp.WelcomeMessage(), Times.Once);
+            diveSetupPresenter.Verify(dsp => dsp.CreateCylinders(), Times.Once);
+            diveSetupPresenter.Verify(dsp => dsp.SelectDiveModel(), Times.Never);
+        }
+
+        [Fact]
+        public void LoadCylindersFromFileDivePlan()
+        {
+            // Given
+            divePlan.Setup(dp => dp.Cylinders).Returns(TestFixture.FixtureCylinders());
+            diveSetupPresenter = new Mock<IDiveSetupPresenter>();
+            diveSetupPresenter.Setup(dp => dp.WelcomeMessage());
+            diveSetupPresenter.Setup(dp => dp.SelectDiveModel());
+            diveSetupPresenter.Setup(dp => dp.CreateCylinders());
+            diveController = new DiveController(diveStepPresenter.Object, diveSetupPresenter.Object, diveStagesController.Object);
+
+            // When
+            diveController.SetupDivePlan(divePlan.Object);
+
+            // Then
+            diveSetupPresenter.Verify(dsp => dsp.WelcomeMessage(), Times.Once);
+            diveSetupPresenter.Verify(dsp => dsp.SelectDiveModel(), Times.Once);
+            diveSetupPresenter.Verify(dsp => dsp.CreateCylinders(), Times.Never);
         }
 
         [Fact]

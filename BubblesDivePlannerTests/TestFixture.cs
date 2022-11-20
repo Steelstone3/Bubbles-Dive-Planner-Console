@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using BubblesDivePlanner.Models;
 using BubblesDivePlanner.Models.Cylinders;
 using BubblesDivePlanner.Models.DiveModels;
@@ -19,6 +20,16 @@ namespace BubblesDivePlannerTests
         12,
         new GasMixture(21, 0)
         );
+
+        public static List<ICylinder> FixtureCylinders()
+        {
+            var cylinders = new List<ICylinder>();
+
+            cylinders.Add(FixtureSelectedCylinder);
+            cylinders.Add(FixtureSelectedCylinder);
+
+            return cylinders;
+        }
 
         public static double[] DefaultTissuesList => new double[COMPARTMENT_COUNT] { 0.79, 0.79, 0.79, 0.79, 0.79, 0.79, 0.79, 0.79, 0.79, 0.79, 0.79, 0.79, 0.79, 0.79, 0.79, 0.79 };
         public static double[] DefaultList => new double[COMPARTMENT_COUNT] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 };

@@ -6,7 +6,7 @@ namespace BubblesDivePlanner.Controllers
 {
     public interface IDiveController
     {
-        void SetupDivePlan();
+        void SetupDivePlan(IDivePlan divePlan);
         IDivePlan SetupDiveStep();
         IDivePlan RunDiveProfile(IDivePlan divePlan);
         void PrintDiveResults(IDiveModel diveModel);

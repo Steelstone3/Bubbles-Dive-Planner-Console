@@ -7,7 +7,7 @@ namespace BubblesDivePlanner.Models
     public interface IDivePlan
     {
         IDiveModel DiveModel { get; }
-        IList<ICylinder> Cylinders { get; }
+        List<ICylinder> Cylinders { get; }
         IDiveStep DiveStep { get; }
         ICylinder SelectedCylinder { get; }
         string Serialise();

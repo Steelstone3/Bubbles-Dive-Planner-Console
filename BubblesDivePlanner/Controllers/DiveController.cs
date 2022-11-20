@@ -21,11 +21,35 @@ namespace BubblesDivePlanner.Controllers
             this.diveController = diveController;
         }
 
-        public void SetupDivePlan()
+        public void SetupDivePlan(IDivePlan divePlan)
         {
             diveSetupPresenter.WelcomeMessage();
-            diveModel = diveSetupPresenter.SelectDiveModel();
-            cylinders = diveSetupPresenter.CreateCylinders();
+
+            if (divePlan == null)
+            {
+                diveModel = diveSetupPresenter.SelectDiveModel();
+                cylinders = diveSetupPresenter.CreateCylinders();
+            }
+            else
+            {
+                if (divePlan.DiveModel == null)
+                {
+                    diveModel = diveSetupPresenter.SelectDiveModel();
+                }
+                else
+                {
+                    diveModel = divePlan.DiveModel;
+                }
+
+                if (divePlan.Cylinders == null)
+                {
+                    cylinders = diveSetupPresenter.CreateCylinders();
+                }
+                else
+                {
+                    cylinders = divePlan.Cylinders;
+                }
+            }
         }
 
         public IDivePlan SetupDiveStep()

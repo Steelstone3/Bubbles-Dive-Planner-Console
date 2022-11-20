@@ -79,7 +79,7 @@ namespace BubblesDivePlannerTests.Models.DiveModels
         {
             // Given
             var diveModel = new Zhl16Buhlmann(new DiveProfile(16));
-        
+
             // Then
             Assert.NotNull(diveModel.DiveProfile);
         }
@@ -89,7 +89,7 @@ namespace BubblesDivePlannerTests.Models.DiveModels
         {
             // Given
             var diveModel = new Zhl16Buhlmann(TestFixture.FixtureDiveModel.DiveProfile);
-        
+
             // Then
             Assert.NotNull(diveModel.DiveProfile);
         }

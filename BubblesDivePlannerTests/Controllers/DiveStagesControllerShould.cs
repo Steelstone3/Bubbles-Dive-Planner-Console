@@ -30,7 +30,13 @@ namespace BubblesDivePlannerTests.Controllers
             Assert.Equal(TestFixture.ExpectedOxygenPressureAtDepth, divePlan.DiveModel.DiveProfile.OxygenPressureAtDepth);
             Assert.Equal(TestFixture.ExpectedHeliumPressureAtDepth, divePlan.DiveModel.DiveProfile.HeliumPressureAtDepth);
             Assert.Equal(TestFixture.ExpectedNitrogenPressureAtDepth, divePlan.DiveModel.DiveProfile.NitrogenPressureAtDepth);
-            //TODO The rest of the asserts
+            Assert.Equal(TestFixture.ExpectedNitrogenTissuePressures, divePlan.DiveModel.DiveProfile.NitrogenTissuePressures);
+            Assert.Equal(TestFixture.ExpectedHeliumTissuePressures, divePlan.DiveModel.DiveProfile.HeliumTissuePressures);
+            Assert.Equal(TestFixture.ExpectedTotalTissuePressures, divePlan.DiveModel.DiveProfile.TotalTissuePressures);
+            Assert.Equal(TestFixture.ExpectedMaxSurfacePressures, divePlan.DiveModel.DiveProfile.MaxSurfacePressures);
+            Assert.Equal(TestFixture.ExpectedToleratedAmbientPressures, divePlan.DiveModel.DiveProfile.ToleratedAmbientPressures);
+            Assert.Equal(TestFixture.ExpectedCompartmentLoads, divePlan.DiveModel.DiveProfile.CompartmentLoads);
+
             Assert.Equal(TestFixture.FixtureDiveStep.Depth, divePlan.DiveStep.Depth);
             Assert.Equal(TestFixture.FixtureDiveStep.Time, divePlan.DiveStep.Time);
 

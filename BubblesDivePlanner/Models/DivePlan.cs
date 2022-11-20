@@ -8,7 +8,7 @@ namespace BubblesDivePlanner.Models
 {
     public class DivePlan : IDivePlan
     {
-        public DivePlan(IDiveModel diveModel, IList<ICylinder> cylinders, IDiveStep diveStep, ICylinder selectedCylinder)
+        public DivePlan(IDiveModel diveModel, List<ICylinder> cylinders, IDiveStep diveStep, ICylinder selectedCylinder)
         {
             DiveModel = diveModel;
             Cylinders = cylinders;
@@ -17,7 +17,7 @@ namespace BubblesDivePlanner.Models
         }
 
         public IDiveModel DiveModel { get; private set; }
-        public IList<ICylinder> Cylinders { get; private set; }
+        public List<ICylinder> Cylinders { get; private set; }
         public IDiveStep DiveStep { get; private set; }
         public ICylinder SelectedCylinder { get; private set; }
 
@@ -43,8 +43,11 @@ namespace BubblesDivePlanner.Models
 
             var divePlan = JsonConvert.DeserializeObject<IDivePlan>(expectedDivePlanJson, settings);
 
-            DiveModel = divePlan.DiveModel;
-            Cylinders = divePlan.Cylinders;
+            if (divePlan != null)
+            {
+                DiveModel = divePlan.DiveModel;
+                Cylinders = divePlan.Cylinders;
+            }
         }
     }
 }
