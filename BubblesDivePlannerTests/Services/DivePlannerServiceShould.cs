@@ -1,7 +1,6 @@
 using BubblesDivePlanner.Controllers;
 using BubblesDivePlanner.Controllers.Json;
 using BubblesDivePlanner.Models;
-using BubblesDivePlanner.Models.DiveModels;
 using BubblesDivePlanner.Presenters;
 using Moq;
 using Xunit;
@@ -22,9 +21,9 @@ namespace BubblesDivePlannerTests.Services
             diveController.Setup(dc => dc.SetupDivePlan(divePlan.Object));
             diveController.Setup(dc => dc.SetupDiveStep()).Returns(divePlan.Object);
             diveController.Setup(dc => dc.RunDiveProfile(divePlan.Object)).Returns(divePlan.Object);
-            diveController.Setup(dc => dc.RunGasManagement(divePlan.Object.SelectedCylinder, divePlan.Object.DiveStep));
+            // diveController.Setup(dc => dc.RunGasManagement(divePlan.Object.SelectedCylinder, divePlan.Object.DiveStep));
             diveController.Setup(dc => dc.PrintDiveResults(divePlan.Object.DiveModel));
-            diveController.Setup(dc => dc.PrintCylinder(divePlan.Object.SelectedCylinder));
+            // diveController.Setup(dc => dc.PrintCylinder(divePlan.Object.SelectedCylinder));
             var fileController = new Mock<IFileController>();
             fileController.Setup(fc => fc.LoadFile()).Returns(divePlan.Object);
             fileController.Setup(fc => fc.SaveFile(divePlan.Object));
