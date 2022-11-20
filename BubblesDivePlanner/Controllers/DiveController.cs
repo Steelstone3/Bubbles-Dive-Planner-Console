@@ -10,7 +10,7 @@ namespace BubblesDivePlanner.Controllers
     {
         private readonly IDiveStepPresenter diveStepPresenter;
         private readonly IDiveSetupPresenter diveSetupPresenter;
-        private readonly IDiveStagesController diveController;
+        private readonly IDiveStagesController diveStagesController;
         private IDiveModel diveModel;
         private List<ICylinder> cylinders;
 
@@ -18,7 +18,7 @@ namespace BubblesDivePlanner.Controllers
         {
             this.diveStepPresenter = diveStepPresenter;
             this.diveSetupPresenter = diveSetupPresenter;
-            this.diveController = diveController;
+            this.diveStagesController = diveController;
         }
 
         public void SetupDivePlan(IDivePlan divePlan)
@@ -59,7 +59,7 @@ namespace BubblesDivePlanner.Controllers
 
         public IDivePlan RunDiveProfile(IDivePlan divePlan)
         {
-            return diveController.Run(divePlan);
+            return diveStagesController.Run(divePlan);
         }
 
         public void PrintDiveResults(IDiveModel diveModel)
