@@ -8,6 +8,12 @@ namespace BubblesDivePlanner.Models
 {
     public class DivePlan : IDivePlan
     {
+        [JsonConstructor]
+        public DivePlan(IDiveModel diveModel, IList<ICylinder> cylinders, IDiveStep diveStep, ICylinder selectedCylinder, IDiveProfile diveProfile) : this(diveModel, cylinders, diveStep, selectedCylinder)
+        {
+            DiveModel.DiveProfile = diveProfile;
+        }
+
         public DivePlan(IDiveModel diveModel, IList<ICylinder> cylinders, IDiveStep diveStep, ICylinder selectedCylinder)
         {
             DiveModel = diveModel;
