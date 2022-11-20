@@ -1,11 +1,23 @@
 using BubblesDivePlanner.Models;
+using BubblesDivePlanner.Presenters;
 
 namespace BubblesDivePlanner.Controllers.Json
 {
     public class FileController : IFileController
     {
-        public void SaveFile()
+        private readonly IPresenter presenter;
+
+        public FileController(IPresenter presenter)
         {
+            this.presenter = presenter;
+        }
+
+        public void SaveFile(IDivePlan divePlan)
+        {
+            if (presenter.GetConfirmation("Save File?"))
+            {
+                divePlan.Serialise();
+            }
         }
 
         public IDivePlan LoadFile()

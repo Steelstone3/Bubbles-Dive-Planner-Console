@@ -27,7 +27,7 @@ namespace BubblesDivePlannerTests.Services
             diveController.Setup(dc => dc.PrintCylinder(divePlan.Object.SelectedCylinder));
             var fileController = new Mock<IFileController>();
             fileController.Setup(fc => fc.LoadFile()).Returns(divePlan.Object);
-            fileController.Setup(fc => fc.SaveFile());
+            fileController.Setup(fc => fc.SaveFile(divePlan.Object));
             IDivePlannerService divePlannerService = new DivePlannerService(diveController.Object, fileController.Object);
 
             // When
