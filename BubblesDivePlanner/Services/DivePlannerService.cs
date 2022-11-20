@@ -18,7 +18,7 @@ namespace BubblesDivePlannerTests.Services
         public void Run(IPresenter presenter)
         {
             var divePlan = fileController.LoadFile();
-            diveController.SetupDivePlan();
+            diveController.SetupDivePlan(divePlan);
 
             do
             {

@@ -19,7 +19,7 @@ namespace BubblesDivePlannerTests.Services
             var divePlan = new Mock<IDivePlan>();
             divePlan.Setup(dp => dp.DiveModel).Returns(TestFixture.FixtureDiveModel);
             var diveController = new Mock<IDiveController>();
-            diveController.Setup(dc => dc.SetupDivePlan());
+            diveController.Setup(dc => dc.SetupDivePlan(divePlan.Object));
             diveController.Setup(dc => dc.SetupDiveStep()).Returns(divePlan.Object);
             diveController.Setup(dc => dc.RunDiveProfile(divePlan.Object)).Returns(divePlan.Object);
             diveController.Setup(dc => dc.RunGasManagement(divePlan.Object.SelectedCylinder, divePlan.Object.DiveStep));
