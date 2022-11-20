@@ -1,7 +1,14 @@
+using System.Text.Json.Serialization;
+
 namespace BubblesDivePlanner.Models.DiveModels
 {
     public class Zhl16Buhlmann : IDiveModel
     {
+        [JsonConstructor]
+        public Zhl16Buhlmann(IDiveProfile diveProfile) {
+            DiveProfile = diveProfile;
+        }
+
         public Zhl16Buhlmann()
         {
             DiveProfile = new DiveProfile(CompartmentCount);

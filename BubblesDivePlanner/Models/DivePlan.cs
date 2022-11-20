@@ -8,12 +8,6 @@ namespace BubblesDivePlanner.Models
 {
     public class DivePlan : IDivePlan
     {
-        [JsonConstructor]
-        public DivePlan(IDiveModel diveModel, IList<ICylinder> cylinders, IDiveStep diveStep, ICylinder selectedCylinder, IDiveProfile diveProfile) : this(diveModel, cylinders, diveStep, selectedCylinder)
-        {
-            DiveModel.DiveProfile = diveProfile;
-        }
-
         public DivePlan(IDiveModel diveModel, IList<ICylinder> cylinders, IDiveStep diveStep, ICylinder selectedCylinder)
         {
             DiveModel = diveModel;
@@ -40,6 +34,7 @@ namespace BubblesDivePlanner.Models
                 {
                     new AbstractConverter<DivePlan, IDivePlan>(),
                     new AbstractConverter<Zhl16Buhlmann, IDiveModel>(),
+                    new AbstractConverter<DiveProfile, IDiveProfile>(),
                     new AbstractConverter<Cylinder, ICylinder>(),
                     new AbstractConverter<GasMixture, IGasMixture>(),
                     new AbstractConverter<DiveStep, IDiveStep>(),

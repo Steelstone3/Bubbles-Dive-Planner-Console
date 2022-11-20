@@ -128,7 +128,7 @@ namespace BubblesDivePlannerTests.Models
                 defaultValue,
                 defaultValue
             ));
-            IDivePlan actualDivePlan = new DivePlan(null, null, null, null, null);
+            IDivePlan actualDivePlan = new DivePlan(null, null, null, null);
 
             actualDivePlan.Deserialise(EXPECTED_RAN_DIVE_PLAN_JSON_UNIX);
 
