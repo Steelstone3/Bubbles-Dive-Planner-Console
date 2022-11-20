@@ -1,8 +1,18 @@
+using BubblesDivePlanner.Models;
+
 namespace BubblesDivePlanner.Controllers.Json
 {
-    public class FileController
+    public class FileController : IFileController
     {
+        public void SaveFile()
+        {
+            throw new System.NotImplementedException();
+        }
 
+        public IDivePlan LoadFile()
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }
 

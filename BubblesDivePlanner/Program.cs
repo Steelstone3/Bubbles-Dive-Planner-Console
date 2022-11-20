@@ -1,4 +1,5 @@
 using BubblesDivePlanner.Controllers;
+using BubblesDivePlanner.Controllers.Json;
 using BubblesDivePlanner.Presenters;
 using BubblesDivePlannerTests.Services;
 
@@ -13,7 +14,8 @@ namespace BubblesDivePlanner
             IDiveStepPresenter diveStepPresenter = new DiveStepPresenter(presenter);
             IDiveStagesController diveStagesController = new DiveStagesController();
             IDiveController diveController = new DiveController(diveStepPresenter, diveSetupPresenter, diveStagesController);
-            IDivePlannerService divePlannerService = new DivePlannerService(diveController);
+            IFileController fileController = new FileController();
+            IDivePlannerService divePlannerService = new DivePlannerService(diveController, fileController);
 
             divePlannerService.Run(presenter);
         }

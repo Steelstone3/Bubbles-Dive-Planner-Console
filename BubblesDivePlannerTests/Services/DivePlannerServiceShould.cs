@@ -10,7 +10,7 @@ namespace BubblesDivePlannerTests.Services
 {
     public class DivePlannerServiceShould
     {
-        [Fact(Skip="Added file stuff")]
+        [Fact]
         public void RunDivePlannerService()
         {
             // Given
@@ -28,7 +28,7 @@ namespace BubblesDivePlannerTests.Services
             var fileController = new Mock<IFileController>();
             fileController.Setup(fc => fc.LoadFile()).Returns(divePlan.Object);
             fileController.Setup(fc => fc.SaveFile());
-            IDivePlannerService divePlannerService = new DivePlannerService(diveController.Object);
+            IDivePlannerService divePlannerService = new DivePlannerService(diveController.Object, fileController.Object);
 
             // When
             divePlannerService.Run(presenter.Object);
