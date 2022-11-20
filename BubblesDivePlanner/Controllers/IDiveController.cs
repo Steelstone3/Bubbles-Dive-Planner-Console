@@ -9,8 +9,6 @@ namespace BubblesDivePlanner.Controllers
         void SetupDivePlan(IDivePlan divePlan);
         IDivePlan SetupDiveStep();
         IDivePlan RunDiveProfile(IDivePlan divePlan);
-        void PrintDiveResults(IDiveModel diveModel);
-        // void RunGasManagement(ICylinder selectedCylinder, IDiveStep diveStep);
-        // void PrintCylinder(ICylinder selectedCylinder);
+        void PrintDiveResults(IDivePlan divePlan);
     }
 }

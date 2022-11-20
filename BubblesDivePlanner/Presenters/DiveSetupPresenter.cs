@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using BubblesDivePlanner.Models;
 using BubblesDivePlanner.Models.Cylinders;
 using BubblesDivePlanner.Models.DiveModels;
 using Spectre.Console;
@@ -42,19 +43,19 @@ namespace BubblesDivePlanner.Presenters
             return cylinders;
         }
 
-        public void PrintDiveResults(IDiveModel diveModel)
+        public void PrintDiveResults(IDivePlan divePlan)
         {
+            var diveModel = divePlan.DiveModel;
             var diveProfile = diveModel.DiveProfile;
+            var selectedCylinder = divePlan.SelectedCylinder;
+
             presenter.Print($"Dive Model: {diveModel.Name}");
 
             for (int compartment = 0; compartment < diveProfile.CompartmentLoads.Length; compartment++)
             {
                 presenter.Print($"| C: {compartment + 1} | TPt: {diveProfile.TotalTissuePressures[compartment]} | TAP: {diveProfile.ToleratedAmbientPressures[compartment]} | MSP: {diveProfile.MaxSurfacePressures[compartment]} | CLp: {diveProfile.CompartmentLoads[compartment]} |");
             }
-        }
 
-        public void PrintCylinder(ICylinder selectedCylinder)
-        {
             presenter.Print($"| Cylinder: {selectedCylinder.Name} | Initial Pressurised Volume: {selectedCylinder.InitialPressurisedVolume} | Remaining Gas: {selectedCylinder.RemainingGas} | Used Gas: {selectedCylinder.UsedGas} | Oxygen: {selectedCylinder.GasMixture.Oxygen}% | Nitrogen: {selectedCylinder.GasMixture.Nitrogen}% | Helium: {selectedCylinder.GasMixture.Helium}% |");
         }
 

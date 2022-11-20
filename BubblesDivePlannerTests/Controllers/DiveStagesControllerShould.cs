@@ -43,9 +43,9 @@ namespace BubblesDivePlannerTests.Controllers
             Assert.Equal(TestFixture.FixtureSelectedCylinder.CylinderPressure, divePlan.SelectedCylinder.CylinderPressure);
             Assert.Equal(TestFixture.FixtureSelectedCylinder.CylinderVolume, divePlan.SelectedCylinder.CylinderVolume);
             Assert.Equal(TestFixture.FixtureSelectedCylinder.InitialPressurisedVolume, divePlan.SelectedCylinder.InitialPressurisedVolume);
-            Assert.Equal(TestFixture.FixtureSelectedCylinder.RemainingGas, divePlan.SelectedCylinder.RemainingGas);
+            Assert.Equal(1680, divePlan.SelectedCylinder.RemainingGas);
             Assert.Equal(TestFixture.FixtureSelectedCylinder.SurfaceAirConsumptionRate, divePlan.SelectedCylinder.SurfaceAirConsumptionRate);
-            Assert.Equal(TestFixture.FixtureSelectedCylinder.UsedGas, divePlan.SelectedCylinder.UsedGas);
+            Assert.Equal(720, divePlan.SelectedCylinder.UsedGas);
         }
     }
 }
