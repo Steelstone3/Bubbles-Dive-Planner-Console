@@ -1,5 +1,7 @@
+using System.Collections.Generic;
 using BubblesDivePlanner.Controllers;
 using BubblesDivePlanner.Controllers.Json;
+using BubblesDivePlanner.Models;
 using BubblesDivePlanner.Presenters;
 
 namespace BubblesDivePlannerTests.Services
@@ -17,6 +19,7 @@ namespace BubblesDivePlannerTests.Services
 
         public void Run(IPresenter presenter)
         {
+            var divePlans = new List<IDivePlan>();
             var divePlan = fileController.LoadFile();
             diveController.SetupDivePlan(divePlan);
 
@@ -25,8 +28,10 @@ namespace BubblesDivePlannerTests.Services
                 divePlan = diveController.SetupDiveStep();
                 divePlan = diveController.RunDiveProfile(divePlan);
                 diveController.PrintDiveResults(divePlan);
+                divePlans.Add(divePlan);
             } while (presenter.GetConfirmation("Continue?"));
 
+            // put divePlans in here
             fileController.SaveFile(divePlan);
         }
     }
