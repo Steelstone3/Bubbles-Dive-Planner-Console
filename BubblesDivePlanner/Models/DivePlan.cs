@@ -43,8 +43,11 @@ namespace BubblesDivePlanner.Models
 
             var divePlan = JsonConvert.DeserializeObject<IDivePlan>(expectedDivePlanJson, settings);
 
-            DiveModel = divePlan.DiveModel;
-            Cylinders = divePlan.Cylinders;
+            if (divePlan != null)
+            {
+                DiveModel = divePlan.DiveModel;
+                Cylinders = divePlan.Cylinders;
+            }
         }
     }
 }

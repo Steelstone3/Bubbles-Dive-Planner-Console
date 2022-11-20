@@ -26,15 +26,31 @@ namespace BubblesDivePlanner.Controllers.Json
                         writer.Write(divePlan.Serialise());
                     }
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
-                    presenter.Print(ex.Message);
+                    presenter.Print($"{FILE_NAME} could not be found or written to.");
                 }
             }
         }
 
         public IDivePlan LoadFile()
         {
+            if (presenter.GetConfirmation("Load File?"))
+            {
+                try
+                {
+                    var fileContent = File.ReadAllText(FILE_NAME);
+                    var divePlan = new DivePlan(null, null, null, null);
+                    divePlan.Deserialise(fileContent);
+
+                    return divePlan;
+                }
+                catch (Exception)
+                {
+                    presenter.Print($"{FILE_NAME} could not be found or read from.");
+                }
+            }
+
             return null;
         }
     }
