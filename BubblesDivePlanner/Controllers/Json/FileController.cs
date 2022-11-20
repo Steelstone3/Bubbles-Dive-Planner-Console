@@ -6,12 +6,11 @@ namespace BubblesDivePlanner.Controllers.Json
     {
         public void SaveFile()
         {
-            throw new System.NotImplementedException();
         }
 
         public IDivePlan LoadFile()
         {
-            throw new System.NotImplementedException();
+            return null;
         }
     }
 }
