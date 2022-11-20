@@ -49,6 +49,7 @@ namespace BubblesDivePlannerTests.Controllers
             diveController.SetupDivePlan(divePlan.Object);
 
             // Then
+            diveSetupPresenter.Verify(dsp => dsp.WelcomeMessage(), Times.Once);
             diveSetupPresenter.Verify(dsp => dsp.SelectDiveModel(), Times.Never);
             diveSetupPresenter.Verify(dsp => dsp.CreateCylinders(), Times.Never);
         }
@@ -68,6 +69,7 @@ namespace BubblesDivePlannerTests.Controllers
             diveController.SetupDivePlan(divePlan.Object);
 
             // Then
+            diveSetupPresenter.Verify(dsp => dsp.WelcomeMessage(), Times.Once);
             diveSetupPresenter.Verify(dsp => dsp.CreateCylinders(), Times.Once);
             diveSetupPresenter.Verify(dsp => dsp.SelectDiveModel(), Times.Never);
         }
@@ -87,6 +89,7 @@ namespace BubblesDivePlannerTests.Controllers
             diveController.SetupDivePlan(divePlan.Object);
 
             // Then
+            diveSetupPresenter.Verify(dsp => dsp.WelcomeMessage(), Times.Once);
             diveSetupPresenter.Verify(dsp => dsp.SelectDiveModel(), Times.Once);
             diveSetupPresenter.Verify(dsp => dsp.CreateCylinders(), Times.Never);
         }
