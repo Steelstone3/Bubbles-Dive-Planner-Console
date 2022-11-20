@@ -62,19 +62,9 @@ namespace BubblesDivePlanner.Controllers
             return diveStagesController.Run(divePlan);
         }
 
-        public void PrintDiveResults(IDiveModel diveModel)
+        public void PrintDiveResults(IDivePlan divePlan)
         {
-            diveSetupPresenter.PrintDiveResults(diveModel);
-        }
-
-        public void RunGasManagement(ICylinder selectedCylinder, IDiveStep diveStep)
-        {
-            selectedCylinder.UpdateCylinderGasConsumption(diveStep);
-        }
-
-        public void PrintCylinder(ICylinder selectedCylinder)
-        {
-            diveSetupPresenter.PrintCylinder(selectedCylinder);
+            diveSetupPresenter.PrintDiveResults(divePlan);
         }
     }
 }

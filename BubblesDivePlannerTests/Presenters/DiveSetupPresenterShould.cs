@@ -1,3 +1,4 @@
+using BubblesDivePlanner.Models;
 using BubblesDivePlanner.Presenters;
 using BubblesDivePlannerTests;
 using Moq;
@@ -64,29 +65,16 @@ namespace Name
         public void PrintDiveResults(int compartment)
         {
             // Given
-            var diveModel = TestFixture.FixtureDiveModel;
-            var diveProfile = diveModel.DiveProfile;
-            presenter.Setup(p => p.Print($"Dive Model: {diveModel.Name}"));
+            var divePlan = new DivePlan(TestFixture.FixtureDiveModel, TestFixture.FixtureCylinders(), TestFixture.FixtureDiveStep, TestFixture.FixtureSelectedCylinder);
+            var diveProfile = divePlan.DiveModel.DiveProfile;
+            var selectedCylinder = divePlan.SelectedCylinder;
+            presenter.Setup(p => p.Print($"Dive Model: {divePlan.DiveModel.Name}"));
             presenter.Setup(p => p.Print($"| C: {compartment + 1} | TPt: {diveProfile.TotalTissuePressures[compartment]} | TAP: {diveProfile.ToleratedAmbientPressures[compartment]} | MSP: {diveProfile.MaxSurfacePressures[compartment]} | CLp: {diveProfile.CompartmentLoads[compartment]} |"));
-            diveSetupPresenter = new DiveSetupPresenter(presenter.Object);
-
-            // When
-            diveSetupPresenter.PrintDiveResults(diveModel);
-
-            // Then
-            presenter.VerifyAll();
-        }
-
-        [Fact]
-        public void PrintSelectedCylinder()
-        {
-            // Given
-            var selectedCylinder = TestFixture.FixtureSelectedCylinder;
             presenter.Setup(p => p.Print($"| Cylinder: {selectedCylinder.Name} | Initial Pressurised Volume: {selectedCylinder.InitialPressurisedVolume} | Remaining Gas: {selectedCylinder.RemainingGas} | Used Gas: {selectedCylinder.UsedGas} | Oxygen: {selectedCylinder.GasMixture.Oxygen}% | Nitrogen: {selectedCylinder.GasMixture.Nitrogen}% | Helium: {selectedCylinder.GasMixture.Helium}% |"));
             diveSetupPresenter = new DiveSetupPresenter(presenter.Object);
 
             // When
-            diveSetupPresenter.PrintCylinder(selectedCylinder);
+            diveSetupPresenter.PrintDiveResults(divePlan);
 
             // Then
             presenter.VerifyAll();

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using BubblesDivePlanner.Models;
 using BubblesDivePlanner.Models.Cylinders;
 using BubblesDivePlanner.Models.DiveModels;
 
@@ -9,7 +10,6 @@ namespace BubblesDivePlanner.Presenters
         void WelcomeMessage();
         IDiveModel SelectDiveModel();
         List<ICylinder> CreateCylinders();
-        void PrintDiveResults(IDiveModel diveModel);
-        void PrintCylinder(ICylinder selectedCylinder);
+        void PrintDiveResults(IDivePlan divePlan);
     }
 }

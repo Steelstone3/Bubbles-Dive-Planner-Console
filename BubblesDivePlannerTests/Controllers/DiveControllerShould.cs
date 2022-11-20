@@ -127,12 +127,12 @@ namespace BubblesDivePlannerTests.Controllers
         public void PrintDiveResults()
         {
             // Given
-            var diveModel = new Zhl16Buhlmann(null);
-            diveSetupPresenter.Setup(dsp => dsp.PrintDiveResults(diveModel));
+            var divePlan = new DivePlan(TestFixture.FixtureDiveModel, TestFixture.FixtureCylinders(), TestFixture.FixtureDiveStep, TestFixture.FixtureSelectedCylinder);
+            diveSetupPresenter.Setup(dsp => dsp.PrintDiveResults(divePlan));
             diveController = new DiveController(diveStepPresenter.Object, diveSetupPresenter.Object, diveStagesController.Object);
 
             // When
-            diveController.PrintDiveResults(diveModel);
+            diveController.PrintDiveResults(divePlan);
 
             // Then
             diveSetupPresenter.VerifyAll();
