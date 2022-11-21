@@ -20,6 +20,7 @@ namespace BubblesDivePlanner.Models
         public List<ICylinder> Cylinders { get; private set; }
         public IDiveStep DiveStep { get; private set; }
         public ICylinder SelectedCylinder { get; private set; }
+        // public IApplicationState ApplicationState { get; private set; }
 
         public string Serialise()
         {
