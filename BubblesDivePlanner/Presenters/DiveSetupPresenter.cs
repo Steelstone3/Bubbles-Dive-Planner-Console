@@ -22,8 +22,7 @@ namespace BubblesDivePlanner.Presenters
 
         public IDiveModel SelectDiveModel()
         {
-            var selectionPrompt = new SelectionPrompt<IDiveModel>();
-            selectionPrompt.Converter = diveModel => diveModel.Name;
+            var selectionPrompt = new SelectionPrompt<IDiveModel> { Converter = diveModel => diveModel.Name };
 
             return AnsiConsole.Prompt(selectionPrompt
             .Title("Select Dive Model:")

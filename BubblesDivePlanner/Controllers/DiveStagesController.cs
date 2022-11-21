@@ -18,7 +18,7 @@ namespace BubblesDivePlanner.Controllers
             return divePlan;
         }
 
-        private IDiveStageCommand[] CreateDiveStageCommands(IDivePlan divePlan)
+        private static IDiveStageCommand[] CreateDiveStageCommands(IDivePlan divePlan)
         {
             var diveModel = divePlan.DiveModel;
             var diveProfile = divePlan.DiveModel.DiveProfile;

@@ -21,10 +21,8 @@ namespace BubblesDivePlanner.Controllers.Json
             {
                 try
                 {
-                    using (StreamWriter writer = new StreamWriter(FILE_NAME))
-                    {
-                        writer.Write(divePlan.Serialise());
-                    }
+                    using StreamWriter writer = new(FILE_NAME);
+                    writer.Write(divePlan.Serialise());
                 }
                 catch (Exception)
                 {

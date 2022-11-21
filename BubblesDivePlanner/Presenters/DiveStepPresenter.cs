@@ -22,8 +22,7 @@ namespace BubblesDivePlanner.Presenters
 
         public ICylinder SelectCylinder(List<ICylinder> cylinders)
         {
-            var selectionPrompt = new SelectionPrompt<ICylinder>();
-            selectionPrompt.Converter = cylinder => cylinder.Name; ;
+            var selectionPrompt = new SelectionPrompt<ICylinder> { Converter = cylinder => cylinder.Name };
 
             return AnsiConsole.Prompt(selectionPrompt
             .Title("Select Cylinder:")

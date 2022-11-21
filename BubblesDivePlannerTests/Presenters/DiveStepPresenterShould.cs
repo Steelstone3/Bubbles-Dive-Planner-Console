@@ -6,7 +6,7 @@ namespace BubblesDivePlannerTests.Presenters
 {
     public class DiveSetupShould
     {
-        private Mock<IPresenter> presenter = new();
+        private readonly Mock<IPresenter> presenter = new();
         private IDiveStepPresenter diveStepPresenter;
 
         [Fact]
