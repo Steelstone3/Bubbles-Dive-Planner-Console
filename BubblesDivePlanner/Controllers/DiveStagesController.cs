@@ -1,6 +1,6 @@
 using BubblesDivePlanner.Controllers.DiveStages;
 using BubblesDivePlanner.DiveStages;
-using BubblesDivePlanner.Models;
+using BubblesDivePlanner.Models.DivePlans;
 
 namespace BubblesDivePlanner.Controllers
 {

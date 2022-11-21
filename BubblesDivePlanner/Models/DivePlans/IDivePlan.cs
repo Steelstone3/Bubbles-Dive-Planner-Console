@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using BubblesDivePlanner.Models.Cylinders;
 using BubblesDivePlanner.Models.DiveModels;
 
-namespace BubblesDivePlanner.Models
+namespace BubblesDivePlanner.Models.DivePlans
 {
     public interface IDivePlan
     {

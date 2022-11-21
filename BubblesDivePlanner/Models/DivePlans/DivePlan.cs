@@ -4,7 +4,7 @@ using BubblesDivePlanner.Models.Cylinders;
 using BubblesDivePlanner.Models.DiveModels;
 using Newtonsoft.Json;
 
-namespace BubblesDivePlanner.Models
+namespace BubblesDivePlanner.Models.DivePlans
 {
     public class DivePlan : IDivePlan
     {

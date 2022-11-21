@@ -3,9 +3,10 @@ using System.Runtime.InteropServices;
 using BubblesDivePlanner.Models;
 using BubblesDivePlanner.Models.Cylinders;
 using BubblesDivePlanner.Models.DiveModels;
+using BubblesDivePlanner.Models.DivePlans;
 using Xunit;
 
-namespace BubblesDivePlannerTests.Models
+namespace BubblesDivePlannerTests.Models.DivePlans
 {
     public class DivePlanShould
     {
@@ -16,7 +17,7 @@ namespace BubblesDivePlannerTests.Models
         private readonly ICylinder cylinder = TestFixture.FixtureSelectedCylinder;
         private readonly IDiveStep diveStep = TestFixture.FixtureDiveStep;
         private readonly List<ICylinder> expectedCylinders;
-        private readonly ICylinder expectedCylinder = new Cylinder("Air", 12, 200, 12, new GasMixture(21,0), 1680, 720);
+        private readonly ICylinder expectedCylinder = new Cylinder("Air", 12, 200, 12, new GasMixture(21, 0), 1680, 720);
         private readonly List<ICylinder> cylinders = new();
         private readonly double defaultValue = 12.5;
         private IDivePlan divePlan;

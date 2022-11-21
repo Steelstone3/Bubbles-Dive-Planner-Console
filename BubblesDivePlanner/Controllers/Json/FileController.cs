@@ -1,6 +1,6 @@
 using System;
 using System.IO;
-using BubblesDivePlanner.Models;
+using BubblesDivePlanner.Models.DivePlans;
 using BubblesDivePlanner.Presenters;
 
 namespace BubblesDivePlanner.Controllers.Json

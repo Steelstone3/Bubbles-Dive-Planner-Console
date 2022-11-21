@@ -1,4 +1,4 @@
-using BubblesDivePlanner.Models;
+using BubblesDivePlanner.Models.DivePlans;
 using BubblesDivePlanner.Presenters;
 using BubblesDivePlannerTests;
 using Moq;

@@ -1,6 +1,6 @@
-using BubblesDivePlanner.Models;
 using BubblesDivePlanner.Models.Cylinders;
 using BubblesDivePlanner.Models.DiveModels;
+using BubblesDivePlanner.Models.DivePlans;
 
 namespace BubblesDivePlanner.Controllers
 {

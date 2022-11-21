@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using BubblesDivePlanner.Controllers;
 using BubblesDivePlanner.Controllers.Json;
-using BubblesDivePlanner.Models;
+using BubblesDivePlanner.Models.DivePlans;
 using BubblesDivePlanner.Presenters;
 
 namespace BubblesDivePlannerTests.Services

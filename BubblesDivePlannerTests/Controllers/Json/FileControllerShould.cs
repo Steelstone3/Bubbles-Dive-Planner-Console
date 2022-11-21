@@ -1,6 +1,7 @@
 using System.IO;
 using BubblesDivePlanner.Controllers.Json;
 using BubblesDivePlanner.Models;
+using BubblesDivePlanner.Models.DivePlans;
 using BubblesDivePlanner.Presenters;
 using Moq;
 using Xunit;

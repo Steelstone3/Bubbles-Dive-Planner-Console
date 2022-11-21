@@ -1,4 +1,4 @@
-using BubblesDivePlanner.Models;
+using BubblesDivePlanner.Models.DivePlans;
 
 namespace BubblesDivePlanner.Controllers
 {

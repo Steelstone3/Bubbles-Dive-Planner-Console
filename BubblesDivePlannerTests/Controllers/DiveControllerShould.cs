@@ -2,6 +2,7 @@ using BubblesDivePlanner.Controllers;
 using BubblesDivePlanner.Models;
 using BubblesDivePlanner.Models.Cylinders;
 using BubblesDivePlanner.Models.DiveModels;
+using BubblesDivePlanner.Models.DivePlans;
 using BubblesDivePlanner.Presenters;
 using Moq;
 using Xunit;
