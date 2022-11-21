@@ -65,7 +65,9 @@ namespace BubblesDivePlanner.Presenters
                  presenter.GetUshort("Enter Cylinder Volume:"),
                 presenter.GetUshort("Enter Cylinder Pressure:"),
                 presenter.GetByte("Enter Surface Air Consumption Rate:"),
-                new GasMixture(presenter.GetByte("Enter Oxygen:"), presenter.GetByte("Enter Helium:"))
+                new GasMixture(presenter.GetByte("Enter Oxygen:"), presenter.GetByte("Enter Helium:")),
+                0,
+                0
             );
         }
     }
