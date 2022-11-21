@@ -23,10 +23,11 @@ namespace BubblesDivePlannerTests
 
         public static List<ICylinder> FixtureCylinders()
         {
-            var cylinders = new List<ICylinder>();
-
-            cylinders.Add(FixtureSelectedCylinder);
-            cylinders.Add(FixtureSelectedCylinder);
+            var cylinders = new List<ICylinder>
+            {
+                FixtureSelectedCylinder,
+                FixtureSelectedCylinder
+            };
 
             return cylinders;
         }

@@ -8,7 +8,7 @@ namespace BubblesDivePlannerTests.Controllers
 {
     public class DiveStagesControllerShould
     {
-        private IDivePlan divePlan;
+        private readonly IDivePlan divePlan;
         private IDiveStagesController diveController;
 
         public DiveStagesControllerShould()

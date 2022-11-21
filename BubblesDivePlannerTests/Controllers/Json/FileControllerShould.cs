@@ -9,7 +9,7 @@ namespace BubblesDivePlannerTests.Controllers.Json
 {
     public class FileControllerShould
     {
-        private Mock<IPresenter> presenter = new();
+        private readonly Mock<IPresenter> presenter = new();
         private IFileController fileController;
 
         [Fact]
