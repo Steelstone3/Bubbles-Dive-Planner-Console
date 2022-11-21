@@ -29,7 +29,7 @@ namespace BubblesDivePlannerTests.Services
                 divePlan = diveController.RunDiveProfile(divePlan);
                 diveController.PrintDiveResults(divePlan);
                 divePlans.Add(divePlan);
-                // divePlan.ApplicationState.UpdateApplicationState(divePlan);
+                divePlan.DivePlanner.UpdateDivePlans(divePlan);
             } while (presenter.GetConfirmation("Continue?"));
 
             // put divePlans in here
