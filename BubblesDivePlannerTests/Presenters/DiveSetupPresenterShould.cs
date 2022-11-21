@@ -65,7 +65,7 @@ namespace Name
         public void PrintDiveResults(int compartment)
         {
             // Given
-            var divePlan = new DivePlan(TestFixture.FixtureDiveModel, TestFixture.FixtureCylinders(), TestFixture.FixtureDiveStep, TestFixture.FixtureSelectedCylinder);
+            var divePlan = new DivePlan(null, TestFixture.FixtureDiveModel, TestFixture.FixtureCylinders(), TestFixture.FixtureDiveStep, TestFixture.FixtureSelectedCylinder);
             var diveProfile = divePlan.DiveModel.DiveProfile;
             var selectedCylinder = divePlan.SelectedCylinder;
             presenter.Setup(p => p.Print($"Dive Model: {divePlan.DiveModel.Name}"));

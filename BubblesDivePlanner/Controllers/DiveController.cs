@@ -54,7 +54,7 @@ namespace BubblesDivePlanner.Controllers
 
         public IDivePlan SetupDiveStep()
         {
-            return new DivePlan(diveModel, cylinders, diveStepPresenter.CreateDiveStep(), diveStepPresenter.SelectCylinder(cylinders));
+            return new DivePlan(null, diveModel, cylinders, diveStepPresenter.CreateDiveStep(), diveStepPresenter.SelectCylinder(cylinders));
         }
 
         public IDivePlan RunDiveProfile(IDivePlan divePlan)

@@ -6,7 +6,7 @@ namespace BubblesDivePlanner.Models.DivePlans
 {
     public interface IDivePlan
     {
-        // IApplicationState ApplicationState { get; }
+        IDivePlanner DivePlanner { get; }
         IDiveModel DiveModel { get; }
         List<ICylinder> Cylinders { get; }
         IDiveStep DiveStep { get; }

@@ -65,7 +65,7 @@ namespace BubblesDivePlannerTests.Controllers.Json
         public void AcceptanceTest()
         {
             // Given
-            var expectedDivePlan = new DivePlan(TestFixture.FixtureDiveModel, TestFixture.FixtureCylinders(), TestFixture.FixtureDiveStep, TestFixture.FixtureSelectedCylinder);
+            var expectedDivePlan = new DivePlan(null, TestFixture.FixtureDiveModel, TestFixture.FixtureCylinders(), TestFixture.FixtureDiveStep, TestFixture.FixtureSelectedCylinder);
             presenter.Setup(p => p.GetConfirmation("Save File?")).Returns(true);
             presenter.Setup(p => p.GetConfirmation("Load File?")).Returns(true);
             fileController = new FileController(presenter.Object);

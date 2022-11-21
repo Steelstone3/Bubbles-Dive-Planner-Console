@@ -75,7 +75,7 @@ namespace BubblesDivePlannerTests.Models.DivePlans
         public void UpdateDivePlans()
         {
             // Given
-            IDivePlan divePlan = new DivePlan(TestFixture.FixtureDiveModel, TestFixture.FixtureCylinders(), TestFixture.FixtureDiveStep, TestFixture.FixtureSelectedCylinder);
+            IDivePlan divePlan = new DivePlan(null, TestFixture.FixtureDiveModel, TestFixture.FixtureCylinders(), TestFixture.FixtureDiveStep, TestFixture.FixtureSelectedCylinder);
 
             // When
             divePlanner.UpdateDivePlans(divePlan);

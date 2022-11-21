@@ -8,19 +8,20 @@ namespace BubblesDivePlanner.Models.DivePlans
 {
     public class DivePlan : IDivePlan
     {
-        public DivePlan(IDiveModel diveModel, List<ICylinder> cylinders, IDiveStep diveStep, ICylinder selectedCylinder)
+        public DivePlan(IDivePlanner divePlanner, IDiveModel diveModel, List<ICylinder> cylinders, IDiveStep diveStep, ICylinder selectedCylinder)
         {
+            DivePlanner = divePlanner ?? new DivePlanner(null, null, null, null);
             DiveModel = diveModel;
             Cylinders = cylinders;
             DiveStep = diveStep;
             SelectedCylinder = selectedCylinder;
         }
 
+        public IDivePlanner DivePlanner { get; private set; }
         public IDiveModel DiveModel { get; private set; }
         public List<ICylinder> Cylinders { get; private set; }
         public IDiveStep DiveStep { get; private set; }
         public ICylinder SelectedCylinder { get; private set; }
-        // public IApplicationState ApplicationState { get; private set; }
 
         public string Serialise()
         {
@@ -33,6 +34,7 @@ namespace BubblesDivePlanner.Models.DivePlans
             {
                 Converters =
                 {
+                    new AbstractConverter<DivePlanner, IDivePlanner>(),
                     new AbstractConverter<DivePlan, IDivePlan>(),
                     new AbstractConverter<Zhl16Buhlmann, IDiveModel>(),
                     new AbstractConverter<DiveProfile, IDiveProfile>(),

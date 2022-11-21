@@ -38,7 +38,7 @@ namespace BubblesDivePlanner.Controllers.Json
                 try
                 {
                     var fileContent = File.ReadAllText(FILE_NAME);
-                    var divePlan = new DivePlan(null, null, null, null);
+                    var divePlan = new DivePlan(null, null, null, null, null);
                     divePlan.Deserialise(fileContent);
 
                     return divePlan;
