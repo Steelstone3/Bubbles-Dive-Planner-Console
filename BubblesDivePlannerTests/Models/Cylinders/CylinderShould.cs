@@ -11,13 +11,15 @@ namespace BubblesDivePlannerTests.Models.Cylinders
         private readonly byte cylinderVolume = 12;
         private readonly ushort cylinderPressure = 200;
         private readonly byte surfaceAirConsumptionRate = 12;
-        private readonly ushort remainingGas = 2400;
+        private readonly ushort initialPressurisedCylinderVolume = 2400;
+        private readonly ushort remainingGas = 1680;
+        private readonly ushort usedGas = 720;
         private readonly Mock<IGasMixture> dummyGasMixture = new();
         private ICylinder cylinder;
 
         public CylinderShould()
         {
-            cylinder = new Cylinder(name, cylinderVolume, cylinderPressure, surfaceAirConsumptionRate, dummyGasMixture.Object);
+            cylinder = new Cylinder(name, cylinderVolume, cylinderPressure, surfaceAirConsumptionRate, dummyGasMixture.Object, remainingGas, usedGas);
         }
 
         [Fact]
@@ -45,21 +47,27 @@ namespace BubblesDivePlannerTests.Models.Cylinders
         }
 
         [Fact]
-        public void ContainsRemainingGas()
+        public void ContainsInitialisedPressurisedCylinderVolume()
         {
-            Assert.Equal(remainingGas, cylinder.RemainingGas);
-        }
-
-        [Fact]
-        public void ContainsGasUsed()
-        {
-            Assert.Equal(0, cylinder.UsedGas);
+            Assert.Equal(initialPressurisedCylinderVolume, cylinder.InitialPressurisedVolume);
         }
 
         [Fact]
         public void ContainsSurfaceAirConsumptionRate()
         {
             Assert.Equal(surfaceAirConsumptionRate, cylinder.SurfaceAirConsumptionRate);
+        }
+
+        [Fact]
+        public void ContainsRemainingGas()
+        {
+            Assert.Equal(remainingGas, cylinder.RemainingGas);
+        }
+
+        [Fact]
+        public void ContainsUsedGas()
+        {
+            Assert.Equal(usedGas, cylinder.UsedGas);
         }
 
         [Theory]
@@ -75,7 +83,7 @@ namespace BubblesDivePlannerTests.Models.Cylinders
         [InlineData(31, 301, 9000)]
         public void CalculateInitialPressurisedVolume(byte cylinderVolume, ushort cylinderPressure, ushort expectedInitialPressurisedVolume)
         {
-            cylinder = new Cylinder(name, cylinderVolume, cylinderPressure, surfaceAirConsumptionRate, dummyGasMixture.Object);
+            cylinder = new Cylinder(name, cylinderVolume, cylinderPressure, surfaceAirConsumptionRate, dummyGasMixture.Object, 0, 0);
 
             Assert.Equal(expectedInitialPressurisedVolume, cylinder.InitialPressurisedVolume);
         }
@@ -92,7 +100,7 @@ namespace BubblesDivePlannerTests.Models.Cylinders
         [InlineData(12, 200, 0, 0, 0, 3, 2397)]
         public void CalculateGasUsage(byte cylinderVolume, ushort cylinderPressure, byte surfaceAirConsumptionRate, byte depth, byte time, ushort expectedUsedGas, ushort expectedRemainingGas)
         {
-            cylinder = new Cylinder(name, cylinderVolume, cylinderPressure, surfaceAirConsumptionRate, dummyGasMixture.Object);
+            cylinder = new Cylinder(name, cylinderVolume, cylinderPressure, surfaceAirConsumptionRate, dummyGasMixture.Object, 0, 0);
             IDiveStep diveStep = new DiveStep(depth, time);
 
             cylinder.UpdateCylinderGasConsumption(diveStep);

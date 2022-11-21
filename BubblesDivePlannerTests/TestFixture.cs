@@ -18,7 +18,9 @@ namespace BubblesDivePlannerTests
         12,
         200,
         12,
-        new GasMixture(21, 0)
+        new GasMixture(21, 0),
+        0,
+        0
         );
 
         public static List<ICylinder> FixtureCylinders()
