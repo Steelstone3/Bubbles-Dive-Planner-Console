@@ -95,7 +95,7 @@ namespace BubblesDivePlannerTests.Models.DivePlans
             Assert.Equal(EXPECTED_RAN_DIVE_PLAN_JSON_UNIX, divePlanJson);
         }
 
-        [SkippableFact]
+        [SkippableFact(Skip="Need to change arrange later")]
         public void SerialiseWindows()
         {
             Skip.IfNot(RuntimeInformation.IsOSPlatform(OSPlatform.Windows));
