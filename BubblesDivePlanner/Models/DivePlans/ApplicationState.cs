@@ -6,17 +6,25 @@ namespace BubblesDivePlanner.Models.DivePlans
 {
     public class ApplicationState : IApplicationState
     {
-        // public List<IDiveProfile> AllDiveProfiles => throw new System.NotImplementedException();
-        // public List<List<ICylinder>> AllCylinders => throw new System.NotImplementedException();
-        // public List<IDiveStep> AllDiveSteps => throw new System.NotImplementedException();
-        // public List<ICylinder> AllSelectedCylinders => throw new System.NotImplementedException();
+        public ApplicationState(List<IDiveProfile> allDiveProfiles, List<List<ICylinder>> allCylinders, List<IDiveStep> allDiveSteps, List<ICylinder> allSelectedCylinders)
+        {
+            AllDiveProfiles = allDiveProfiles ?? new List<IDiveProfile>();
+            AllCylinders = allCylinders ?? new List<List<ICylinder>>();
+            AllDiveSteps = allDiveSteps ?? new List<IDiveStep>();
+            AllSelectedCylinders = allSelectedCylinders ?? new List<ICylinder>();
+        }
 
-        // public void UpdateApplicationState(IDivePlan divePlan)
-        // {
-        //     AllDiveProfiles.Add(divePlan.DiveModel.DiveProfile);
-        //     AllCylinders.Add(divePlan.Cylinders);
-        //     AllSelectedCylinders.Add(divePlan.SelectedCylinder);
-        //     AllDiveSteps.Add(divePlan.DiveStep);
-        // }
+        public List<IDiveProfile> AllDiveProfiles { get; }
+        public List<List<ICylinder>> AllCylinders { get; }
+        public List<IDiveStep> AllDiveSteps { get; }
+        public List<ICylinder> AllSelectedCylinders { get; }
+
+        public void UpdateDivePlans(IDivePlan divePlan)
+        {
+            AllDiveProfiles.Add(divePlan.DiveModel.DiveProfile);
+            AllCylinders.Add(divePlan.Cylinders);
+            AllSelectedCylinders.Add(divePlan.SelectedCylinder);
+            AllDiveSteps.Add(divePlan.DiveStep);
+        }
     }
 }

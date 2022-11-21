@@ -6,10 +6,10 @@ namespace BubblesDivePlanner.Models.DivePlans
 {
     public interface IApplicationState
     {
-        // List<IDiveProfile> AllDiveProfiles { get; }
-        // List<List<ICylinder>> AllCylinders { get; }
-        // List<IDiveStep> AllDiveSteps { get; }
-        // List<ICylinder> AllSelectedCylinders { get; }
-        // void UpdateApplicationState(IDivePlan divePlan);
+        List<IDiveProfile> AllDiveProfiles { get; }
+        List<List<ICylinder>> AllCylinders { get; }
+        List<IDiveStep> AllDiveSteps { get; }
+        List<ICylinder> AllSelectedCylinders { get; }
+        void UpdateDivePlans(IDivePlan divePlan);
     }
 }
