@@ -4,7 +4,7 @@ using BubblesDivePlanner.Models.DiveModels;
 
 namespace BubblesDivePlanner.Models.DivePlans
 {
-    public interface IApplicationState
+    public interface IDivePlanner
     {
         List<IDiveProfile> AllDiveProfiles { get; }
         List<List<ICylinder>> AllCylinders { get; }

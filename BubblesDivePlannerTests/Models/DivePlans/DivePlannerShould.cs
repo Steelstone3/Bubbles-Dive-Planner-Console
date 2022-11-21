@@ -7,37 +7,37 @@ using Xunit;
 
 namespace BubblesDivePlannerTests.Models.DivePlans
 {
-    public class ApplicationStateShould
+    public class DivePlannerShould
     {
-        private IApplicationState applicationState;
+        private IDivePlanner divePlanner;
 
-        public ApplicationStateShould()
+        public DivePlannerShould()
         {
-            applicationState = new ApplicationState(null, null, null, null);
+            divePlanner = new DivePlanner(null, null, null, null);
         }
 
         [Fact]
         public void ContainAllDiveProfiles()
         {
-            Assert.Empty(applicationState.AllDiveProfiles);
+            Assert.Empty(divePlanner.AllDiveProfiles);
         }
 
         [Fact]
         public void ContainAllCylinders()
         {
-            Assert.Empty(applicationState.AllCylinders);
+            Assert.Empty(divePlanner.AllCylinders);
         }
 
         [Fact]
         public void ContainAllDiveSteps()
         {
-            Assert.Empty(applicationState.AllDiveSteps);
+            Assert.Empty(divePlanner.AllDiveSteps);
         }
 
         [Fact]
         public void ContainAllSelectedCylinders()
         {
-            Assert.Empty(applicationState.AllSelectedCylinders);
+            Assert.Empty(divePlanner.AllSelectedCylinders);
         }
 
         [Fact]
@@ -62,13 +62,13 @@ namespace BubblesDivePlannerTests.Models.DivePlans
             };
 
             // When
-            applicationState = new ApplicationState(allDiveProfiles, allCylinders, allDiveSteps, allSelectedCylinders);
+            divePlanner = new DivePlanner(allDiveProfiles, allCylinders, allDiveSteps, allSelectedCylinders);
 
             // Then
-            Assert.NotEmpty(applicationState.AllDiveProfiles);
-            Assert.NotEmpty(applicationState.AllCylinders);
-            Assert.NotEmpty(applicationState.AllDiveSteps);
-            Assert.NotEmpty(applicationState.AllSelectedCylinders);
+            Assert.NotEmpty(divePlanner.AllDiveProfiles);
+            Assert.NotEmpty(divePlanner.AllCylinders);
+            Assert.NotEmpty(divePlanner.AllDiveSteps);
+            Assert.NotEmpty(divePlanner.AllSelectedCylinders);
         }
 
         [Fact]
@@ -78,13 +78,13 @@ namespace BubblesDivePlannerTests.Models.DivePlans
             IDivePlan divePlan = new DivePlan(TestFixture.FixtureDiveModel, TestFixture.FixtureCylinders(), TestFixture.FixtureDiveStep, TestFixture.FixtureSelectedCylinder);
 
             // When
-            applicationState.UpdateDivePlans(divePlan);
+            divePlanner.UpdateDivePlans(divePlan);
 
             // Then
-            Assert.NotEmpty(applicationState.AllDiveProfiles);
-            Assert.NotEmpty(applicationState.AllCylinders);
-            Assert.NotEmpty(applicationState.AllDiveSteps);
-            Assert.NotEmpty(applicationState.AllSelectedCylinders);
+            Assert.NotEmpty(divePlanner.AllDiveProfiles);
+            Assert.NotEmpty(divePlanner.AllCylinders);
+            Assert.NotEmpty(divePlanner.AllDiveSteps);
+            Assert.NotEmpty(divePlanner.AllSelectedCylinders);
         }
     }
 }

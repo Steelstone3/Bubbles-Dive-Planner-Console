@@ -4,9 +4,9 @@ using BubblesDivePlanner.Models.DiveModels;
 
 namespace BubblesDivePlanner.Models.DivePlans
 {
-    public class ApplicationState : IApplicationState
+    public class DivePlanner : IDivePlanner
     {
-        public ApplicationState(List<IDiveProfile> allDiveProfiles, List<List<ICylinder>> allCylinders, List<IDiveStep> allDiveSteps, List<ICylinder> allSelectedCylinders)
+        public DivePlanner(List<IDiveProfile> allDiveProfiles, List<List<ICylinder>> allCylinders, List<IDiveStep> allDiveSteps, List<ICylinder> allSelectedCylinders)
         {
             AllDiveProfiles = allDiveProfiles ?? new List<IDiveProfile>();
             AllCylinders = allCylinders ?? new List<List<ICylinder>>();
