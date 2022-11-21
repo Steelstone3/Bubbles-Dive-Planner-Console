@@ -2,13 +2,15 @@ namespace BubblesDivePlanner.Models.Cylinders
 {
     public class Cylinder : ICylinder
     {
-        public Cylinder(string name, ushort cylinderVolume, ushort cylinderPressure, byte surfaceAirConsumptionRate, IGasMixture gasMixture)
+        public Cylinder(string name, ushort cylinderVolume, ushort cylinderPressure, byte surfaceAirConsumptionRate, IGasMixture gasMixture, ushort remainingGas, ushort usedGas)
         {
             Name = name;
             CylinderVolume = AssignCylinderVolume(cylinderVolume);
             CylinderPressure = AssignCylinderPressure(cylinderPressure);
-            InitialPressurisedVolume = (ushort)(CylinderVolume * CylinderPressure);
-            RemainingGas = InitialPressurisedVolume;
+            InitialPressurisedVolume = CalculateInitialPressurisedVolume();
+            RemainingGas = remainingGas;
+            RemainingGas = AssignRemainingGas(remainingGas);
+            UsedGas = usedGas;
             SurfaceAirConsumptionRate = AssignSurfaceAirConsumptionRate(surfaceAirConsumptionRate);
             GasMixture = gasMixture;
         }
@@ -26,6 +28,11 @@ namespace BubblesDivePlanner.Models.Cylinders
         {
             UsedGas = (ushort)(((diveStep.Depth / 10) + 1) * diveStep.Time * SurfaceAirConsumptionRate);
             RemainingGas = UsedGas < RemainingGas ? (ushort)(RemainingGas - UsedGas) : (ushort)0;
+        }
+
+        private ushort CalculateInitialPressurisedVolume()
+        {
+            return (ushort)(CylinderVolume * CylinderPressure);
         }
 
         private static ushort AssignCylinderVolume(ushort cylinderVolume) => cylinderVolume switch
@@ -48,5 +55,14 @@ namespace BubblesDivePlanner.Models.Cylinders
             < 3 => 3,
             _ => surfaceAirConsumptionRate
         };
+
+        private ushort AssignRemainingGas(ushort remainingGas)
+        {
+            return remainingGas switch
+            {
+                0 => InitialPressurisedVolume,
+                _ => remainingGas,
+            };
+        }
     }
 }
