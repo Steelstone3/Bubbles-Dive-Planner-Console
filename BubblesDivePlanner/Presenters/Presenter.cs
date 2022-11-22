@@ -16,11 +16,14 @@ namespace BubblesDivePlanner.Presenters
                 .ValidationErrorMessage($"[red]Value entered out of range: {lowerBound} - {upperBound}[/]")
                 .Validate(value =>
                 {
-                    return value switch
+                    if (value >= lowerBound && value <= upperBound)
                     {
-                        >= 0 and <= 100 => ValidationResult.Success(),
-                        _ => ValidationResult.Error($"[red]Enter a value in the range: {lowerBound} - {upperBound}[/]"),
-                    };
+                        return ValidationResult.Success();
+                    }
+                    else
+                    {
+                        return ValidationResult.Error($"[red]Enter a value in the range: {lowerBound} - {upperBound}[/]");
+                    }
                 }));
         }
 
