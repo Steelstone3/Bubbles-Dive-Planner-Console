@@ -83,7 +83,7 @@ namespace BubblesDivePlannerTests.Controllers.Json
 
             // Then
             presenter.VerifyAll();
-            jsonController.Verify(jc => jc.Deserialise(""), Times.Never);
+            jsonController.Verify(jc => jc.Deserialise(string.Empty), Times.Never);
         }
 
         [Fact]
