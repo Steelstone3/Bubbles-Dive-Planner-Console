@@ -56,7 +56,7 @@ namespace BubblesDivePlannerTests.Controllers.Json
             divePlans.Add(divePlan);
         }
 
-        [Fact]
+        [SkippableFact]
         public void Serialise()
         {
             Skip.If(RuntimeInformation.IsOSPlatform(OSPlatform.Windows));
