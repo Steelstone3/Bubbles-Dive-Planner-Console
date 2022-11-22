@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using BubblesDivePlanner.Controllers.Json;
 using BubblesDivePlanner.Models;
 using BubblesDivePlanner.Presenters;

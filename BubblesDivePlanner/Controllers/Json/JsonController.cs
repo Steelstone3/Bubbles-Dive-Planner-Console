@@ -9,6 +9,7 @@ namespace BubblesDivePlanner.Controllers.Json
 {
     public class JsonController : IJsonController
     {
+        // TODO write a test for json controller for just unix with a fake data in the dive plans (2)
         public string Serialise(List<IDivePlan> divePlans)
         {
             return JsonConvert.SerializeObject(divePlans, Formatting.Indented);
