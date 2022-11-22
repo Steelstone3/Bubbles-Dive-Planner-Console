@@ -10,7 +10,5 @@ namespace BubblesDivePlanner.Models
         List<ICylinder> Cylinders { get; }
         IDiveStep DiveStep { get; }
         ICylinder SelectedCylinder { get; }
-        string Serialise();
-        void Deserialise(string expectedDivePlanJson);
     }
 }

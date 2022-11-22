@@ -1,4 +1,4 @@
-using System.IO;
+using System.Collections.Generic;
 using BubblesDivePlanner.Controllers.Json;
 using BubblesDivePlanner.Models;
 using BubblesDivePlanner.Presenters;
@@ -13,37 +13,17 @@ namespace BubblesDivePlannerTests.Controllers.Json
         private IFileController fileController;
 
         [Fact]
-        public void ConfirmSaveFile()
+        public void SaveFile()
         {
             // Given
-            presenter.Setup(p => p.GetConfirmation("Save File?")).Returns(true);
-            var divePlan = new Mock<IDivePlan>();
-            divePlan.Setup(dp => dp.Serialise());
+            presenter.Setup(p => p.GetConfirmation("Save File?"));
             fileController = new FileController(presenter.Object);
 
             // When
-            fileController.SaveFile(divePlan.Object);
+            fileController.SaveFile();
 
             // Then
             presenter.VerifyAll();
-            divePlan.VerifyAll();
-        }
-
-        [Fact]
-        public void DenySaveFile()
-        {
-            // Given
-            presenter.Setup(p => p.GetConfirmation("Save File?")).Returns(false);
-            var divePlan = new Mock<IDivePlan>();
-            divePlan.Setup(dp => dp.Serialise());
-            fileController = new FileController(presenter.Object);
-
-            // When
-            fileController.SaveFile(divePlan.Object);
-
-            // Then
-            presenter.VerifyAll();
-            divePlan.Verify(dp => dp.Serialise(), Times.Never);
         }
 
         [Fact]
@@ -70,7 +50,8 @@ namespace BubblesDivePlannerTests.Controllers.Json
             fileController = new FileController(presenter.Object);
 
             // When
-            fileController.SaveFile(expectedDivePlan);
+            fileController.AddDivePlan(expectedDivePlan);
+            fileController.SaveFile();
             var divePlan = fileController.LoadFile();
 
             // Then

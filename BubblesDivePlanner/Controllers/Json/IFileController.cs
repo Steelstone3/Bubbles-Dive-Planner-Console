@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using BubblesDivePlanner.Models;
 
 namespace BubblesDivePlanner.Controllers.Json
@@ -5,6 +6,7 @@ namespace BubblesDivePlanner.Controllers.Json
     public interface IFileController
     {
         IDivePlan LoadFile();
-        void SaveFile(IDivePlan divePlan);
+        void AddDivePlan(IDivePlan divePlan);
+        void SaveFile();
     }
 }

@@ -1,7 +1,10 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using BubblesDivePlanner.Models;
 using BubblesDivePlanner.Presenters;
+using BubblesDivePlannerTests.Services;
+using Newtonsoft.Json;
 
 namespace BubblesDivePlanner.Controllers.Json
 {
@@ -9,20 +12,29 @@ namespace BubblesDivePlanner.Controllers.Json
     {
         private const string FILE_NAME = "dive_plan.json";
         private readonly IPresenter presenter;
+        private readonly IJsonController jsonController;
+        private readonly List<IDivePlan> divePlans = new();
 
-        public FileController(IPresenter presenter)
+        public FileController(IPresenter presenter, IJsonController jsonController)
         {
             this.presenter = presenter;
+            this.jsonController = jsonController;
         }
 
-        public void SaveFile(IDivePlan divePlan)
+        public void AddDivePlan(IDivePlan divePlan)
+        {
+            divePlans.Add(divePlan);
+        }
+
+        public void SaveFile()
         {
             if (presenter.GetConfirmation("Save File?"))
             {
                 try
                 {
                     using StreamWriter writer = new(FILE_NAME);
-                    writer.Write(divePlan.Serialise());
+                    var serialisedDivePlans = jsonController.Serialise(divePlans);
+                    writer.Write(serialisedDivePlans);
                 }
                 catch (Exception)
                 {
@@ -38,10 +50,7 @@ namespace BubblesDivePlanner.Controllers.Json
                 try
                 {
                     var fileContent = File.ReadAllText(FILE_NAME);
-                    var divePlan = new DivePlan(null, null, null, null);
-                    divePlan.Deserialise(fileContent);
-
-                    return divePlan;
+                    return jsonController.Deserialise(fileContent);
                 }
                 catch (Exception)
                 {
