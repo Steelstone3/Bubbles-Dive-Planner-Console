@@ -61,8 +61,8 @@ namespace BubblesDivePlanner.Presenters
         private Cylinder CreateCylinder()
         {
             var name = presenter.GetString("Enter Cylinder Name:");
-            var cylinderVolume = presenter.GetUshort("Enter Cylinder Volume:");
-            var cylinderPressure = presenter.GetUshort("Enter Cylinder Pressure:");
+            var cylinderVolume = presenter.GetUshort("Enter Cylinder Volume:", 3, 15);
+            var cylinderPressure = presenter.GetUshort("Enter Cylinder Pressure:", 50, 300);
             var surfaceAirConsumption = presenter.GetByte("Enter Surface Air Consumption Rate:", 5, 30);
             var oxygenPercentage = presenter.GetByte("Enter Oxygen:", 5, 100);
             var gasMixture = new GasMixture(oxygenPercentage, presenter.GetByte("Enter Helium:", 0, (byte)(100 - oxygenPercentage)));
