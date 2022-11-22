@@ -71,22 +71,6 @@ namespace BubblesDivePlannerTests.Controllers.Json
         }
 
         [Fact]
-        public void DenyLoadFile()
-        {
-            // Given
-            jsonController.Setup(jc => jc.Deserialise(string.Empty));
-            presenter.Setup(p => p.GetConfirmation("Load File?")).Returns(false);
-            fileController = new FileController(presenter.Object, jsonController.Object, expectedDivePlans);
-
-            // When
-            fileController.LoadFile();
-
-            // Then
-            presenter.VerifyAll();
-            jsonController.Verify(jc => jc.Deserialise(string.Empty), Times.Never);
-        }
-
-        [Fact]
         public void IntergrationTest()
         {
             // Given
