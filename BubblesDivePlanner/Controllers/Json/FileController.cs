@@ -13,12 +13,13 @@ namespace BubblesDivePlanner.Controllers.Json
         private const string FILE_NAME = "dive_plan.json";
         private readonly IPresenter presenter;
         private readonly IJsonController jsonController;
-        private readonly List<IDivePlan> divePlans = new();
+        private readonly List<IDivePlan> divePlans;
 
-        public FileController(IPresenter presenter, IJsonController jsonController)
+        public FileController(IPresenter presenter, IJsonController jsonController, List<IDivePlan> divePlans)
         {
             this.presenter = presenter;
             this.jsonController = jsonController;
+            this.divePlans = divePlans;
         }
 
         public void AddDivePlan(IDivePlan divePlan)
