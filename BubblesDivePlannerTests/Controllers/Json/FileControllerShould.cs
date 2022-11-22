@@ -1,4 +1,4 @@
-using System.IO;
+using System.Collections.Generic;
 using BubblesDivePlanner.Controllers.Json;
 using BubblesDivePlanner.Models;
 using BubblesDivePlanner.Presenters;
@@ -9,49 +9,59 @@ namespace BubblesDivePlannerTests.Controllers.Json
 {
     public class FileControllerShould
     {
+        private readonly Mock<IJsonController> jsonController = new();
         private readonly Mock<IPresenter> presenter = new();
+        private readonly IDivePlan divePlan;
+        private readonly List<IDivePlan> expectedDivePlans = new();
         private IFileController fileController;
 
+        public FileControllerShould()
+        {
+            divePlan = new DivePlan(TestFixture.ExpectedDiveModel, TestFixture.ExpectedCylinders(), TestFixture.FixtureDiveStep, TestFixture.ExpectedSelectedCylinder);
+            expectedDivePlans.Add(divePlan);
+            expectedDivePlans.Add(divePlan);
+        }
+
         [Fact]
-        public void ConfirmSaveFile()
+        public void SaveFile()
         {
             // Given
+            jsonController.Setup(jc => jc.Serialise(expectedDivePlans));
             presenter.Setup(p => p.GetConfirmation("Save File?")).Returns(true);
-            var divePlan = new Mock<IDivePlan>();
-            divePlan.Setup(dp => dp.Serialise());
-            fileController = new FileController(presenter.Object);
+            fileController = new FileController(presenter.Object, jsonController.Object, expectedDivePlans);
+            fileController.AddDivePlan(divePlan);
+            fileController.AddDivePlan(divePlan);
 
             // When
-            fileController.SaveFile(divePlan.Object);
+            fileController.SaveFile();
 
             // Then
             presenter.VerifyAll();
-            divePlan.VerifyAll();
+            jsonController.VerifyAll();
         }
 
         [Fact]
         public void DenySaveFile()
         {
             // Given
+            jsonController.Setup(jc => jc.Serialise(expectedDivePlans));
             presenter.Setup(p => p.GetConfirmation("Save File?")).Returns(false);
-            var divePlan = new Mock<IDivePlan>();
-            divePlan.Setup(dp => dp.Serialise());
-            fileController = new FileController(presenter.Object);
+            fileController = new FileController(presenter.Object, jsonController.Object, expectedDivePlans);
 
             // When
-            fileController.SaveFile(divePlan.Object);
+            fileController.SaveFile();
 
             // Then
             presenter.VerifyAll();
-            divePlan.Verify(dp => dp.Serialise(), Times.Never);
+            jsonController.Verify(jc => jc.Serialise(expectedDivePlans), Times.Never);
         }
 
         [Fact]
         public void LoadFile()
         {
             // Given
-            presenter.Setup(p => p.GetConfirmation("Load File?")).Returns(true);
-            fileController = new FileController(presenter.Object);
+            presenter.Setup(p => p.GetConfirmation("Load File?")).Returns(false);
+            fileController = new FileController(presenter.Object, jsonController.Object, expectedDivePlans);
 
             // When
             fileController.LoadFile();
@@ -61,39 +71,52 @@ namespace BubblesDivePlannerTests.Controllers.Json
         }
 
         [Fact]
-        public void AcceptanceTest()
+        public void Intergrate()
         {
             // Given
             var expectedDivePlan = new DivePlan(TestFixture.FixtureDiveModel, TestFixture.FixtureCylinders(), TestFixture.FixtureDiveStep, TestFixture.FixtureSelectedCylinder);
             presenter.Setup(p => p.GetConfirmation("Save File?")).Returns(true);
             presenter.Setup(p => p.GetConfirmation("Load File?")).Returns(true);
-            fileController = new FileController(presenter.Object);
+            fileController = new FileController(presenter.Object, new JsonController(), new());
+            fileController.AddDivePlan(divePlan);
+            fileController.AddDivePlan(divePlan);
 
             // When
-            fileController.SaveFile(expectedDivePlan);
-            var divePlan = fileController.LoadFile();
+            fileController.AddDivePlan(expectedDivePlan);
+            fileController.AddDivePlan(expectedDivePlan);
+            fileController.SaveFile();
+            var actualDivePlan = fileController.LoadFile();
 
             // Then
             presenter.VerifyAll();
-            Assert.Equal(expectedDivePlan.DiveModel.DiveProfile.OxygenPressureAtDepth, divePlan.DiveModel.DiveProfile.OxygenPressureAtDepth);
-            Assert.Equal(expectedDivePlan.DiveModel.DiveProfile.HeliumPressureAtDepth, divePlan.DiveModel.DiveProfile.HeliumPressureAtDepth);
-            Assert.Equal(expectedDivePlan.DiveModel.DiveProfile.NitrogenPressureAtDepth, divePlan.DiveModel.DiveProfile.NitrogenPressureAtDepth);
-            Assert.Equal(expectedDivePlan.DiveModel.DiveProfile.NitrogenTissuePressures, divePlan.DiveModel.DiveProfile.NitrogenTissuePressures);
-            Assert.Equal(expectedDivePlan.DiveModel.DiveProfile.HeliumTissuePressures, divePlan.DiveModel.DiveProfile.HeliumTissuePressures);
-            Assert.Equal(expectedDivePlan.DiveModel.DiveProfile.TotalTissuePressures, divePlan.DiveModel.DiveProfile.TotalTissuePressures);
-            Assert.Equal(expectedDivePlan.DiveModel.DiveProfile.MaxSurfacePressures, divePlan.DiveModel.DiveProfile.MaxSurfacePressures);
-            Assert.Equal(expectedDivePlan.DiveModel.DiveProfile.ToleratedAmbientPressures, divePlan.DiveModel.DiveProfile.ToleratedAmbientPressures);
-            Assert.Equal(expectedDivePlan.DiveModel.DiveProfile.CompartmentLoads, divePlan.DiveModel.DiveProfile.CompartmentLoads);
+            Assert.Equivalent(expectedDivePlan.DiveModel, actualDivePlan.DiveModel);
 
             for (int i = 0; i < expectedDivePlan.Cylinders.Count; i++)
             {
-                Assert.Equal(expectedDivePlan.Cylinders[i].CylinderPressure, divePlan.Cylinders[i].CylinderPressure);
-                Assert.Equal(expectedDivePlan.Cylinders[i].CylinderVolume, divePlan.Cylinders[i].CylinderVolume);
-                Assert.Equal(expectedDivePlan.Cylinders[i].InitialPressurisedVolume, divePlan.Cylinders[i].InitialPressurisedVolume);
-                Assert.Equal(expectedDivePlan.Cylinders[i].RemainingGas, divePlan.Cylinders[i].RemainingGas);
-                Assert.Equal(expectedDivePlan.Cylinders[i].SurfaceAirConsumptionRate, divePlan.Cylinders[i].SurfaceAirConsumptionRate);
-                Assert.Equal(expectedDivePlan.Cylinders[i].UsedGas, divePlan.Cylinders[i].UsedGas);
+                Assert.Equivalent(expectedDivePlan.Cylinders[i], actualDivePlan.Cylinders[i]);
             }
+        }
+
+        [Fact]
+        public void IntergrateDenyLoad()
+        {
+            // Given
+            var expectedDivePlan = new DivePlan(TestFixture.FixtureDiveModel, TestFixture.FixtureCylinders(), TestFixture.FixtureDiveStep, TestFixture.FixtureSelectedCylinder);
+            presenter.Setup(p => p.GetConfirmation("Save File?")).Returns(true);
+            presenter.Setup(p => p.GetConfirmation("Load File?")).Returns(false);
+            fileController = new FileController(presenter.Object, new JsonController(), new());
+            fileController.AddDivePlan(divePlan);
+            fileController.AddDivePlan(divePlan);
+
+            // When
+            fileController.AddDivePlan(expectedDivePlan);
+            fileController.AddDivePlan(expectedDivePlan);
+            fileController.SaveFile();
+            var actualDivePlan = fileController.LoadFile();
+
+            // Then
+            presenter.VerifyAll();
+            Assert.Null(actualDivePlan);
         }
     }
 }

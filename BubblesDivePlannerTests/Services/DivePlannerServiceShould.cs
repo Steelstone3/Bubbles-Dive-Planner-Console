@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using BubblesDivePlanner.Controllers;
 using BubblesDivePlanner.Controllers.Json;
 using BubblesDivePlanner.Models;
@@ -23,7 +24,8 @@ namespace BubblesDivePlannerTests.Services
             diveController.Setup(dc => dc.PrintDiveResults(divePlan));
             var fileController = new Mock<IFileController>();
             fileController.Setup(fc => fc.LoadFile()).Returns(divePlan);
-            fileController.Setup(fc => fc.SaveFile(divePlan));
+            fileController.Setup(fc => fc.AddDivePlan(divePlan));
+            fileController.Setup(fc => fc.SaveFile());
             IDivePlannerService divePlannerService = new DivePlannerService(diveController.Object, fileController.Object);
 
             // When

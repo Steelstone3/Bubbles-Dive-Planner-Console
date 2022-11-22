@@ -14,11 +14,11 @@ namespace BubblesDivePlanner.Controllers
         private IDiveModel diveModel;
         private List<ICylinder> cylinders;
 
-        public DiveController(IDiveStepPresenter diveStepPresenter, IDiveSetupPresenter diveSetupPresenter, IDiveStagesController diveController)
+        public DiveController(IDiveStepPresenter diveStepPresenter, IDiveSetupPresenter diveSetupPresenter, IDiveStagesController diveStagesController)
         {
             this.diveStepPresenter = diveStepPresenter;
             this.diveSetupPresenter = diveSetupPresenter;
-            this.diveStagesController = diveController;
+            this.diveStagesController = diveStagesController;
         }
 
         public void SetupDivePlan(IDivePlan divePlan)

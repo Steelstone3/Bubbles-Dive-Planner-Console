@@ -37,6 +37,43 @@ namespace BubblesDivePlannerTests
         public static double[] DefaultTissuesList => new double[COMPARTMENT_COUNT] { 0.79, 0.79, 0.79, 0.79, 0.79, 0.79, 0.79, 0.79, 0.79, 0.79, 0.79, 0.79, 0.79, 0.79, 0.79, 0.79 };
         public static double[] DefaultList => new double[COMPARTMENT_COUNT] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 };
 
+        public static IDiveProfile ExpectedDiveProfile => new DiveProfile(
+            ExpectedNitrogenTissuePressures,
+            ExpectedHeliumTissuePressures,
+            ExpectedTotalTissuePressures,
+            ExpectedMaxSurfacePressures,
+            ExpectedToleratedAmbientPressures,
+            ExpectedAValues,
+            ExpectedBValues,
+            ExpectedCompartmentLoads,
+            ExpectedOxygenPressureAtDepth,
+            ExpectedHeliumPressureAtDepth,
+            ExpectedNitrogenPressureAtDepth
+        );
+
+        public static IDiveModel ExpectedDiveModel => new Zhl16Buhlmann(ExpectedDiveProfile);
+
+        public static List<ICylinder> ExpectedCylinders()
+        {
+            var cylinders = new List<ICylinder>
+            {
+                FixtureSelectedCylinder,
+                FixtureSelectedCylinder
+            };
+
+            return cylinders;
+        }
+
+        public static Cylinder ExpectedSelectedCylinder => new(
+           "Air",
+            12,
+            200,
+            12,
+            new GasMixture(21, 0),
+            1680,
+            720
+       );
+
         public static double ExpectedOxygenPressureAtDepth => 1.26;
         public static double ExpectedNitrogenPressureAtDepth => 4.74;
         public static double ExpectedHeliumPressureAtDepth => 0;

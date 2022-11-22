@@ -14,7 +14,8 @@ namespace BubblesDivePlanner
             IDiveStepPresenter diveStepPresenter = new DiveStepPresenter(presenter);
             IDiveStagesController diveStagesController = new DiveStagesController();
             IDiveController diveController = new DiveController(diveStepPresenter, diveSetupPresenter, diveStagesController);
-            IFileController fileController = new FileController(presenter);
+            IJsonController jsonController = new JsonController();
+            IFileController fileController = new FileController(presenter, jsonController, new());
             IDivePlannerService divePlannerService = new DivePlannerService(diveController, fileController);
 
             divePlannerService.Run(presenter);
