@@ -44,23 +44,5 @@ namespace Name
             // Then
             presenter.VerifyAll();
         }
-
-        [Fact]
-        public void PrintDiveResults()
-        {
-            // Given
-            var divePlan = new DivePlan(TestFixture.FixtureDiveModel, TestFixture.FixtureCylinders(), TestFixture.FixtureDiveStep, TestFixture.FixtureSelectedCylinder);
-            var diveProfile = divePlan.DiveModel.DiveProfile;
-            var selectedCylinder = divePlan.SelectedCylinder;
-            presenter.Setup(p => p.Print($"Dive Model: {divePlan.DiveModel.Name}"));
-            presenter.Setup(p => p.Print("Cylinders:"));
-            diveSetupPresenter = new DiveSetupPresenter(presenter.Object);
-
-            // When
-            diveSetupPresenter.PrintDiveResults(divePlan);
-
-            // Then
-            presenter.VerifyAll();
-        }
     }
 }

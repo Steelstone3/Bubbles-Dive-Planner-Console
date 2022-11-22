@@ -44,22 +44,5 @@ namespace BubblesDivePlanner.Presenters
         {
             return AnsiConsole.Confirm(message);
         }
-
-        private int bob()
-        {
-            return AnsiConsole.Prompt(
-    new TextPrompt<int>("How [green]old[/] are you?")
-        .PromptStyle("green")
-        .ValidationErrorMessage("[red]That's not a valid age[/]")
-        .Validate(age =>
-        {
-            return age switch
-            {
-                <= 0 => ValidationResult.Error("[red]You must at least be 1 years old[/]"),
-                >= 123 => ValidationResult.Error("[red]You must be younger than the oldest person alive[/]"),
-                _ => ValidationResult.Success(),
-            };
-        }));
-        }
     }
 }
