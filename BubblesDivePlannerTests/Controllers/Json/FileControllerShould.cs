@@ -60,7 +60,7 @@ namespace BubblesDivePlannerTests.Controllers.Json
         public void LoadFile()
         {
             // Given
-            presenter.Setup(p => p.GetConfirmation("Load File?")).Returns(true);
+            presenter.Setup(p => p.GetConfirmation("Load File?")).Returns(false);
             fileController = new FileController(presenter.Object, jsonController.Object, expectedDivePlans);
 
             // When
