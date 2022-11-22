@@ -54,6 +54,7 @@ namespace BubblesDivePlannerTests.Controllers.Json
 
             // When
             fileController.AddDivePlan(expectedDivePlan);
+            fileController.AddDivePlan(expectedDivePlan);
             fileController.SaveFile();
             var divePlan = fileController.LoadFile();
 
