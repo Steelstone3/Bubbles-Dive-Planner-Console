@@ -71,7 +71,7 @@ namespace BubblesDivePlannerTests.Controllers.Json
         }
 
         [Fact]
-        public void IntergrationTest()
+        public void Intergrate()
         {
             // Given
             var expectedDivePlan = new DivePlan(TestFixture.FixtureDiveModel, TestFixture.FixtureCylinders(), TestFixture.FixtureDiveStep, TestFixture.FixtureSelectedCylinder);
@@ -98,7 +98,7 @@ namespace BubblesDivePlannerTests.Controllers.Json
         }
 
         [Fact]
-        public void IntergrationTestDenyLoad()
+        public void IntergrateDenyLoad()
         {
             // Given
             var expectedDivePlan = new DivePlan(TestFixture.FixtureDiveModel, TestFixture.FixtureCylinders(), TestFixture.FixtureDiveStep, TestFixture.FixtureSelectedCylinder);
