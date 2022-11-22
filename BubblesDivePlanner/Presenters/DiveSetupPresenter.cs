@@ -1,8 +1,10 @@
+using System;
 using System.Collections.Generic;
 using BubblesDivePlanner.Models;
 using BubblesDivePlanner.Models.Cylinders;
 using BubblesDivePlanner.Models.DiveModels;
 using Spectre.Console;
+using Spectre.Console.Rendering;
 
 namespace BubblesDivePlanner.Presenters
 {
@@ -46,16 +48,80 @@ namespace BubblesDivePlanner.Presenters
         {
             var diveModel = divePlan.DiveModel;
             var diveProfile = diveModel.DiveProfile;
-            var selectedCylinder = divePlan.SelectedCylinder;
 
             presenter.Print($"Dive Model: {diveModel.Name}");
+            var diveProfileTable = CreateDiveProfileTable();
+            diveProfileTable = AssignDiveProfileTableRows(diveProfileTable, diveProfile);
+            AnsiConsole.Write(diveProfileTable);
 
+            presenter.Print("Cylinders:");
+            var cylindersTable = CreateCylindersTable();
+            cylindersTable = AssignCylindersTableRows(cylindersTable, divePlan.Cylinders);
+            AnsiConsole.Write(cylindersTable);
+        }
+
+
+        private static Table CreateDiveProfileTable()
+        {
+            var diveProfileTable = new Table();
+            diveProfileTable.AddColumn("Compartment");
+            diveProfileTable.AddColumn("Total Tissue Pressures");
+            diveProfileTable.AddColumn("Tolerated Ambient Pressures");
+            diveProfileTable.AddColumn("MaxSurface Pressures");
+            diveProfileTable.AddColumn("Compartment Loads");
+
+            return diveProfileTable;
+        }
+
+        private static Table CreateCylindersTable()
+        {
+            var cylindersTable = new Table();
+            cylindersTable.AddColumn("Cylinder");
+            cylindersTable.AddColumn("Initial Pressurised Volume");
+            cylindersTable.AddColumn("Remaining Gas");
+            cylindersTable.AddColumn("Used Gas");
+            cylindersTable.AddColumn("Oxygen");
+            cylindersTable.AddColumn("Nitrogen");
+            cylindersTable.AddColumn("Helium");
+
+            return cylindersTable;
+        }
+
+        private static Table AssignDiveProfileTableRows(Table diveProfileTable, IDiveProfile diveProfile)
+        {
             for (int compartment = 0; compartment < diveProfile.CompartmentLoads.Length; compartment++)
             {
-                presenter.Print($"| C: {compartment + 1} | TPt: {diveProfile.TotalTissuePressures[compartment]} | TAP: {diveProfile.ToleratedAmbientPressures[compartment]} | MSP: {diveProfile.MaxSurfacePressures[compartment]} | CLp: {diveProfile.CompartmentLoads[compartment]} |");
+                string[] row = new[] {
+                    (compartment + 1).ToString(),
+                    diveProfile.TotalTissuePressures[compartment].ToString(),
+                    diveProfile.ToleratedAmbientPressures[compartment].ToString(),
+                    diveProfile.MaxSurfacePressures[compartment].ToString(),
+                    diveProfile.CompartmentLoads[compartment].ToString()
+                };
+
+                diveProfileTable.AddRow(row);
             }
 
-            presenter.Print($"| Cylinder: {selectedCylinder.Name} | Initial Pressurised Volume: {selectedCylinder.InitialPressurisedVolume} | Remaining Gas: {selectedCylinder.RemainingGas} | Used Gas: {selectedCylinder.UsedGas} | Oxygen: {selectedCylinder.GasMixture.Oxygen}% | Nitrogen: {selectedCylinder.GasMixture.Nitrogen}% | Helium: {selectedCylinder.GasMixture.Helium}% |");
+            return diveProfileTable;
+        }
+
+        private static Table AssignCylindersTableRows(Table cylindersTable, List<ICylinder> cylinders)
+        {
+            foreach (var cylinder in cylinders)
+            {
+                var row = new[] {
+                    cylinder.Name, 
+                    cylinder.InitialPressurisedVolume.ToString(), 
+                    cylinder.RemainingGas.ToString(),
+                    cylinder.UsedGas.ToString(),
+                    cylinder.GasMixture.Oxygen.ToString(),
+                    cylinder.GasMixture.Nitrogen.ToString(),
+                    cylinder.GasMixture.Helium.ToString()
+                };
+                cylindersTable.AddRow(row);
+            }
+
+            return cylindersTable;
         }
 
         private Cylinder CreateCylinder()

@@ -45,32 +45,15 @@ namespace Name
             presenter.VerifyAll();
         }
 
-        [Theory]
-        [InlineData(0)]
-        [InlineData(1)]
-        [InlineData(2)]
-        [InlineData(3)]
-        [InlineData(4)]
-        [InlineData(5)]
-        [InlineData(6)]
-        [InlineData(7)]
-        [InlineData(8)]
-        [InlineData(9)]
-        [InlineData(10)]
-        [InlineData(11)]
-        [InlineData(12)]
-        [InlineData(13)]
-        [InlineData(14)]
-        [InlineData(15)]
-        public void PrintDiveResults(int compartment)
+        [Fact]
+        public void PrintDiveResults()
         {
             // Given
             var divePlan = new DivePlan(TestFixture.FixtureDiveModel, TestFixture.FixtureCylinders(), TestFixture.FixtureDiveStep, TestFixture.FixtureSelectedCylinder);
             var diveProfile = divePlan.DiveModel.DiveProfile;
             var selectedCylinder = divePlan.SelectedCylinder;
             presenter.Setup(p => p.Print($"Dive Model: {divePlan.DiveModel.Name}"));
-            presenter.Setup(p => p.Print($"| C: {compartment + 1} | TPt: {diveProfile.TotalTissuePressures[compartment]} | TAP: {diveProfile.ToleratedAmbientPressures[compartment]} | MSP: {diveProfile.MaxSurfacePressures[compartment]} | CLp: {diveProfile.CompartmentLoads[compartment]} |"));
-            presenter.Setup(p => p.Print($"| Cylinder: {selectedCylinder.Name} | Initial Pressurised Volume: {selectedCylinder.InitialPressurisedVolume} | Remaining Gas: {selectedCylinder.RemainingGas} | Used Gas: {selectedCylinder.UsedGas} | Oxygen: {selectedCylinder.GasMixture.Oxygen}% | Nitrogen: {selectedCylinder.GasMixture.Nitrogen}% | Helium: {selectedCylinder.GasMixture.Helium}% |"));
+            presenter.Setup(p => p.Print("Cylinders:"));
             diveSetupPresenter = new DiveSetupPresenter(presenter.Object);
 
             // When
