@@ -9,6 +9,9 @@ namespace BubblesDivePlannerTests.Controllers.Json
 {
     public class FileControllerShould
     {
+        // TODO consider using stubbing the json controller to test the functionality all the way down
+        // TODO smell assigning divePlans with a setter consider putting the divePlans into save directly to be passed down to the json controller
+        private readonly Mock<IJsonController> jsonController = new();
         private readonly Mock<IPresenter> presenter = new();
         private IFileController fileController;
 
@@ -16,8 +19,8 @@ namespace BubblesDivePlannerTests.Controllers.Json
         public void SaveFile()
         {
             // Given
-            presenter.Setup(p => p.GetConfirmation("Save File?"));
-            fileController = new FileController(presenter.Object);
+            presenter.Setup(p => p.GetConfirmation("Save File?")).Returns(false);
+            fileController = new FileController(presenter.Object, jsonController.Object);
 
             // When
             fileController.SaveFile();
@@ -30,8 +33,8 @@ namespace BubblesDivePlannerTests.Controllers.Json
         public void LoadFile()
         {
             // Given
-            presenter.Setup(p => p.GetConfirmation("Load File?")).Returns(true);
-            fileController = new FileController(presenter.Object);
+            presenter.Setup(p => p.GetConfirmation("Load File?")).Returns(false);
+            fileController = new FileController(presenter.Object, jsonController.Object);
 
             // When
             fileController.LoadFile();
@@ -47,7 +50,7 @@ namespace BubblesDivePlannerTests.Controllers.Json
             var expectedDivePlan = new DivePlan(TestFixture.FixtureDiveModel, TestFixture.FixtureCylinders(), TestFixture.FixtureDiveStep, TestFixture.FixtureSelectedCylinder);
             presenter.Setup(p => p.GetConfirmation("Save File?")).Returns(true);
             presenter.Setup(p => p.GetConfirmation("Load File?")).Returns(true);
-            fileController = new FileController(presenter.Object);
+            fileController = new FileController(presenter.Object, new JsonController());
 
             // When
             fileController.AddDivePlan(expectedDivePlan);
