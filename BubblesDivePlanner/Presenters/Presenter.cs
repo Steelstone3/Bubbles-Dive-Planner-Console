@@ -35,11 +35,6 @@ namespace BubblesDivePlanner.Presenters
                 }));
         }
 
-        public double GetDouble(string message)
-        {
-            return AnsiConsole.Ask<double>(message);
-        }
-
         public string GetString(string message)
         {
             return AnsiConsole.Ask<string>(message);
