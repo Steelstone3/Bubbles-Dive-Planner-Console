@@ -17,7 +17,7 @@ namespace BubblesDivePlanner.Presenters
 
         public IDiveStep CreateDiveStep()
         {
-            return new DiveStep(presenter.GetByte("Enter Depth:"), presenter.GetByte("Enter Time:"));
+            return new DiveStep(presenter.GetByte("Enter Depth:", 0, 100), presenter.GetByte("Enter Time:", 1, 60));
         }
 
         public ICylinder SelectCylinder(List<ICylinder> cylinders)

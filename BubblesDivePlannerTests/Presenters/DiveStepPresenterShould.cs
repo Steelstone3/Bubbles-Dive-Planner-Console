@@ -13,8 +13,8 @@ namespace BubblesDivePlannerTests.Presenters
         public void CreateADiveStep()
         {
             // Given
-            presenter.Setup(p => p.GetByte("Enter Depth:"));
-            presenter.Setup(p => p.GetByte("Enter Time:"));
+            presenter.Setup(p => p.GetByte("Enter Depth:", 0, 100));
+            presenter.Setup(p => p.GetByte("Enter Time:", 1, 60));
             diveStepPresenter = new DiveStepPresenter(presenter.Object);
 
             // When
