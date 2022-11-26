@@ -76,6 +76,7 @@ namespace BubblesDivePlannerTests.Controllers.Json
 
             // Then
             var expectedLastDivePlan = divePlans.Last();
+            Assert.IsType<Zhl16Buhlmann>(expectedLastDivePlan.DiveModel);
             Assert.Equivalent(expectedLastDivePlan, actualLastDivePlan);
         }
     }
