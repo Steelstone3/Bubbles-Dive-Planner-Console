@@ -20,14 +20,14 @@ namespace BubblesDivePlanner.Controllers.Json
             {
                 Converters =
                 {
-                    new AbstractConverter<DivePlan, IDivePlan>(),
-                    new AbstractConverter<FakeUsnRev6, IDiveModel>(),
-                    new AbstractConverter<FakeZhl12Buhlmann, IDiveModel>(),
+                    //TODO Dirty hack this abstract coverter is providing a default implementation to later be sorted out by the dive plan
                     new AbstractConverter<Zhl16Buhlmann, IDiveModel>(),
-                    new AbstractConverter<DiveProfile, IDiveProfile>(),
+                    new AbstractConverter<DivePlan, IDivePlan>(),
                     new AbstractConverter<Cylinder, ICylinder>(),
                     new AbstractConverter<GasMixture, IGasMixture>(),
                     new AbstractConverter<DiveStep, IDiveStep>(),
+                    new DiveModelConverter<IDiveModel>(),
+                    new AbstractConverter<DiveProfile, IDiveProfile>(),
                 },
             };
 
