@@ -21,6 +21,8 @@ namespace BubblesDivePlanner.Controllers.Json
                 Converters =
                 {
                     new AbstractConverter<DivePlan, IDivePlan>(),
+                    new AbstractConverter<FakeUsnRev6, IDiveModel>(),
+                    new AbstractConverter<FakeZhl12Buhlmann, IDiveModel>(),
                     new AbstractConverter<Zhl16Buhlmann, IDiveModel>(),
                     new AbstractConverter<DiveProfile, IDiveProfile>(),
                     new AbstractConverter<Cylinder, ICylinder>(),

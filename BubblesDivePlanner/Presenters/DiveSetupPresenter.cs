@@ -28,6 +28,7 @@ namespace BubblesDivePlanner.Presenters
             {
                 new Zhl16Buhlmann(null),
                 new FakeZhl12Buhlmann(null),
+                new FakeUsnRev6(null),
             };
 
             var selectionPrompt = new SelectionPrompt<IDiveModel> { Converter = diveModel => diveModel.Name };
