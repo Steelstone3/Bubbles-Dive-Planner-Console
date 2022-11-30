@@ -14,6 +14,11 @@ namespace BubblesDivePlanner.Controllers.Json
             if (type == typeof(DiveModel))
             {
                 // TODO Read the dive model name from the file then return the casted type based on the name
+                var bob = value as DiveModel;
+                
+                if(bob.Name == DiveModelNames.ZHL16.ToString()) {
+                    return jsonSerialiser.Deserialize<Zhl16Buhlmann>(reader);
+                }
             }
 
             return jsonSerialiser.Deserialize<TReal>(reader);

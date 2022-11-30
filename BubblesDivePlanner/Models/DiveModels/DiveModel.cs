@@ -5,8 +5,9 @@ namespace BubblesDivePlanner.Models.DiveModels
     public class DiveModel : IDiveModel
     {
         [JsonConstructor]
-        public DiveModel(IDiveProfile diveProfile)
+        public DiveModel(IDiveProfile diveProfile, string name)
         {
+            Name = name;
             DiveProfile = diveProfile;
         }
 
