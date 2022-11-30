@@ -11,7 +11,8 @@ namespace BubblesDivePlannerTests.Models.DiveModels
         [Fact]
         public void ContainsDiveModelName()
         {
-            Assert.Equal("Zhl16-B Model", diveModel.Name);
+            // Assert.Equal("Zhl16-B Model", diveModel.Name);
+            Assert.Equal("ZHL16", diveModel.Name);
         }
 
         [Fact]

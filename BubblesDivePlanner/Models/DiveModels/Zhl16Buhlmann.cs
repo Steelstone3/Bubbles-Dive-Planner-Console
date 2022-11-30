@@ -9,7 +9,7 @@ namespace BubblesDivePlanner.Models.DiveModels
         [JsonConstructor]
         public Zhl16Buhlmann(IDiveProfile diveProfile) : base(diveProfile)
         {
-            Name = "Zhl16-B Model";
+            Name = DiveModelNames.ZHL16.ToString(); // "Zhl16-B Model";
             CompartmentCount = NUMBER_OF_COMPARTMENTS;
             NitrogenHalfTimes = new double[NUMBER_OF_COMPARTMENTS] { 4.0, 8.0, 12.5, 18.5, 27.0, 38.3, 54.3, 77.0, 109.0, 146.0, 187.0, 239.0, 305.0, 390.0, 498.0, 635.0 };
             HeliumHalfTimes = new double[NUMBER_OF_COMPARTMENTS] { 1.51, 3.02, 4.72, 6.99, 10.21, 14.48, 20.53, 29.11, 41.20, 55.19, 70.69, 90.34, 115.29, 147.42, 188.24, 240.03 };
