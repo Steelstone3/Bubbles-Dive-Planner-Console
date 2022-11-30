@@ -11,6 +11,11 @@ namespace BubblesDivePlanner.Controllers.Json
 
         public override Object ReadJson(JsonReader reader, Type type, Object value, JsonSerializer jsonSerialiser)
         {
+            if (type == typeof(DiveModel))
+            {
+                // TODO Read the dive model name from the file then return the casted type based on the name
+            }
+
             return jsonSerialiser.Deserialize<TReal>(reader);
         }
 
