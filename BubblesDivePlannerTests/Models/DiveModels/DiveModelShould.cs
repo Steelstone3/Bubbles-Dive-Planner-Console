@@ -67,7 +67,7 @@ namespace BubblesDivePlannerTests.Models.DiveModels
         public void ContainsDiveProfile()
         {
             // Then
-            Assert.NotNull(diveModel.DiveProfile);
+            Assert.Null(diveModel.DiveProfile);
         }
     }
 }

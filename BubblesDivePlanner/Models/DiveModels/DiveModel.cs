@@ -1,22 +1,13 @@
 using System.Text.Json.Serialization;
-using BubblesDivePlanner.Models.DiveModels;
 
-namespace BubblesDivePlanner.Controllers.Json
+namespace BubblesDivePlanner.Models.DiveModels
 {
     public class DiveModel : IDiveModel
     {
         [JsonConstructor]
         public DiveModel(IDiveProfile diveProfile)
         {
-            switch (diveProfile)
-            {
-                case null:
-                    DiveProfile = new DiveProfile(CompartmentCount);
-                    break;
-                default:
-                    DiveProfile = diveProfile;
-                    break;
-            }
+            DiveProfile = diveProfile;
         }
 
         public string Name { get; protected set; }
@@ -28,5 +19,17 @@ namespace BubblesDivePlanner.Controllers.Json
         public double[] AValuesHelium { get; protected set; }
         public double[] BValuesHelium { get; protected set; }
         public IDiveProfile DiveProfile { get; protected set; }
+
+        protected void AssignDiveProfile() {
+            switch (DiveProfile)
+            {
+                case null:
+                    DiveProfile = new DiveProfile(CompartmentCount);
+                    break;
+                default:
+                    DiveProfile = DiveProfile;
+                    break;
+            }
+        }
     }
 }
