@@ -11,19 +11,6 @@ namespace BubblesDivePlanner.Controllers.Json
 
         public override Object ReadJson(JsonReader reader, Type type, Object value, JsonSerializer jsonSerialiser)
         {
-            if (value.GetType() == typeof(FakeUsnRev6))
-            {
-                return jsonSerialiser.Deserialize<FakeUsnRev6>(reader);
-            }
-            else if (value.GetType() == typeof(FakeZhl12Buhlmann))
-            {
-                return jsonSerialiser.Deserialize<FakeZhl12Buhlmann>(reader);
-            }
-            else if (value.GetType() == typeof(Zhl16Buhlmann))
-            {
-                return jsonSerialiser.Deserialize<Zhl16Buhlmann>(reader);
-            }
-
             return jsonSerialiser.Deserialize<TReal>(reader);
         }
 
