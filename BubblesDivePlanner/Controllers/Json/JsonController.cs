@@ -49,17 +49,17 @@ namespace BubblesDivePlanner.Controllers.Json
 
         private string GetDiveModelName(string expectedDivePlanJson)
         {
-            if (expectedDivePlanJson.Contains(DiveModelNames.ZHL16.ToString()))
+            if (expectedDivePlanJson.Contains(DiveModelNames.ZHL16_B.ToString()))
             {
-                return DiveModelNames.ZHL16.ToString();
+                return DiveModelNames.ZHL16_B.ToString();
             }
-            else if (expectedDivePlanJson.Contains(DiveModelNames.FAKE_ZHL12.ToString()))
+            else if (expectedDivePlanJson.Contains(DiveModelNames.ZHL12.ToString()))
             {
-                return DiveModelNames.FAKE_ZHL12.ToString();
+                return DiveModelNames.ZHL12.ToString();
             }
-            else if (expectedDivePlanJson.Contains(DiveModelNames.FAKE_USN.ToString()))
+            else if (expectedDivePlanJson.Contains(DiveModelNames.USN_REVISION_6.ToString()))
             {
-                return DiveModelNames.FAKE_USN.ToString();
+                return DiveModelNames.USN_REVISION_6.ToString();
             }
 
             return null;
@@ -67,17 +67,21 @@ namespace BubblesDivePlanner.Controllers.Json
 
         private void DetermineDiveModel(string diveModelName, List<JsonConverter> jsonConverters)
         {
-            if (diveModelName == DiveModelNames.ZHL16.ToString())
+            if (diveModelName == DiveModelNames.ZHL16_B.ToString())
             {
                 jsonConverters.Add(new AbstractConverter<Zhl16Buhlmann, IDiveModel>());
             }
-            else if (diveModelName == DiveModelNames.FAKE_ZHL12.ToString())
+            else if (diveModelName == DiveModelNames.ZHL12.ToString())
             {
                 jsonConverters.Add(new AbstractConverter<FakeZhl12Buhlmann, IDiveModel>());
             }
-            else if (diveModelName == DiveModelNames.FAKE_USN.ToString())
+            else if (diveModelName == DiveModelNames.USN_REVISION_6.ToString())
             {
                 jsonConverters.Add(new AbstractConverter<FakeUsnRev6, IDiveModel>());
+            }
+            else if (diveModelName == DiveModelNames.DCAP_MF11F6.ToString())
+            {
+                jsonConverters.Add(new AbstractConverter<DcapMf11f6Model, IDiveModel>());
             }
         }
     }
