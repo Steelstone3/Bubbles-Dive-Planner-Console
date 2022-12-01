@@ -20,7 +20,8 @@ namespace BubblesDivePlanner.Models.DiveModels
         public double[] BValuesHelium { get; protected set; }
         public IDiveProfile DiveProfile { get; protected set; }
 
-        protected void AssignDiveProfile() {
+        protected void AssignDiveProfile()
+        {
             switch (DiveProfile)
             {
                 case null:

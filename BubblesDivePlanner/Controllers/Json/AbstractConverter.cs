@@ -8,7 +8,7 @@ namespace BubblesDivePlanner.Controllers.Json
         public override Boolean CanConvert(Type objectType)
             => objectType == typeof(TAbstract);
 
-        public override Object ReadJson(JsonReader reader, Type type, Object value, JsonSerializer jsonSerialiser) 
+        public override Object ReadJson(JsonReader reader, Type type, Object value, JsonSerializer jsonSerialiser)
             => jsonSerialiser.Deserialize<TReal>(reader);
 
         public override void WriteJson(JsonWriter writer, Object value, JsonSerializer jsonSerialiser)

@@ -32,7 +32,8 @@ namespace BubblesDivePlanner.Controllers.Json
 
         private List<JsonConverter> AddConverters()
         {
-            List<JsonConverter> jsonConverters = new() {
+            List<JsonConverter> jsonConverters = new()
+            {
                 new AbstractConverter<DivePlan, IDivePlan>(),
                 new AbstractConverter<Cylinder, ICylinder>(),
                 new AbstractConverter<GasMixture, IGasMixture>(),
@@ -45,7 +46,8 @@ namespace BubblesDivePlanner.Controllers.Json
             return jsonConverters;
         }
 
-        private string GetDiveModelName() {
+        private string GetDiveModelName()
+        {
             // TODO get the dive model name from the file
             return DiveModelNames.FAKE_USN.ToString();
         }
