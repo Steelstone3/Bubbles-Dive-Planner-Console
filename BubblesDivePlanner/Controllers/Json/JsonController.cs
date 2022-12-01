@@ -17,7 +17,7 @@ namespace BubblesDivePlanner.Controllers.Json
 
         public IDivePlan Deserialise(string expectedDivePlanJson)
         {
-            var converters = AddConverters();
+            var converters = AddConverters(expectedDivePlanJson);
 
             var settings = new JsonSerializerSettings
             {
@@ -30,7 +30,7 @@ namespace BubblesDivePlanner.Controllers.Json
             return divePlan ?? null;
         }
 
-        private List<JsonConverter> AddConverters()
+        private List<JsonConverter> AddConverters(string expectedDivePlanJson)
         {
             List<JsonConverter> jsonConverters = new()
             {
@@ -41,15 +41,27 @@ namespace BubblesDivePlanner.Controllers.Json
                 new AbstractConverter<DiveProfile, IDiveProfile>(),
             };
 
-            DetermineDiveModel(GetDiveModelName(), jsonConverters);
+            DetermineDiveModel(GetDiveModelName(expectedDivePlanJson), jsonConverters);
 
             return jsonConverters;
         }
 
-        private string GetDiveModelName()
+        private string GetDiveModelName(string expectedDivePlanJson)
         {
-            // TODO get the dive model name from the file
-            return DiveModelNames.FAKE_USN.ToString();
+            if (expectedDivePlanJson.Contains(DiveModelNames.ZHL16.ToString()))
+            {
+                return DiveModelNames.ZHL16.ToString();
+            }
+            else if (expectedDivePlanJson.Contains(DiveModelNames.FAKE_ZHL12.ToString()))
+            {
+                return DiveModelNames.FAKE_ZHL12.ToString();
+            }
+            else if (expectedDivePlanJson.Contains(DiveModelNames.FAKE_USN.ToString()))
+            {
+                return DiveModelNames.FAKE_USN.ToString();
+            }
+
+            return null;
         }
 
         private void DetermineDiveModel(string diveModelName, List<JsonConverter> jsonConverters)
