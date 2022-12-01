@@ -2,18 +2,19 @@ namespace BubblesDivePlanner.Models.DiveModels.Types
 {
     public class Zhl12Buhlmann : DiveModel
     {
-        private const byte NUMBER_OF_COMPARTMENTS = 12;
+        private const byte NUMBER_OF_COMPARTMENTS = 16;
 
         public Zhl12Buhlmann(IDiveProfile diveProfile) : base(diveProfile)
         {
             Name = DiveModelNames.ZHL12.ToString();
-            // CompartmentCount = NUMBER_OF_COMPARTMENTS;
-            // NitrogenHalfTimes = new double[NUMBER_OF_COMPARTMENTS] { 4.0, 8.0, 12.5, 18.5, 27.0, 38.3, 54.3, 77.0, 109.0, 146.0, 187.0, 239.0 };
-            // HeliumHalfTimes = new double[NUMBER_OF_COMPARTMENTS] { 1.51, 3.02, 4.72, 6.99, 10.21, 14.48, 20.53, 29.11, 41.20, 55.19, 70.69, 90.34 };
-            // AValuesNitrogen = new double[NUMBER_OF_COMPARTMENTS] { 1.2559, 1.0000, 0.8618, 0.7562, 0.6667, 0.5600, 0.4947, 0.4500, 0.4187, 0.3798, 0.3497, 0.3223 };
-            // BValuesNitrogen = new double[NUMBER_OF_COMPARTMENTS] { 0.5050, 0.6514, 0.7222, 0.7825, 0.8126, 0.8434, 0.8693, 0.8910, 0.9092, 0.9222, 0.9319, 0.9403 };
-            // AValuesHelium = new double[NUMBER_OF_COMPARTMENTS] { 1.7424, 1.3830, 1.1919, 1.0458, 0.9220, 0.8205, 0.7305, 0.6502, 0.5950, 0.5545, 0.5333, 0.5189 };
-            // BValuesHelium = new double[NUMBER_OF_COMPARTMENTS] { 0.4245, 0.5747, 0.6527, 0.7223, 0.7582, 0.7957, 0.8279, 0.8553, 0.8757, 0.8903, 0.8997, 0.9073 };
+            CompartmentCount = NUMBER_OF_COMPARTMENTS;
+            NitrogenHalfTimes = new double[NUMBER_OF_COMPARTMENTS] { 2.65, 7.94, 12.2, 18.5, 26.5, 37.0, 53.0, 79.0, 114.0, 146.0, 185.0, 238.0, 304.0, 397.0, 503.0, 635.0 };
+            HeliumHalfTimes = new double[NUMBER_OF_COMPARTMENTS] { 1.0, 3.0, 4.6, 7.0, 10.0, 14.0, 20.0, 30.0, 43.0, 55.0, 70.0, 90.0, 115.0, 150.0, 190.0, 240.0 };
+            // TODO Double check a and b values are correct for both Nitrogen and Helium
+            AValuesNitrogen = new double[NUMBER_OF_COMPARTMENTS] { 2.2005, 1.5005, 1.0779, 0.9024, 0.7466, 0.5772, 0.4706, 0.4564, 0.4564, 0.4593, 0.4593, 0.3807, 0.2505, 0.2505, 0.2505, 0.2505 };
+            BValuesNitrogen = new double[NUMBER_OF_COMPARTMENTS] { 0.82, 0.82, 0.825, 0.835, 0.845, 0.86, 0.87, 0.89, 0.89, 0.934, 0.934, 0.944, 0.962, 0.962, 0.962, 0.962 };
+            AValuesHelium = new double[NUMBER_OF_COMPARTMENTS] { 2.2005, 1.5079, 1.0924, 0.9166, 0.7672, 0.5906, 0.4964, 0.4564, 0.5001, 0.5001, 0.5001, 0.5001, 0.5001, 0.5001, 0.5001, 0.5001 };
+            BValuesHelium = new double[NUMBER_OF_COMPARTMENTS] { 0.82, 0.825, 0.835, 0.845, 0.86, 0.87, 0.89, 0.89, 0.926, 0.926, 0.926, 0.926, 0.926, 0.926, 0.926, 0.926 };
             AssignDiveProfile();
         }
     }
