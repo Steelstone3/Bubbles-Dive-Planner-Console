@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-
 namespace BubblesDivePlanner.Models.Cylinders
 {
     public interface ICylinder

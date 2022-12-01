@@ -1,9 +1,6 @@
 using System.Collections.Generic;
-using System.Linq;
-using BubblesDivePlanner.Controllers.Json;
 using BubblesDivePlanner.Models.Cylinders;
 using BubblesDivePlanner.Models.DiveModels;
-using Newtonsoft.Json;
 
 namespace BubblesDivePlanner.Models
 {

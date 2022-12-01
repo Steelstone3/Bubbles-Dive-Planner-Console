@@ -1,11 +1,9 @@
-using System;
 using System.Collections.Generic;
 using BubblesDivePlanner.Models;
 using BubblesDivePlanner.Models.Cylinders;
 using BubblesDivePlanner.Models.DiveModels;
 using BubblesDivePlanner.Models.DiveModels.Types;
 using Spectre.Console;
-using Spectre.Console.Rendering;
 
 namespace BubblesDivePlanner.Presenters
 {

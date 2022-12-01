@@ -1,6 +1,4 @@
-using BubblesDivePlanner.Models;
 using BubblesDivePlanner.Presenters;
-using BubblesDivePlannerTests;
 using Moq;
 using Xunit;
 

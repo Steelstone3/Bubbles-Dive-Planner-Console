@@ -1,5 +1,3 @@
-using System.Text.Json.Serialization;
-
 namespace BubblesDivePlanner.Models.DiveModels
 {
     public class DiveModel : IDiveModel

@@ -5,7 +5,6 @@ using BubblesDivePlanner.Models.Cylinders;
 using BubblesDivePlanner.Models.DiveModels;
 using BubblesDivePlanner.Models.DiveModels.Types;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 
 namespace BubblesDivePlanner.Controllers.Json
 {

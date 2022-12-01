@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.IO;
 using BubblesDivePlanner.Models;
 using BubblesDivePlanner.Presenters;
-using BubblesDivePlannerTests.Services;
-using Newtonsoft.Json;
 
 namespace BubblesDivePlanner.Controllers.Json
 {
