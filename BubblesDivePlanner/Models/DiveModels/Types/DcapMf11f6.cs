@@ -2,18 +2,20 @@ namespace BubblesDivePlanner.Models.DiveModels.Types
 {
     public class DcapMf11f6 : DiveModel
     {
-        private const byte NUMBER_OF_COMPARTMENTS = 12;
+        private const byte NUMBER_OF_COMPARTMENTS = 11;
 
         public DcapMf11f6(IDiveProfile diveProfile) : base(diveProfile)
         {
             Name = DiveModelNames.DCAP_MF11F6.ToString();
-            // CompartmentCount = NUMBER_OF_COMPARTMENTS;
-            // NitrogenHalfTimes = new double[NUMBER_OF_COMPARTMENTS] { 4.0, 8.0, 12.5, 18.5, 27.0, 38.3, 54.3, 77.0, 109.0, 146.0, 187.0, 239.0 };
-            // HeliumHalfTimes = new double[NUMBER_OF_COMPARTMENTS] { 1.51, 3.02, 4.72, 6.99, 10.21, 14.48, 20.53, 29.11, 41.20, 55.19, 70.69, 90.34 };
-            // AValuesNitrogen = new double[NUMBER_OF_COMPARTMENTS] { 1.2559, 1.0000, 0.8618, 0.7562, 0.6667, 0.5600, 0.4947, 0.4500, 0.4187, 0.3798, 0.3497, 0.3223 };
-            // BValuesNitrogen = new double[NUMBER_OF_COMPARTMENTS] { 0.5050, 0.6514, 0.7222, 0.7825, 0.8126, 0.8434, 0.8693, 0.8910, 0.9092, 0.9222, 0.9319, 0.9403 };
-            // AValuesHelium = new double[NUMBER_OF_COMPARTMENTS] { 1.7424, 1.3830, 1.1919, 1.0458, 0.9220, 0.8205, 0.7305, 0.6502, 0.5950, 0.5545, 0.5333, 0.5189 };
-            // BValuesHelium = new double[NUMBER_OF_COMPARTMENTS] { 0.4245, 0.5747, 0.6527, 0.7223, 0.7582, 0.7957, 0.8279, 0.8553, 0.8757, 0.8903, 0.8997, 0.9073 };
+            CompartmentCount = NUMBER_OF_COMPARTMENTS;
+            NitrogenHalfTimes = new double[NUMBER_OF_COMPARTMENTS] { 5.0, 10.0, 25.0, 55.0, 95.0, 145.0, 200.0, 285.0, 385.0, 520.0, 670.0 };
+            // TODO Unsafe no published helium half times
+            HeliumHalfTimes = new double[NUMBER_OF_COMPARTMENTS] { 5.0 / 2.65, 10.0 / 2.65, 25.0 / 2.65, 55.0 / 2.65, 95.0 / 2.65, 145.0 / 2.65, 200.0 / 2.65, 285.0 / 2.65, 385.0 / 2.65, 520.0 / 2.65, 670.0 / 2.65 };
+            AValuesNitrogen = new double[NUMBER_OF_COMPARTMENTS] { 1.89, 1.415, 0.824, 0.418, 0.352, 0.346, 0.343, 0.35, 0.35, 0.34, 0.33 };
+            BValuesNitrogen = new double[NUMBER_OF_COMPARTMENTS] { 0.769, 0.952, 0.926, 0.943, 0.962, 0.98, 0.99, 1.0, 1.0, 1.0, 1.0 };
+            // TODO unsafe no published helium a or b values
+            AValuesHelium = new double[NUMBER_OF_COMPARTMENTS] { 1.89, 1.415, 0.824, 0.418, 0.352, 0.346, 0.343, 0.35, 0.35, 0.34, 0.33 };
+            BValuesHelium = new double[NUMBER_OF_COMPARTMENTS] { 0.769, 0.952, 0.926, 0.943, 0.962, 0.98, 0.99, 1.0, 1.0, 1.0, 1.0 };
             AssignDiveProfile();
         }
     }
