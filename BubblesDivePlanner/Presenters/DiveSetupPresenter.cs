@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using BubblesDivePlanner.Models;
 using BubblesDivePlanner.Models.Cylinders;
 using BubblesDivePlanner.Models.DiveModels;
+using BubblesDivePlanner.Models.DiveModels.Types;
 using Spectre.Console;
 using Spectre.Console.Rendering;
 
@@ -24,13 +25,18 @@ namespace BubblesDivePlanner.Presenters
 
         public IDiveModel SelectDiveModel()
         {
+            List<IDiveModel> diveModels = new List<IDiveModel>()
+            {
+                new Zhl16Buhlmann(null),
+                new Zhl12Buhlmann(null),
+                new UsnRevision6(null),
+            };
+
             var selectionPrompt = new SelectionPrompt<IDiveModel> { Converter = diveModel => diveModel.Name };
 
             return AnsiConsole.Prompt(selectionPrompt
             .Title("Select Dive Model:")
-            .AddChoices(new[] {
-                new Zhl16Buhlmann(null)
-            }));
+            .AddChoices(diveModels));
         }
 
         public List<ICylinder> CreateCylinders()
@@ -110,8 +116,8 @@ namespace BubblesDivePlanner.Presenters
             foreach (var cylinder in cylinders)
             {
                 var row = new[] {
-                    cylinder.Name, 
-                    cylinder.InitialPressurisedVolume.ToString(), 
+                    cylinder.Name,
+                    cylinder.InitialPressurisedVolume.ToString(),
                     cylinder.RemainingGas.ToString(),
                     cylinder.UsedGas.ToString(),
                     cylinder.GasMixture.Oxygen.ToString(),

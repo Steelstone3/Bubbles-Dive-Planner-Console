@@ -1,7 +1,8 @@
 using BubblesDivePlanner.Models.DiveModels;
+using BubblesDivePlanner.Models.DiveModels.Types;
 using Xunit;
 
-namespace BubblesDivePlannerTests.Models.DiveModels
+namespace BubblesDivePlannerTests.Models.DiveModels.Types
 {
     public class Zhl16BuhlmannShould
     {
@@ -11,7 +12,7 @@ namespace BubblesDivePlannerTests.Models.DiveModels
         [Fact]
         public void ContainsDiveModelName()
         {
-            Assert.Equal("Zhl16-B Model", diveModel.Name);
+            Assert.Equal("ZHL16_B", diveModel.Name);
         }
 
         [Fact]
