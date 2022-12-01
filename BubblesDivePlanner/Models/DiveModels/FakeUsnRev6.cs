@@ -4,7 +4,7 @@ namespace BubblesDivePlanner.Models.DiveModels
     {
         private const byte NUMBER_OF_COMPARTMENTS = 12;
 
-        public FakeUsnRev6(IDiveProfile diveProfile) : base(diveProfile, null)
+        public FakeUsnRev6(IDiveProfile diveProfile) : base(diveProfile)
         {
             Name = DiveModelNames.FAKE_USN.ToString(); // "Fake USN Revision 6 Model";
             CompartmentCount = NUMBER_OF_COMPARTMENTS;

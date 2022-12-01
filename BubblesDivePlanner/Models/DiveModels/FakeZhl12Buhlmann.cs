@@ -4,7 +4,7 @@ namespace BubblesDivePlanner.Models.DiveModels
     {
         private const byte NUMBER_OF_COMPARTMENTS = 12;
 
-        public FakeZhl12Buhlmann(IDiveProfile diveProfile) : base(diveProfile, null)
+        public FakeZhl12Buhlmann(IDiveProfile diveProfile) : base(diveProfile)
         {
             Name = DiveModelNames.FAKE_ZHL12.ToString(); // "Fake Zhl12 Model";
             CompartmentCount = NUMBER_OF_COMPARTMENTS;

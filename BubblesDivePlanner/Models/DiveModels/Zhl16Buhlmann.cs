@@ -7,7 +7,7 @@ namespace BubblesDivePlanner.Models.DiveModels
         private const byte NUMBER_OF_COMPARTMENTS = 16;
 
         [JsonConstructor]
-        public Zhl16Buhlmann(IDiveProfile diveProfile) : base(diveProfile, null)
+        public Zhl16Buhlmann(IDiveProfile diveProfile) : base(diveProfile)
         {
             Name = DiveModelNames.ZHL16.ToString(); // "Zhl16-B Model";
             CompartmentCount = NUMBER_OF_COMPARTMENTS;

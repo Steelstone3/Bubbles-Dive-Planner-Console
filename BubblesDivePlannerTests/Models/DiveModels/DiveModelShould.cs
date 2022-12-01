@@ -6,7 +6,7 @@ namespace BubblesDivePlannerTests.Models.DiveModels
 {
     public class DiveModelShould
     {
-        private readonly IDiveModel diveModel = new DiveModel(null, null);
+        private readonly IDiveModel diveModel = new DiveModel(null);
 
         [Fact]
         public void ContainsName()
