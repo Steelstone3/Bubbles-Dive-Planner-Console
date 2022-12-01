@@ -4,6 +4,7 @@ using System.Runtime.InteropServices;
 using BubblesDivePlanner.Controllers.Json;
 using BubblesDivePlanner.Models;
 using BubblesDivePlanner.Models.DiveModels;
+using BubblesDivePlanner.Models.DiveModels.Types;
 using Xunit;
 
 namespace BubblesDivePlannerTests.Controllers.Json

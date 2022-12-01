@@ -1,7 +1,8 @@
 using BubblesDivePlanner.Models.DiveModels;
+using BubblesDivePlanner.Models.DiveModels.Types;
 using Xunit;
 
-namespace BubblesDivePlannerTests.Models.DiveModels
+namespace BubblesDivePlannerTests.Models.DiveModels.Types
 {
     public class Zhl16BuhlmannShould
     {

@@ -1,6 +1,6 @@
 using System.Text.Json.Serialization;
 
-namespace BubblesDivePlanner.Models.DiveModels
+namespace BubblesDivePlanner.Models.DiveModels.Types
 {
     public class Zhl16Buhlmann : DiveModel
     {

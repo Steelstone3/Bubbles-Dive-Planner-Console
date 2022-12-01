@@ -3,6 +3,7 @@ using System.Runtime.InteropServices;
 using BubblesDivePlanner.Models;
 using BubblesDivePlanner.Models.Cylinders;
 using BubblesDivePlanner.Models.DiveModels;
+using BubblesDivePlanner.Models.DiveModels.Types;
 using Xunit;
 
 namespace BubblesDivePlannerTests.Models
