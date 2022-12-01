@@ -40,7 +40,9 @@ namespace BubblesDivePlanner.Controllers.Json
                 new AbstractConverter<DiveProfile, IDiveProfile>(),
             };
 
-            return DetermineDiveModel(GetDiveModelName(), jsonConverters);
+            DetermineDiveModel(GetDiveModelName(), jsonConverters);
+
+            return jsonConverters;
         }
 
         private string GetDiveModelName() {
@@ -48,28 +50,20 @@ namespace BubblesDivePlanner.Controllers.Json
             return DiveModelNames.FAKE_USN.ToString();
         }
 
-        private List<JsonConverter> DetermineDiveModel(string diveModelName, List<JsonConverter> jsonConverters)
+        private void DetermineDiveModel(string diveModelName, List<JsonConverter> jsonConverters)
         {
             if (diveModelName == DiveModelNames.ZHL16.ToString())
             {
                 jsonConverters.Add(new AbstractConverter<Zhl16Buhlmann, IDiveModel>());
-                
-                return jsonConverters;
             }
             else if (diveModelName == DiveModelNames.FAKE_ZHL12.ToString())
             {
                 jsonConverters.Add(new AbstractConverter<FakeZhl12Buhlmann, IDiveModel>());
-
-                return jsonConverters;
             }
             else if (diveModelName == DiveModelNames.FAKE_USN.ToString())
             {
                 jsonConverters.Add(new AbstractConverter<FakeUsnRev6, IDiveModel>());
-
-                return jsonConverters;
             }
-
-            return jsonConverters;
         }
     }
 }
