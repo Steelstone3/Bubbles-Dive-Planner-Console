@@ -1,12 +1,9 @@
-using System.Text.Json.Serialization;
-
 namespace BubblesDivePlanner.Models.DiveModels.Types
 {
     public class Zhl16Buhlmann : DiveModel
     {
         private const byte NUMBER_OF_COMPARTMENTS = 16;
 
-        [JsonConstructor]
         public Zhl16Buhlmann(IDiveProfile diveProfile) : base(diveProfile)
         {
             Name = DiveModelNames.ZHL16_B.ToString(); // "Zhl16-B Model";

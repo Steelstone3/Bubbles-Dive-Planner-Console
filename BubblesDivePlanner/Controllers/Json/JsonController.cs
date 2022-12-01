@@ -73,15 +73,15 @@ namespace BubblesDivePlanner.Controllers.Json
             }
             else if (diveModelName == DiveModelNames.ZHL12.ToString())
             {
-                jsonConverters.Add(new AbstractConverter<FakeZhl12Buhlmann, IDiveModel>());
+                jsonConverters.Add(new AbstractConverter<Zhl12Buhlmann, IDiveModel>());
             }
             else if (diveModelName == DiveModelNames.USN_REVISION_6.ToString())
             {
-                jsonConverters.Add(new AbstractConverter<FakeUsnRev6, IDiveModel>());
+                jsonConverters.Add(new AbstractConverter<UsnRevision6, IDiveModel>());
             }
             else if (diveModelName == DiveModelNames.DCAP_MF11F6.ToString())
             {
-                jsonConverters.Add(new AbstractConverter<DcapMf11f6Model, IDiveModel>());
+                jsonConverters.Add(new AbstractConverter<DcapMf11f6, IDiveModel>());
             }
         }
     }

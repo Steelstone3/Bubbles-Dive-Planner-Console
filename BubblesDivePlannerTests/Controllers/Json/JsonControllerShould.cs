@@ -73,7 +73,7 @@ namespace BubblesDivePlannerTests.Controllers.Json
 
             // Then
             var expectedLastDivePlan = divePlans.Last();
-            Assert.IsType<FakeUsnRev6>(expectedLastDivePlan.DiveModel);
+            Assert.IsType<UsnRevision6>(expectedLastDivePlan.DiveModel);
             Assert.Equivalent(expectedLastDivePlan, actualLastDivePlan);
         }
 
@@ -148,7 +148,7 @@ namespace BubblesDivePlannerTests.Controllers.Json
                 defaultValue,
                 defaultValue
             );
-            var diveModel = new FakeUsnRev6(diveProfile);
+            var diveModel = new UsnRevision6(diveProfile);
 
             var divePlan = new DivePlan(diveModel, TestFixture.FixtureCylinders(), TestFixture.FixtureDiveStep, TestFixture.FixtureSelectedCylinder);
             divePlans.Add(divePlan);
