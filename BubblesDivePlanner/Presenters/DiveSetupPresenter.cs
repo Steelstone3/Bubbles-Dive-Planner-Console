@@ -29,7 +29,7 @@ namespace BubblesDivePlanner.Presenters
                 new Zhl16Buhlmann(null),
                 // new Zhl12Buhlmann(null),
                 new UsnRevision6(null),
-                // new DcapMf11f6(null),
+                new DcapMf11f6(null),
             };
 
             var selectionPrompt = new SelectionPrompt<IDiveModel> { Converter = diveModel => diveModel.Name };
@@ -39,12 +39,12 @@ namespace BubblesDivePlanner.Presenters
             .AddChoices(diveModels));
         }
 
-        public List<ICylinder> CreateCylinders()
+        public List<ICylinder> CreateCylinders(string diveModelName)
         {
             var cylinders = new List<ICylinder>();
             do
             {
-                cylinders.Add(CreateCylinder());
+                cylinders.Add(CreateCylinder(diveModelName));
             } while (presenter.GetConfirmation("Create Another Cylinder?"));
 
             return cylinders;
@@ -130,14 +130,23 @@ namespace BubblesDivePlanner.Presenters
             return cylindersTable;
         }
 
-        private Cylinder CreateCylinder()
+        private Cylinder CreateCylinder(string diveModelName)
         {
+            var gasMixture = new GasMixture(0, 0);
+
             var name = presenter.GetString("Enter Cylinder Name:");
             var cylinderVolume = presenter.GetUshort("Enter Cylinder Volume:", 3, 15);
             var cylinderPressure = presenter.GetUshort("Enter Cylinder Pressure:", 50, 300);
             var surfaceAirConsumption = presenter.GetByte("Enter Surface Air Consumption Rate:", 5, 30);
             var oxygenPercentage = presenter.GetByte("Enter Oxygen:", 5, 100);
-            var gasMixture = new GasMixture(oxygenPercentage, presenter.GetByte("Enter Helium:", 0, (byte)(100 - oxygenPercentage)));
+            if (diveModelName == DiveModelNames.DCAP_MF11F6.ToString())
+            {
+                gasMixture = new GasMixture(oxygenPercentage, 0);
+            }
+            else
+            {
+                gasMixture = new GasMixture(oxygenPercentage, presenter.GetByte("Enter Helium:", 0, (byte)(100 - oxygenPercentage)));
+            }
 
             return new Cylinder(
                 name,

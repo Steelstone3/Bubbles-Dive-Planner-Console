@@ -28,7 +28,7 @@ namespace BubblesDivePlanner.Controllers
             if (divePlan == null)
             {
                 diveModel = diveSetupPresenter.SelectDiveModel();
-                cylinders = diveSetupPresenter.CreateCylinders();
+                cylinders = diveSetupPresenter.CreateCylinders(diveModel.Name);
             }
             else
             {
@@ -43,7 +43,7 @@ namespace BubblesDivePlanner.Controllers
 
                 if (divePlan.Cylinders == null)
                 {
-                    cylinders = diveSetupPresenter.CreateCylinders();
+                    cylinders = diveSetupPresenter.CreateCylinders(diveModel.Name);
                 }
                 else
                 {

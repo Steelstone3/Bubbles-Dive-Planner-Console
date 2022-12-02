@@ -1,5 +1,7 @@
 using BubblesDivePlanner.Controllers;
 using BubblesDivePlanner.Models;
+using BubblesDivePlanner.Models.DiveModels;
+using BubblesDivePlanner.Models.DiveModels.Types;
 using BubblesDivePlanner.Presenters;
 using Moq;
 using Xunit;
@@ -18,10 +20,11 @@ namespace BubblesDivePlannerTests.Controllers
         public void SetupADivePlan()
         {
             // Given
+            var diveModel = new Zhl12Buhlmann(null);
             diveSetupPresenter = new Mock<IDiveSetupPresenter>();
             diveSetupPresenter.Setup(dp => dp.WelcomeMessage());
-            diveSetupPresenter.Setup(dp => dp.SelectDiveModel());
-            diveSetupPresenter.Setup(dp => dp.CreateCylinders());
+            diveSetupPresenter.Setup(dp => dp.SelectDiveModel()).Returns(diveModel);
+            diveSetupPresenter.Setup(dp => dp.CreateCylinders(diveModel.Name));
             diveController = new DiveController(diveStepPresenter.Object, diveSetupPresenter.Object, diveStagesController.Object);
 
             // When
@@ -40,7 +43,7 @@ namespace BubblesDivePlannerTests.Controllers
             diveSetupPresenter = new Mock<IDiveSetupPresenter>();
             diveSetupPresenter.Setup(dp => dp.WelcomeMessage());
             diveSetupPresenter.Setup(dp => dp.SelectDiveModel());
-            diveSetupPresenter.Setup(dp => dp.CreateCylinders());
+            diveSetupPresenter.Setup(dp => dp.CreateCylinders(DiveModelNames.ZHL16_B.ToString()));
             diveController = new DiveController(diveStepPresenter.Object, diveSetupPresenter.Object, diveStagesController.Object);
 
             // When
@@ -49,7 +52,7 @@ namespace BubblesDivePlannerTests.Controllers
             // Then
             diveSetupPresenter.Verify(dsp => dsp.WelcomeMessage(), Times.Once);
             diveSetupPresenter.Verify(dsp => dsp.SelectDiveModel(), Times.Never);
-            diveSetupPresenter.Verify(dsp => dsp.CreateCylinders(), Times.Never);
+            diveSetupPresenter.Verify(dsp => dsp.CreateCylinders(DiveModelNames.ZHL16_B.ToString()), Times.Never);
         }
 
         [Fact]
@@ -60,7 +63,7 @@ namespace BubblesDivePlannerTests.Controllers
             diveSetupPresenter = new Mock<IDiveSetupPresenter>();
             diveSetupPresenter.Setup(dp => dp.WelcomeMessage());
             diveSetupPresenter.Setup(dp => dp.SelectDiveModel());
-            diveSetupPresenter.Setup(dp => dp.CreateCylinders());
+            diveSetupPresenter.Setup(dp => dp.CreateCylinders(DiveModelNames.ZHL16_B.ToString()));
             diveController = new DiveController(diveStepPresenter.Object, diveSetupPresenter.Object, diveStagesController.Object);
 
             // When
@@ -68,7 +71,7 @@ namespace BubblesDivePlannerTests.Controllers
 
             // Then
             diveSetupPresenter.Verify(dsp => dsp.WelcomeMessage(), Times.Once);
-            diveSetupPresenter.Verify(dsp => dsp.CreateCylinders(), Times.Once);
+            diveSetupPresenter.Verify(dsp => dsp.CreateCylinders(DiveModelNames.ZHL16_B.ToString()), Times.Once);
             diveSetupPresenter.Verify(dsp => dsp.SelectDiveModel(), Times.Never);
         }
 
@@ -80,7 +83,7 @@ namespace BubblesDivePlannerTests.Controllers
             diveSetupPresenter = new Mock<IDiveSetupPresenter>();
             diveSetupPresenter.Setup(dp => dp.WelcomeMessage());
             diveSetupPresenter.Setup(dp => dp.SelectDiveModel());
-            diveSetupPresenter.Setup(dp => dp.CreateCylinders());
+            diveSetupPresenter.Setup(dp => dp.CreateCylinders(DiveModelNames.ZHL16_B.ToString()));
             diveController = new DiveController(diveStepPresenter.Object, diveSetupPresenter.Object, diveStagesController.Object);
 
             // When
@@ -89,7 +92,7 @@ namespace BubblesDivePlannerTests.Controllers
             // Then
             diveSetupPresenter.Verify(dsp => dsp.WelcomeMessage(), Times.Once);
             diveSetupPresenter.Verify(dsp => dsp.SelectDiveModel(), Times.Once);
-            diveSetupPresenter.Verify(dsp => dsp.CreateCylinders(), Times.Never);
+            diveSetupPresenter.Verify(dsp => dsp.CreateCylinders(DiveModelNames.ZHL16_B.ToString()), Times.Never);
         }
 
         [Fact]

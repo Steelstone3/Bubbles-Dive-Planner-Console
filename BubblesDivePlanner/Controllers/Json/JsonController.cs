@@ -60,6 +60,10 @@ namespace BubblesDivePlanner.Controllers.Json
             {
                 return DiveModelNames.USN_REVISION_6.ToString();
             }
+            else if (expectedDivePlanJson.Contains(DiveModelNames.DCAP_MF11F6.ToString()))
+            {
+                return DiveModelNames.DCAP_MF11F6.ToString();
+            }
 
             return null;
         }
