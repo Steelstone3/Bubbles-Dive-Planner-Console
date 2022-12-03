@@ -30,25 +30,15 @@ namespace BubblesDivePlanner.Controllers
                 diveModel = diveSetupPresenter.SelectDiveModel();
                 cylinders = diveSetupPresenter.CreateCylinders(diveModel.Name);
             }
+            else if (divePlan.DiveModel == null || divePlan.Cylinders == null)
+            {
+                diveModel = diveSetupPresenter.SelectDiveModel();
+                cylinders = diveSetupPresenter.CreateCylinders(diveModel.Name);
+            }
             else
             {
-                if (divePlan.DiveModel == null)
-                {
-                    diveModel = diveSetupPresenter.SelectDiveModel();
-                }
-                else
-                {
-                    diveModel = divePlan.DiveModel;
-                }
-
-                if (divePlan.Cylinders == null)
-                {
-                    cylinders = diveSetupPresenter.CreateCylinders(diveModel.Name);
-                }
-                else
-                {
-                    cylinders = divePlan.Cylinders;
-                }
+                diveModel = divePlan.DiveModel;
+                cylinders = divePlan.Cylinders;
             }
         }
 
