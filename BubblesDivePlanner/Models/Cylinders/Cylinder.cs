@@ -5,13 +5,13 @@ namespace BubblesDivePlanner.Models.Cylinders
         public Cylinder(string name, ushort cylinderVolume, ushort cylinderPressure, byte surfaceAirConsumptionRate, IGasMixture gasMixture, ushort remainingGas, ushort usedGas)
         {
             Name = name;
-            CylinderVolume = AssignCylinderVolume(cylinderVolume);
-            CylinderPressure = AssignCylinderPressure(cylinderPressure);
+            CylinderVolume = cylinderVolume;
+            CylinderPressure = cylinderPressure;
             InitialPressurisedVolume = CalculateInitialPressurisedVolume();
             RemainingGas = remainingGas;
             RemainingGas = AssignRemainingGas(remainingGas);
             UsedGas = usedGas;
-            SurfaceAirConsumptionRate = AssignSurfaceAirConsumptionRate(surfaceAirConsumptionRate);
+            SurfaceAirConsumptionRate = surfaceAirConsumptionRate;
             GasMixture = gasMixture;
         }
 
@@ -26,7 +26,8 @@ namespace BubblesDivePlanner.Models.Cylinders
 
         public void UpdateCylinderGasConsumption(IDiveStep diveStep)
         {
-            UsedGas = (ushort)(((diveStep.Depth / 10) + 1) * diveStep.Time * SurfaceAirConsumptionRate);
+            var depthPressure = diveStep.Depth != 0 ? ((diveStep.Depth / 10) + 1) : 0;
+            UsedGas = diveStep.Time != 0 ? (ushort)(depthPressure * diveStep.Time * SurfaceAirConsumptionRate) : (ushort)0;
             RemainingGas = UsedGas < RemainingGas ? (ushort)(RemainingGas - UsedGas) : (ushort)0;
         }
 
@@ -34,27 +35,6 @@ namespace BubblesDivePlanner.Models.Cylinders
         {
             return (ushort)(CylinderVolume * CylinderPressure);
         }
-
-        private static ushort AssignCylinderVolume(ushort cylinderVolume) => cylinderVolume switch
-        {
-            > 30 => 30,
-            < 3 => 3,
-            _ => cylinderVolume
-        };
-
-        private static ushort AssignCylinderPressure(ushort cylinderPressure) => cylinderPressure switch
-        {
-            > 300 => 300,
-            < 50 => 50,
-            _ => cylinderPressure,
-        };
-
-        private static byte AssignSurfaceAirConsumptionRate(byte surfaceAirConsumptionRate) => surfaceAirConsumptionRate switch
-        {
-            > 30 => 30,
-            < 3 => 3,
-            _ => surfaceAirConsumptionRate
-        };
 
         private ushort AssignRemainingGas(ushort remainingGas)
         {
