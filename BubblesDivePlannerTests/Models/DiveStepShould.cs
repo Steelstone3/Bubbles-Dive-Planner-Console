@@ -9,8 +9,6 @@ namespace Name
         [InlineData(50, 50)]
         [InlineData(60, 60)]
         [InlineData(100, 100)]
-        [InlineData(101, 100)]
-        [InlineData(200, 100)]
         public void ContainsDepth(byte depth, byte expectedDepth)
         {
             // Given
@@ -26,8 +24,6 @@ namespace Name
         [Theory]
         [InlineData(50, 50)]
         [InlineData(60, 60)]
-        [InlineData(61, 60)]
-        [InlineData(70, 60)]
         public void ContainsTime(byte time, byte expectedTime)
         {
             // Given
