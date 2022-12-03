@@ -44,7 +44,7 @@ namespace Name
             presenter.VerifyAll();
         }
 
-         [Fact]
+        [Fact]
         public void CreateCylindersWithoutHeliox()
         {
             // Given
@@ -62,7 +62,7 @@ namespace Name
 
             // Then
             presenter.Verify(p => p.GetByte("Enter Helium:", 0, 80), Times.Never);
-             presenter.Verify(p => p.GetConfirmation("Create Another Cylinder?"));
+            presenter.Verify(p => p.GetConfirmation("Create Another Cylinder?"));
             presenter.Verify(p => p.GetString("Enter Cylinder Name:"));
             presenter.Verify(p => p.GetByte("Enter Oxygen:", 5, 100));
             presenter.Verify(p => p.GetUshort("Enter Cylinder Volume:", 3, 15));
