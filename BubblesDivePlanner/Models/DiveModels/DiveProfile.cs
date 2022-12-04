@@ -76,5 +76,10 @@ namespace BubblesDivePlanner.Models.DiveModels
             HeliumPressureAtDepth = heliumPressureAtDepth;
             NitrogenPressureAtDepth = nitrogenPressureAtDepth;
         }
+
+        public void UpdateDepthCeiling(double depthCeiling)
+        {
+            DepthCeiling = depthCeiling;
+        }
     }
 }

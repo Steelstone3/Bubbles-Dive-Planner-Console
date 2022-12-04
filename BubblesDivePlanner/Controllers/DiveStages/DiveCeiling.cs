@@ -15,7 +15,7 @@ namespace BubblesDivePlanner.Controllers.DiveStages
 
         public void RunDiveStage()
         {
-            diveProfile.DepthCeiling = Math.Round((diveProfile.ToleratedAmbientPressures.Max() - 1.0) * 10.0, 2);
+            diveProfile.UpdateDepthCeiling(Math.Round((diveProfile.ToleratedAmbientPressures.Max() - 1.0) * 10.0, 2));
         }
     }
 }
