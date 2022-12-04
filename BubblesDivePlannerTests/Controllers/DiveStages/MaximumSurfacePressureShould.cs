@@ -23,6 +23,7 @@ namespace BubblesDivePlannerTests.Controllers.DiveStages
                 null,
                 0,
                 0,
+                0,
                 0
             ));
             var diveStage = new MaximumSurfacePressure(diveModel);

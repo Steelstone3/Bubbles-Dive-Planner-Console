@@ -1,13 +1,13 @@
-using BubblesDivePlanner.DiveStages;
+using BubblesDivePlanner.Controllers.DiveStages;
 using BubblesDivePlanner.Models.DiveModels;
 using Xunit;
 
 namespace BubblesDivePlannerTests.Controllers.DiveStages
 {
-    public class ToleratedAmbientPressureShould
+    public class DiveCeilingShould
     {
         [Fact]
-        public void RunToleratedAmbientPressureStage()
+        public void RunDiveCeilingStage()
         {
             //Arrange
             var diveModel = TestFixture.FixtureDiveModel;
@@ -15,24 +15,24 @@ namespace BubblesDivePlannerTests.Controllers.DiveStages
             (
                 null,
                 null,
-                TestFixture.ExpectedTotalTissuePressures,
                 null,
-                TestFixture.DefaultList,
-                TestFixture.ExpectedAValues,
-                TestFixture.ExpectedBValues,
+                null,
+                TestFixture.ExpectedToleratedAmbientPressures,
+                null,
+                null,
                 null,
                 0,
                 0,
                 0,
                 0
             ));
-            var diveStage = new ToleratedAmbientPressure(diveModel);
+            var diveStage = new DiveCeiling(diveModel.DiveProfile);
 
             //Act
             diveStage.RunDiveStage();
 
             //Assert
-            Assert.Equal(TestFixture.ExpectedToleratedAmbientPressures, diveModel.DiveProfile.ToleratedAmbientPressures);
+            Assert.Equal(4.07, diveModel.DiveProfile.DepthCeiling);
         }
     }
 }

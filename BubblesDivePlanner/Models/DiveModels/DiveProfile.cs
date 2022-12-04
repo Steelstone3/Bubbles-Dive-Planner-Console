@@ -30,7 +30,8 @@ namespace BubblesDivePlanner.Models.DiveModels
                    double[] compartmentLoads,
                    double oxygenPressureAtDepth,
                    double heliumPressureAtDepth,
-                   double nitrogenPressureAtDepth
+                   double nitrogenPressureAtDepth,
+                   double depthCeiling
         )
         {
             NitrogenTissuePressures = nitrogenTissuePressures;
@@ -44,6 +45,7 @@ namespace BubblesDivePlanner.Models.DiveModels
             OxygenPressureAtDepth = oxygenPressureAtDepth;
             HeliumPressureAtDepth = heliumPressureAtDepth;
             NitrogenPressureAtDepth = nitrogenPressureAtDepth;
+            DepthCeiling = depthCeiling;
         }
 
         public double[] NitrogenTissuePressures { get; private set; }
@@ -57,6 +59,7 @@ namespace BubblesDivePlanner.Models.DiveModels
         public double OxygenPressureAtDepth { get; private set; }
         public double HeliumPressureAtDepth { get; private set; }
         public double NitrogenPressureAtDepth { get; private set; }
+        public double DepthCeiling { get; set; }
 
         private void DefaultValues(byte compartmentCount)
         {
@@ -80,6 +83,7 @@ namespace BubblesDivePlanner.Models.DiveModels
             OxygenPressureAtDepth = diveProfile.OxygenPressureAtDepth;
             HeliumPressureAtDepth = diveProfile.HeliumPressureAtDepth;
             NitrogenPressureAtDepth = diveProfile.NitrogenPressureAtDepth;
+            DepthCeiling = diveProfile.DepthCeiling;
         }
 
         public void UpdateGasMixtureUnderPressure(double oxygenPressureAtDepth, double heliumPressureAtDepth, double nitrogenPressureAtDepth)

@@ -23,6 +23,7 @@ namespace BubblesDivePlannerTests.Controllers.DiveStages
                 TestFixture.DefaultList,
                 0,
                 0,
+                0,
                 0
             ));
             var diveStage = new CompartmentLoad(diveModel);

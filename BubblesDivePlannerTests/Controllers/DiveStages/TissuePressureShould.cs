@@ -23,7 +23,8 @@ namespace BubblesDivePlannerTests.Controllers.DiveStages
                 null,
                 TestFixture.ExpectedOxygenPressureAtDepth,
                 TestFixture.ExpectedHeliumPressureAtDepth,
-                TestFixture.ExpectedNitrogenPressureAtDepth
+                TestFixture.ExpectedNitrogenPressureAtDepth,
+                0
             ));
             var diveStep = TestFixture.FixtureDiveStep;
             var diveStage = new TissuePressure(diveModel, diveStep);

@@ -59,6 +59,7 @@ namespace BubblesDivePlanner.Presenters
             var diveProfileTable = CreateDiveProfileTable();
             diveProfileTable = AssignDiveProfileTableRows(diveProfileTable, diveProfile);
             AnsiConsole.Write(diveProfileTable);
+            presenter.Print($"Depth Ceiling: {diveModel.DiveProfile.DepthCeiling}");
 
             presenter.Print("Cylinders:");
             var cylindersTable = CreateCylindersTable();
