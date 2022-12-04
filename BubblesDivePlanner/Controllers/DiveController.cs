@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using BubblesDivePlanner.Models;
 using BubblesDivePlanner.Models.Cylinders;
@@ -44,7 +45,16 @@ namespace BubblesDivePlanner.Controllers
 
         public IDivePlan SetupDiveStep()
         {
-            return new DivePlan(diveModel, cylinders, diveStepPresenter.CreateDiveStep(), diveStepPresenter.SelectCylinder(cylinders));
+            var maximumDepth = (byte)100;
+            var selectedCylinder = diveStepPresenter.SelectCylinder(cylinders);
+
+            if (selectedCylinder != null)
+            {
+                maximumDepth = selectedCylinder.GasMixture.MaximumOperatingDepth < 100 ?
+                   (byte)Math.Floor(selectedCylinder.GasMixture.MaximumOperatingDepth) : (byte)100;
+            }
+
+            return new DivePlan(diveModel, cylinders, diveStepPresenter.CreateDiveStep(maximumDepth), selectedCylinder);
         }
 
         public IDivePlan RunDiveProfile(IDivePlan divePlan)

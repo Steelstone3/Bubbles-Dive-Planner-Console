@@ -14,18 +14,22 @@ namespace BubblesDivePlanner.Presenters
             this.presenter = presenter;
         }
 
-        public IDiveStep CreateDiveStep()
+        public IDiveStep CreateDiveStep(byte maximumOperatingDepth)
         {
-            return new DiveStep(presenter.GetByte("Enter Depth:", 0, 100), presenter.GetByte("Enter Time:", 1, 60));
+            return new DiveStep(presenter.GetByte("Enter Depth:", 0, maximumOperatingDepth), presenter.GetByte("Enter Time:", 1, 60));
         }
 
         public ICylinder SelectCylinder(List<ICylinder> cylinders)
         {
             var selectionPrompt = new SelectionPrompt<ICylinder> { Converter = cylinder => cylinder.Name };
 
-            return AnsiConsole.Prompt(selectionPrompt
+            var selectedCylinder = AnsiConsole.Prompt(selectionPrompt
             .Title("Select Cylinder:")
             .AddChoices(cylinders));
+
+            presenter.Print($"Selected Cylinder: {selectedCylinder.Name}");
+
+            return selectedCylinder;
         }
     }
 }

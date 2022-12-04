@@ -1,5 +1,6 @@
 using BubblesDivePlanner.Controllers;
 using BubblesDivePlanner.Models;
+using BubblesDivePlanner.Models.Cylinders;
 using BubblesDivePlanner.Models.DiveModels;
 using BubblesDivePlanner.Models.DiveModels.Types;
 using BubblesDivePlanner.Presenters;
@@ -95,8 +96,46 @@ namespace BubblesDivePlannerTests.Controllers
         public void SetupADiveStep()
         {
             // Given
-            diveStepPresenter.Setup(ds => ds.CreateDiveStep());
+            diveStepPresenter.Setup(ds => ds.CreateDiveStep(100));
             diveStepPresenter.Setup(ds => ds.SelectCylinder(null));
+            diveController = new DiveController(diveStepPresenter.Object, diveSetupPresenter.Object, diveStagesController.Object);
+
+            // When
+            diveController.SetupDiveStep();
+
+            // Then
+            diveStepPresenter.VerifyAll();
+        }
+
+        [Fact]
+        public void SetupADiveStepWithASelectedCylinder()
+        {
+            // Given
+            Mock<IGasMixture> gasMixture = new();
+            gasMixture.Setup(gm => gm.MaximumOperatingDepth).Returns(56.67);
+            Mock<ICylinder> cylinder = new();
+            cylinder.Setup(c => c.GasMixture).Returns(gasMixture.Object);
+            diveStepPresenter.Setup(ds => ds.CreateDiveStep(56));
+            diveStepPresenter.Setup(ds => ds.SelectCylinder(null)).Returns(cylinder.Object);
+            diveController = new DiveController(diveStepPresenter.Object, diveSetupPresenter.Object, diveStagesController.Object);
+
+            // When
+            diveController.SetupDiveStep();
+
+            // Then
+            diveStepPresenter.VerifyAll();
+        }
+
+        [Fact]
+        public void SetupADiveStepWithASelectedCylinderWithAMaximumOperatingDepthGreaterThanMaximumDepth()
+        {
+            // Given
+            Mock<IGasMixture> gasMixture = new();
+            gasMixture.Setup(gm => gm.MaximumOperatingDepth).Returns(200);
+            Mock<ICylinder> cylinder = new();
+            cylinder.Setup(c => c.GasMixture).Returns(gasMixture.Object);
+            diveStepPresenter.Setup(ds => ds.CreateDiveStep(100));
+            diveStepPresenter.Setup(ds => ds.SelectCylinder(null)).Returns(cylinder.Object);
             diveController = new DiveController(diveStepPresenter.Object, diveSetupPresenter.Object, diveStagesController.Object);
 
             // When

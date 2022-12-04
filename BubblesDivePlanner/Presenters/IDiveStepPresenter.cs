@@ -6,7 +6,7 @@ namespace BubblesDivePlanner.Presenters
 {
     public interface IDiveStepPresenter
     {
-        IDiveStep CreateDiveStep();
+        IDiveStep CreateDiveStep(byte maximumOperatingDepth);
         ICylinder SelectCylinder(List<ICylinder> cylinders);
     }
 }
