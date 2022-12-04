@@ -89,6 +89,7 @@ namespace BubblesDivePlanner.Presenters
             cylindersTable.AddColumn("Oxygen");
             cylindersTable.AddColumn("Nitrogen");
             cylindersTable.AddColumn("Helium");
+            cylindersTable.AddColumn("Maximum Operating Depth");
 
             return cylindersTable;
         }
@@ -102,7 +103,7 @@ namespace BubblesDivePlanner.Presenters
                     diveProfile.TotalTissuePressures[compartment].ToString(),
                     diveProfile.ToleratedAmbientPressures[compartment].ToString(),
                     diveProfile.MaxSurfacePressures[compartment].ToString(),
-                    diveProfile.CompartmentLoads[compartment].ToString()
+                    diveProfile.CompartmentLoads[compartment].ToString(),
                 };
 
                 diveProfileTable.AddRow(row);
@@ -122,7 +123,8 @@ namespace BubblesDivePlanner.Presenters
                     cylinder.UsedGas.ToString(),
                     cylinder.GasMixture.Oxygen.ToString(),
                     cylinder.GasMixture.Nitrogen.ToString(),
-                    cylinder.GasMixture.Helium.ToString()
+                    cylinder.GasMixture.Helium.ToString(),
+                    cylinder.GasMixture.MaximumOperatingDepth.ToString(),
                 };
                 cylindersTable.AddRow(row);
             }

@@ -5,5 +5,6 @@ namespace BubblesDivePlanner.Models.Cylinders
         byte Oxygen { get; }
         byte Helium { get; }
         byte Nitrogen { get; }
+        double MaximumOperatingDepth { get; }
     }
 }

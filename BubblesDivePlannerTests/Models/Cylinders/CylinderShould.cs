@@ -23,7 +23,7 @@ namespace BubblesDivePlannerTests.Models.Cylinders
         }
 
         [Fact]
-        public void TestName()
+        public void TestCylinderName()
         {
             Assert.Equal(name, cylinder.Name);
         }
