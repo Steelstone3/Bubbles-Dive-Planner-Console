@@ -15,7 +15,7 @@ namespace BubblesDivePlannerTests.Services
             // Given
             var presenter = new Mock<IPresenter>();
             presenter.Setup(p => p.GetConfirmation("Continue?")).Returns(false);
-            var divePlan = new DivePlan(TestFixture.FixtureDiveModel, TestFixture.FixtureCylinders(), TestFixture.FixtureDiveStep, TestFixture.FixtureSelectedCylinder);
+            var divePlan = new DivePlan(TestFixture.FixtureDiveModel(null), TestFixture.FixtureCylinders(), TestFixture.FixtureDiveStep, TestFixture.FixtureSelectedCylinder);
             var diveController = new Mock<IDiveController>();
             diveController.Setup(dc => dc.SetupDivePlan(divePlan));
             diveController.Setup(dc => dc.SetupDiveStep()).Returns(divePlan);

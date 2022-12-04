@@ -89,7 +89,7 @@ namespace BubblesDivePlannerTests.Models.DiveModels.Types
         public void ContainsDiveProfile()
         {
             // Given
-            var diveModel = new UsnRevision6(TestFixture.FixtureDiveModel.DiveProfile);
+            var diveModel = new UsnRevision6(TestFixture.FixtureDiveModel(null).DiveProfile);
 
             // Then
             Assert.NotNull(diveModel.DiveProfile);

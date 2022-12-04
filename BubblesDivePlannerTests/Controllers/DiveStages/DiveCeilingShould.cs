@@ -10,8 +10,7 @@ namespace BubblesDivePlannerTests.Controllers.DiveStages
         public void RunDiveCeilingStage()
         {
             //Arrange
-            var diveModel = TestFixture.FixtureDiveModel;
-            diveModel.DiveProfile.UpdateDiveProfile(new DiveProfile
+            var diveProfile = new DiveProfile
             (
                 null,
                 null,
@@ -25,7 +24,8 @@ namespace BubblesDivePlannerTests.Controllers.DiveStages
                 0,
                 0,
                 0
-            ));
+            );
+            var diveModel = TestFixture.FixtureDiveModel(diveProfile);
             var diveStage = new DiveCeiling(diveModel.DiveProfile);
 
             //Act

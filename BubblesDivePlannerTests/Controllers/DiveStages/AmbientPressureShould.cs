@@ -9,7 +9,7 @@ namespace BubblesDivePlannerTests.Controllers.DiveStages
         public void RunAmbientPressureStage()
         {
             //Arrange
-            var diveProfile = TestFixture.FixtureDiveModel.DiveProfile;
+            var diveProfile = TestFixture.FixtureDiveModel(null).DiveProfile;
             var gasMixtureModel = TestFixture.FixtureSelectedCylinder.GasMixture;
             var diveStepModel = TestFixture.FixtureDiveStep;
             IDiveStageCommand diveStage = new AmbientPressure(diveProfile, gasMixtureModel, diveStepModel);

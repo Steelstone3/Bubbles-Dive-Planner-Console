@@ -10,7 +10,7 @@ namespace BubblesDivePlannerTests.Controllers.DiveStages
         public void RunAbValuesStage()
         {
             //Arrange
-            var diveModel = TestFixture.FixtureDiveModel;
+            var diveModel = TestFixture.FixtureDiveModel(null);
             IDiveStageCommand diveStage = new AbValues(diveModel);
 
             //Act

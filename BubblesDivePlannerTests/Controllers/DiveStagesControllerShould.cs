@@ -11,7 +11,7 @@ namespace BubblesDivePlannerTests.Controllers
 
         public DiveStagesControllerShould()
         {
-            divePlan = new DivePlan(TestFixture.FixtureDiveModel, TestFixture.FixtureCylinders(), TestFixture.FixtureDiveStep, TestFixture.FixtureSelectedCylinder);
+            divePlan = new DivePlan(TestFixture.FixtureDiveModel(null), TestFixture.FixtureCylinders(), TestFixture.FixtureDiveStep, TestFixture.FixtureSelectedCylinder);
         }
 
         [Fact]

@@ -10,8 +10,7 @@ namespace BubblesDivePlannerTests.Controllers.DiveStages
         public void RunTissuePressureStages()
         {
             //Arrange
-            var diveModel = TestFixture.FixtureDiveModel;
-            diveModel.DiveProfile.UpdateDiveProfile(new DiveProfile
+            var diveProfile = new DiveProfile
             (
                 TestFixture.DefaultTissuesList,
                 TestFixture.DefaultList,
@@ -25,7 +24,8 @@ namespace BubblesDivePlannerTests.Controllers.DiveStages
                 TestFixture.ExpectedHeliumPressureAtDepth,
                 TestFixture.ExpectedNitrogenPressureAtDepth,
                 0
-            ));
+            );
+            var diveModel = TestFixture.FixtureDiveModel(diveProfile);
             var diveStep = TestFixture.FixtureDiveStep;
             var diveStage = new TissuePressure(diveModel, diveStep);
 

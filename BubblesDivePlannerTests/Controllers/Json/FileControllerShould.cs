@@ -74,7 +74,7 @@ namespace BubblesDivePlannerTests.Controllers.Json
         public void Intergrate()
         {
             // Given
-            var expectedDivePlan = new DivePlan(TestFixture.FixtureDiveModel, TestFixture.FixtureCylinders(), TestFixture.FixtureDiveStep, TestFixture.FixtureSelectedCylinder);
+            var expectedDivePlan = new DivePlan(TestFixture.FixtureDiveModel(null), TestFixture.FixtureCylinders(), TestFixture.FixtureDiveStep, TestFixture.FixtureSelectedCylinder);
             presenter.Setup(p => p.GetConfirmation("Save File?")).Returns(true);
             presenter.Setup(p => p.GetConfirmation("Load File?")).Returns(true);
             fileController = new FileController(presenter.Object, new JsonController(), new());
@@ -101,7 +101,7 @@ namespace BubblesDivePlannerTests.Controllers.Json
         public void IntergrateDenyLoad()
         {
             // Given
-            var expectedDivePlan = new DivePlan(TestFixture.FixtureDiveModel, TestFixture.FixtureCylinders(), TestFixture.FixtureDiveStep, TestFixture.FixtureSelectedCylinder);
+            var expectedDivePlan = new DivePlan(TestFixture.FixtureDiveModel(null), TestFixture.FixtureCylinders(), TestFixture.FixtureDiveStep, TestFixture.FixtureSelectedCylinder);
             presenter.Setup(p => p.GetConfirmation("Save File?")).Returns(true);
             presenter.Setup(p => p.GetConfirmation("Load File?")).Returns(false);
             fileController = new FileController(presenter.Object, new JsonController(), new());

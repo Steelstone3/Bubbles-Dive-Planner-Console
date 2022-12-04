@@ -39,7 +39,7 @@ namespace BubblesDivePlannerTests.Controllers
         public void LoadFromFileDivePlan()
         {
             // Given
-            divePlan.Setup(dp => dp.DiveModel).Returns(TestFixture.FixtureDiveModel);
+            divePlan.Setup(dp => dp.DiveModel).Returns(TestFixture.FixtureDiveModel(null));
             divePlan.Setup(dp => dp.Cylinders).Returns(TestFixture.FixtureCylinders());
             diveSetupPresenter = new Mock<IDiveSetupPresenter>();
             diveSetupPresenter.Setup(dp => dp.WelcomeMessage());
@@ -60,7 +60,7 @@ namespace BubblesDivePlannerTests.Controllers
         public void LoadDiveModelFromFileDivePlan()
         {
             // Given
-            divePlan.Setup(dp => dp.DiveModel).Returns(TestFixture.FixtureDiveModel);
+            divePlan.Setup(dp => dp.DiveModel).Returns(TestFixture.FixtureDiveModel(null));
             diveSetupPresenter = new Mock<IDiveSetupPresenter>();
             diveSetupPresenter.Setup(dp => dp.WelcomeMessage());
             diveSetupPresenter.Setup(dp => dp.SelectDiveModel()).Returns(new Zhl16Buhlmann(null));
@@ -163,7 +163,7 @@ namespace BubblesDivePlannerTests.Controllers
         public void PrintDiveResults()
         {
             // Given
-            var divePlan = new DivePlan(TestFixture.FixtureDiveModel, TestFixture.FixtureCylinders(), TestFixture.FixtureDiveStep, TestFixture.FixtureSelectedCylinder);
+            var divePlan = new DivePlan(TestFixture.FixtureDiveModel(null), TestFixture.FixtureCylinders(), TestFixture.FixtureDiveStep, TestFixture.FixtureSelectedCylinder);
             diveSetupPresenter.Setup(dsp => dsp.PrintDiveResults(divePlan));
             diveController = new DiveController(diveStepPresenter.Object, diveSetupPresenter.Object, diveStagesController.Object);
 

@@ -70,22 +70,6 @@ namespace BubblesDivePlanner.Models.DiveModels
             }
         }
 
-        public void UpdateDiveProfile(IDiveProfile diveProfile)
-        {
-            NitrogenTissuePressures = diveProfile.NitrogenTissuePressures;
-            HeliumTissuePressures = diveProfile.HeliumTissuePressures;
-            TotalTissuePressures = diveProfile.TotalTissuePressures;
-            MaxSurfacePressures = diveProfile.MaxSurfacePressures;
-            ToleratedAmbientPressures = diveProfile.ToleratedAmbientPressures;
-            AValues = diveProfile.AValues;
-            BValues = diveProfile.BValues;
-            CompartmentLoads = diveProfile.CompartmentLoads;
-            OxygenPressureAtDepth = diveProfile.OxygenPressureAtDepth;
-            HeliumPressureAtDepth = diveProfile.HeliumPressureAtDepth;
-            NitrogenPressureAtDepth = diveProfile.NitrogenPressureAtDepth;
-            DepthCeiling = diveProfile.DepthCeiling;
-        }
-
         public void UpdateGasMixtureUnderPressure(double oxygenPressureAtDepth, double heliumPressureAtDepth, double nitrogenPressureAtDepth)
         {
             OxygenPressureAtDepth = oxygenPressureAtDepth;

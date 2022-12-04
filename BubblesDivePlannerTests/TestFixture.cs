@@ -10,7 +10,10 @@ namespace BubblesDivePlannerTests
     {
         private const byte COMPARTMENT_COUNT = 16;
 
-        public static IDiveModel FixtureDiveModel => new Zhl16Buhlmann(null);
+        public static IDiveModel FixtureDiveModel(IDiveProfile diveProfile)
+        {
+            return new Zhl16Buhlmann(diveProfile);
+        }
 
         public static DiveStep FixtureDiveStep => new(50, 10);
 

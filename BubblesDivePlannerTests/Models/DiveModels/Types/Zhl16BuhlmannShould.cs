@@ -89,7 +89,7 @@ namespace BubblesDivePlannerTests.Models.DiveModels.Types
         public void ContainsDiveProfile()
         {
             // Given
-            var diveModel = new Zhl16Buhlmann(TestFixture.FixtureDiveModel.DiveProfile);
+            var diveModel = new Zhl16Buhlmann(TestFixture.FixtureDiveModel(null).DiveProfile);
 
             // Then
             Assert.NotNull(diveModel.DiveProfile);
