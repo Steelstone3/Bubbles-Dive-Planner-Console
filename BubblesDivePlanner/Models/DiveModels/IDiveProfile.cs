@@ -14,7 +14,7 @@ namespace BubblesDivePlanner.Models.DiveModels
         double HeliumPressureAtDepth { get; }
         double NitrogenPressureAtDepth { get; }
         double DepthCeiling { get; }
-        void UpdateDepthCeiling(double depthCeiling);
+        void UpdateDepthCeiling();
         void UpdateGasMixtureUnderPressure
         (
             double oxygenPressureAtDepth,

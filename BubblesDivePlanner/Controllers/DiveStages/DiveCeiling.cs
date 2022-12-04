@@ -1,5 +1,3 @@
-using System;
-using System.Linq;
 using BubblesDivePlanner.Models.DiveModels;
 
 namespace BubblesDivePlanner.Controllers.DiveStages
@@ -15,7 +13,7 @@ namespace BubblesDivePlanner.Controllers.DiveStages
 
         public void RunDiveStage()
         {
-            diveProfile.UpdateDepthCeiling(Math.Round((diveProfile.ToleratedAmbientPressures.Max() - 1.0) * 10.0, 2));
+            diveProfile.UpdateDepthCeiling();
         }
     }
 }

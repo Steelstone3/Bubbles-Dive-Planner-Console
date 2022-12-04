@@ -7,7 +7,7 @@ namespace BubblesDivePlannerTests.Models.DiveModels
     {
         private const byte COMPARTMENT_COUNT = 10;
         private const double EXPECTED_PRESSURE_AT_DEPTH = 12.1;
-        private const double EXPECTED_DEPTH_CEILING = 12.1;
+        private const double EXPECTED_DEPTH_CEILING = 140;
         private readonly double[] expectedDefaultListValue = new double[COMPARTMENT_COUNT] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 };
         private readonly double[] expectedDefaultListTissuePressureValue = new double[COMPARTMENT_COUNT] { 0.79, 0.79, 0.79, 0.79, 0.79, 0.79, 0.79, 0.79, 0.79, 0.79 };
         private IDiveProfile diveProfile = new DiveProfile(COMPARTMENT_COUNT);
@@ -139,7 +139,9 @@ namespace BubblesDivePlannerTests.Models.DiveModels
         [Fact]
         public void UpdateDepthCeiling()
         {
-            diveProfile.UpdateDepthCeiling(EXPECTED_DEPTH_CEILING);
+            diveProfile = new DiveProfile(null, null, null,null, new double[] {5.0, 10.0, 15.0},null,null,null, 0, 0, 0, 0 );
+            
+            diveProfile.UpdateDepthCeiling();
 
             Assert.Equal(EXPECTED_DEPTH_CEILING, diveProfile.DepthCeiling);
         }

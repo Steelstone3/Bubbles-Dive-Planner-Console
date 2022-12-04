@@ -1,3 +1,5 @@
+using System;
+using System.Linq;
 using Newtonsoft.Json;
 
 namespace BubblesDivePlanner.Models.DiveModels
@@ -77,9 +79,9 @@ namespace BubblesDivePlanner.Models.DiveModels
             NitrogenPressureAtDepth = nitrogenPressureAtDepth;
         }
 
-        public void UpdateDepthCeiling(double depthCeiling)
+        public void UpdateDepthCeiling()
         {
-            DepthCeiling = depthCeiling;
+            DepthCeiling = Math.Round((ToleratedAmbientPressures.Max() - 1.0) * 10.0, 2);
         }
     }
 }
