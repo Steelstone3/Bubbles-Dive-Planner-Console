@@ -32,8 +32,7 @@ namespace BubblesDivePlannerTests.Models.DiveModels.Types
         [Fact]
         public void ContainsHeliumHalfTime()
         {
-            // No published helium half times
-            double[] expectedValue = new double[COMPARTMENT_COUNT] { 5.0 / 2.65, 10.0 / 2.65, 25.0 / 2.65, 55.0 / 2.65, 95.0 / 2.65, 145.0 / 2.65, 200.0 / 2.65, 285.0 / 2.65, 385.0 / 2.65, 520.0 / 2.65, 670.0 / 2.65 };
+            double[] expectedValue = new double[COMPARTMENT_COUNT] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 };
 
             Assert.Equal(expectedValue, diveModel.HeliumHalfTimes);
         }
@@ -57,8 +56,7 @@ namespace BubblesDivePlannerTests.Models.DiveModels.Types
         [Fact]
         public void ContainsAValuesHelium()
         {
-            // No published a values for helium
-            double[] expectedValue = new double[COMPARTMENT_COUNT] { 1.89, 1.415, 0.824, 0.418, 0.352, 0.346, 0.343, 0.35, 0.35, 0.34, 0.33 };
+            double[] expectedValue = new double[COMPARTMENT_COUNT] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 };
 
             Assert.Equal(expectedValue, diveModel.AValuesHelium);
         }
@@ -66,8 +64,7 @@ namespace BubblesDivePlannerTests.Models.DiveModels.Types
         [Fact]
         public void ContainsBValuesHelium()
         {
-            // No published b values for helium
-            double[] expectedValue = new double[COMPARTMENT_COUNT] { 0.769, 0.952, 0.926, 0.943, 0.962, 0.98, 0.99, 1.0, 1.0, 1.0, 1.0 };
+            double[] expectedValue = new double[COMPARTMENT_COUNT] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 };
 
             Assert.Equal(expectedValue, diveModel.BValuesHelium);
         }
