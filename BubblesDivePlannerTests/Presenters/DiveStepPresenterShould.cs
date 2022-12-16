@@ -18,7 +18,7 @@ namespace BubblesDivePlannerTests.Presenters
             diveStepPresenter = new DiveStepPresenter(presenter.Object);
 
             // When
-            diveStepPresenter.CreateDiveStep(56);
+            diveStepPresenter.CreateDiveStep(0, 56);
 
             // Then
             presenter.VerifyAll();

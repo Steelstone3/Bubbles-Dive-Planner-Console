@@ -18,7 +18,7 @@ namespace BubblesDivePlannerTests.Services
             var divePlan = new DivePlan(TestFixture.FixtureDiveModel(null), TestFixture.FixtureCylinders(), TestFixture.FixtureDiveStep, TestFixture.FixtureSelectedCylinder);
             var diveController = new Mock<IDiveController>();
             diveController.Setup(dc => dc.SetupDivePlan(divePlan));
-            diveController.Setup(dc => dc.SetupDiveStep()).Returns(divePlan);
+            diveController.Setup(dc => dc.SetupDiveStep(0)).Returns(divePlan);
             diveController.Setup(dc => dc.RunDiveProfile(divePlan)).Returns(divePlan);
             diveController.Setup(dc => dc.PrintDiveResults(divePlan));
             var fileController = new Mock<IFileController>();

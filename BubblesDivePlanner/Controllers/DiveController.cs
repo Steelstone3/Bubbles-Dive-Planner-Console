@@ -43,7 +43,7 @@ namespace BubblesDivePlanner.Controllers
             }
         }
 
-        public IDivePlan SetupDiveStep()
+        public IDivePlan SetupDiveStep(byte depthCeiling)
         {
             var maximumDepth = (byte)100;
             var selectedCylinder = diveStepPresenter.SelectCylinder(cylinders);
@@ -54,7 +54,7 @@ namespace BubblesDivePlanner.Controllers
                    (byte)Math.Floor(selectedCylinder.GasMixture.MaximumOperatingDepth) : (byte)100;
             }
 
-            return new DivePlan(diveModel, cylinders, diveStepPresenter.CreateDiveStep(maximumDepth), selectedCylinder);
+            return new DivePlan(diveModel, cylinders, diveStepPresenter.CreateDiveStep(depthCeiling, maximumDepth), selectedCylinder);
         }
 
         public IDivePlan RunDiveProfile(IDivePlan divePlan)

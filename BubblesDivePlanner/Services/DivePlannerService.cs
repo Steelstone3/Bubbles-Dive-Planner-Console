@@ -1,3 +1,4 @@
+using System;
 using BubblesDivePlanner.Controllers;
 using BubblesDivePlanner.Controllers.Json;
 using BubblesDivePlanner.Presenters;
@@ -22,7 +23,8 @@ namespace BubblesDivePlannerTests.Services
 
             do
             {
-                divePlan = diveController.SetupDiveStep();
+                var depthCeiling = divePlan?.DiveModel?.DiveProfile != null ? divePlan.DiveModel.DiveProfile.DepthCeiling : 0.0;
+                divePlan = diveController.SetupDiveStep((byte)Math.Ceiling(depthCeiling));
                 divePlan = diveController.RunDiveProfile(divePlan);
                 diveController.PrintDiveResults(divePlan);
                 fileController.AddDivePlan(divePlan);
