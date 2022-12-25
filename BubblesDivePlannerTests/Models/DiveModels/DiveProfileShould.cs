@@ -139,8 +139,8 @@ namespace BubblesDivePlannerTests.Models.DiveModels
         [Fact]
         public void UpdateDepthCeiling()
         {
-            diveProfile = new DiveProfile(null, null, null,null, new double[] {5.0, 10.0, 15.0},null,null,null, 0, 0, 0, 0 );
-            
+            diveProfile = new DiveProfile(null, null, null, null, new double[] { 5.0, 10.0, 15.0 }, null, null, null, 0, 0, 0, 0);
+
             diveProfile.UpdateDepthCeiling();
 
             Assert.Equal(EXPECTED_DEPTH_CEILING, diveProfile.DepthCeiling);

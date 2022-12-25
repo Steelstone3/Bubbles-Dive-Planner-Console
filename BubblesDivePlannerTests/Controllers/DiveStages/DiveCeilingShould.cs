@@ -32,7 +32,7 @@ namespace BubblesDivePlannerTests.Controllers.DiveStages
             diveStage.RunDiveStage();
 
             //Assert
-            Assert.Equal(4.07, diveModel.DiveProfile.DepthCeiling);
+            Assert.Equal(TestFixture.ExpectedDepthCeiling, diveModel.DiveProfile.DepthCeiling, 0.1);
         }
     }
 }

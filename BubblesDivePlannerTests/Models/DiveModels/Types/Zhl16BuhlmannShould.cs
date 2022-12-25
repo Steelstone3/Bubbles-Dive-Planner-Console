@@ -40,7 +40,7 @@ namespace BubblesDivePlannerTests.Models.DiveModels.Types
         [Fact]
         public void ContainsAValuesNitrogen()
         {
-            double[] expectedValue = new double[COMPARTMENT_COUNT] { 1.2559, 1.0000, 0.8618, 0.7562, 0.6667, 0.5600, 0.4947, 0.4500, 0.4187, 0.3798, 0.3497, 0.3223, 0.2850, 0.2737, 0.2523, 0.2327 };
+            double[] expectedValue = new double[COMPARTMENT_COUNT] { 1.2599, 1.0000, 0.8618, 0.7562, 0.6667, 0.5600, 0.4947, 0.4500, 0.4187, 0.3798, 0.3497, 0.3223, 0.2850, 0.2737, 0.2523, 0.2327 };
 
             Assert.Equal(expectedValue, diveModel.AValuesNitrogen);
         }
