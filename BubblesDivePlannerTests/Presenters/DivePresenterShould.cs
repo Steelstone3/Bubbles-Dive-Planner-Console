@@ -91,9 +91,23 @@ namespace BubblesDivePlannerTests.Presenters
             // Given
             presenter.Setup(p => p.GetConfirmation("Run Decompression Steps?"));
             divePresenter = new DivePresenter(presenter.Object);
-            
+
             // When
             divePresenter.ConfirmDecompression();
+
+            // Then
+            presenter.VerifyAll();
+        }
+
+        [Fact]
+        public void ConfirmContinueWithDive()
+        {
+            // Given
+            presenter.Setup(p => p.GetConfirmation("Continue?"));
+            divePresenter = new DivePresenter(presenter.Object);
+
+            // When
+            divePresenter.ConfirmContinueWithDive();
 
             // Then
             presenter.VerifyAll();

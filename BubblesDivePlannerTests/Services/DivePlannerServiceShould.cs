@@ -9,7 +9,7 @@ namespace BubblesDivePlannerTests.Services
 {
     public class DivePlannerServiceShould
     {
-        private readonly Mock<IPresenter> presenter = new();
+        private readonly Mock<IDivePresenter> divePresenter = new();
         private readonly Mock<IDiveController> diveController = new();
         private readonly Mock<IDecompressionController> decompressionController = new();
         private readonly Mock<IFileController> fileController = new();
@@ -18,7 +18,7 @@ namespace BubblesDivePlannerTests.Services
         {
             var divePlan = new DivePlan(TestFixture.FixtureDiveModel(null), TestFixture.FixtureCylinders(), TestFixture.FixtureDiveStep, TestFixture.FixtureSelectedCylinder);
 
-            presenter.Setup(p => p.GetConfirmation("Continue?")).Returns(false);
+            divePresenter.Setup(p => p.ConfirmContinueWithDive()).Returns(false);
             diveController.Setup(dc => dc.SetupDivePlan(divePlan));
             diveController.Setup(dc => dc.SetupDiveStep(0)).Returns(divePlan);
             diveController.Setup(dc => dc.RunDiveProfile(divePlan)).Returns(divePlan);
@@ -34,10 +34,10 @@ namespace BubblesDivePlannerTests.Services
         public void RunDivePlannerService()
         {
             // When
-            divePlannerService.Run(presenter.Object);
+            divePlannerService.Run(divePresenter.Object);
 
             // Then
-            presenter.VerifyAll();
+            divePresenter.VerifyAll();
             diveController.VerifyAll();
             decompressionController.VerifyAll();
             fileController.VerifyAll();

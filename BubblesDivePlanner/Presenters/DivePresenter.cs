@@ -184,5 +184,10 @@ namespace BubblesDivePlanner.Presenters
         {
             return presenter.GetConfirmation("Run Decompression Steps?");
         }
+
+        public bool ConfirmContinueWithDive()
+        {
+            return presenter.GetConfirmation("Continue?");
+        }
     }
 }

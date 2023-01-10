@@ -14,5 +14,6 @@ namespace BubblesDivePlanner.Presenters
         ICylinder SelectCylinder(List<ICylinder> cylinders);
         void PrintDiveResults(IDivePlan divePlan);
         bool ConfirmDecompression();
+        bool ConfirmContinueWithDive();
     }
 }

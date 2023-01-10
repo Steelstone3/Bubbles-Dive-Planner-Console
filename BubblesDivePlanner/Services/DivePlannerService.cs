@@ -16,7 +16,7 @@ namespace BubblesDivePlannerTests.Services
             this.fileController = fileController;
         }
 
-        public void Run(IPresenter presenter)
+        public void Run(IDivePresenter divePresenter)
         {
             var divePlan = fileController.LoadFile();
             diveController.SetupDivePlan(divePlan);
@@ -29,7 +29,7 @@ namespace BubblesDivePlannerTests.Services
                 diveController.PrintDiveResults(divePlan);
                 
                 fileController.AddDivePlan(divePlan);
-            } while (presenter.GetConfirmation("Continue?"));
+            } while (divePresenter.ConfirmContinueWithDive());
 
             fileController.SaveFile();
         }
