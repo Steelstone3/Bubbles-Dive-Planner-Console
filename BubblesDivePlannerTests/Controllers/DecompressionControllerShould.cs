@@ -1,4 +1,6 @@
 using BubblesDivePlanner.Controllers;
+using BubblesDivePlanner.Models;
+using BubblesDivePlanner.Presenters;
 using Moq;
 using Xunit;
 
@@ -6,19 +8,23 @@ namespace BubblesDivePlannerTests.Controllers
 {
     public class DecompressionControllerShould
     {
+        private readonly Mock<IDivePlan> divePlan = new();
+        private readonly Mock<IDivePresenter> divePresenter = new();
         private readonly Mock<IDiveController> diveController = new();
         private IDecompressionController decompressionController;
 
-        [Fact(Skip="To implement next. Need to ask the question do you want to decompress? Then select a cylinder providing the dive plan whereby it will run a decompression algorithm")]
+        [Fact]
         public void RunADecompressionDiveProfile()
         {
             // Given
-            // diveController.Object
-            decompressionController = new DecompressionController();
+            divePresenter.Setup(dp => dp.ConfirmDecompression()).Returns(true);
+            decompressionController = new DecompressionController(divePresenter.Object, diveController.Object);
 
             // When
+            decompressionController.RunDecompression();
         
             // Then
+            divePresenter.VerifyAll();
         }
     }
 }

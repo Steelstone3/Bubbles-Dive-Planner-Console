@@ -179,5 +179,10 @@ namespace BubblesDivePlanner.Presenters
                 0
             );
         }
+
+        public bool ConfirmDecompression()
+        {
+            return presenter.GetConfirmation("Run decompression?");
+        }
     }
 }
