@@ -41,7 +41,7 @@ namespace BubblesDivePlanner.Presenters
 
         public IDiveModel SelectDiveModel()
         {
-            List<IDiveModel> diveModels = new List<IDiveModel>()
+            List<IDiveModel> diveModels = new()
             {
                 // TODO re-enable when ready for production
                 new Zhl16Buhlmann(null),
@@ -153,8 +153,7 @@ namespace BubblesDivePlanner.Presenters
 
         private Cylinder CreateCylinder(string diveModelName)
         {
-            var gasMixture = new GasMixture(0, 0);
-
+            IGasMixture gasMixture;
             var name = presenter.GetString("Enter Cylinder Name:");
             var cylinderVolume = presenter.GetUshort("Enter Cylinder Volume:", 3, 15);
             var cylinderPressure = presenter.GetUshort("Enter Cylinder Pressure:", 50, 300);

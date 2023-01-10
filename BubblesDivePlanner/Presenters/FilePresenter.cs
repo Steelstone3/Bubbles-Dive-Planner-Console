@@ -2,7 +2,7 @@ namespace BubblesDivePlanner.Presenters
 {
     public class FilePresenter : IFilePresenter
     {
-        private IPresenter presenter;
+        private readonly IPresenter presenter;
 
         public FilePresenter(IPresenter presenter)
         {

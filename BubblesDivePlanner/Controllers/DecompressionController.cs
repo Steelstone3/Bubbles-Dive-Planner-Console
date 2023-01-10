@@ -6,8 +6,8 @@ namespace BubblesDivePlanner.Controllers
 {
     public class DecompressionController : IDecompressionController
     {
-        private IDivePresenter divePresenter;
-        private IDiveController diveController;
+        private readonly IDivePresenter divePresenter;
+        private readonly IDiveController diveController;
 
         public DecompressionController(IDivePresenter divePresenter, IDiveController diveController)
         {

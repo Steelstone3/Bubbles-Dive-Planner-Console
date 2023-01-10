@@ -7,7 +7,7 @@ namespace BubblesDivePlannerTests.Presenters
     public class FilePresenterShould
     {
         private const string FILE_NAME = "dive_plan.json";
-        Mock<IPresenter> presenter = new();
+        private readonly Mock<IPresenter> presenter = new();
         IFilePresenter filePresenter;
 
         [Fact]

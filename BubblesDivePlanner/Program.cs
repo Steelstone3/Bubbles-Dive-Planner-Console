@@ -7,7 +7,7 @@ namespace BubblesDivePlanner
 {
     class Program
     {
-        static void Main(string[] args)
+        static void Main()
         {
             IPresenter presenter = new Presenter();
             IDivePresenter divePresenter = new DivePresenter(presenter);
