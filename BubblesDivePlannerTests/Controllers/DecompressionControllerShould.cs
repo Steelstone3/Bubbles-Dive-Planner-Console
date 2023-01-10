@@ -22,7 +22,7 @@ namespace BubblesDivePlannerTests.Controllers
 
             // When
             decompressionController.RunDecompression();
-        
+
             // Then
             divePresenter.VerifyAll();
         }
