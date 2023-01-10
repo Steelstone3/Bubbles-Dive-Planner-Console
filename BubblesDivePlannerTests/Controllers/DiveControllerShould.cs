@@ -11,7 +11,7 @@ namespace BubblesDivePlannerTests.Controllers
 {
     public class DiveControllerShould
     {
-        private Mock<IDiveSetupPresenter> diveSetupPresenter = new();
+        private readonly Mock<IDiveSetupPresenter> diveSetupPresenter = new();
         private readonly Mock<IDiveStepPresenter> diveStepPresenter = new();
         private readonly Mock<IDiveStagesController> diveStagesController = new();
         private readonly Mock<IDivePlan> divePlan = new();
@@ -22,7 +22,6 @@ namespace BubblesDivePlannerTests.Controllers
         {
             // Given
             var diveModel = new Zhl12Buhlmann(null);
-            diveSetupPresenter = new Mock<IDiveSetupPresenter>();
             diveSetupPresenter.Setup(dp => dp.WelcomeMessage());
             diveSetupPresenter.Setup(dp => dp.SelectDiveModel()).Returns(diveModel);
             diveSetupPresenter.Setup(dp => dp.CreateCylinders(diveModel.Name));
@@ -41,7 +40,6 @@ namespace BubblesDivePlannerTests.Controllers
             // Given
             divePlan.Setup(dp => dp.DiveModel).Returns(TestFixture.FixtureDiveModel(null));
             divePlan.Setup(dp => dp.Cylinders).Returns(TestFixture.FixtureCylinders());
-            diveSetupPresenter = new Mock<IDiveSetupPresenter>();
             diveSetupPresenter.Setup(dp => dp.WelcomeMessage());
             diveSetupPresenter.Setup(dp => dp.SelectDiveModel());
             diveSetupPresenter.Setup(dp => dp.CreateCylinders(DiveModelNames.ZHL16_B.ToString()));
@@ -61,7 +59,6 @@ namespace BubblesDivePlannerTests.Controllers
         {
             // Given
             divePlan.Setup(dp => dp.DiveModel).Returns(TestFixture.FixtureDiveModel(null));
-            diveSetupPresenter = new Mock<IDiveSetupPresenter>();
             diveSetupPresenter.Setup(dp => dp.WelcomeMessage());
             diveSetupPresenter.Setup(dp => dp.SelectDiveModel()).Returns(new Zhl16Buhlmann(null));
             diveSetupPresenter.Setup(dp => dp.CreateCylinders(DiveModelNames.ZHL16_B.ToString()));
@@ -79,7 +76,6 @@ namespace BubblesDivePlannerTests.Controllers
         {
             // Given
             divePlan.Setup(dp => dp.Cylinders).Returns(TestFixture.FixtureCylinders());
-            diveSetupPresenter = new Mock<IDiveSetupPresenter>();
             diveSetupPresenter.Setup(dp => dp.WelcomeMessage());
             diveSetupPresenter.Setup(dp => dp.SelectDiveModel()).Returns(new Zhl16Buhlmann(null));
             diveSetupPresenter.Setup(dp => dp.CreateCylinders(DiveModelNames.ZHL16_B.ToString()));
