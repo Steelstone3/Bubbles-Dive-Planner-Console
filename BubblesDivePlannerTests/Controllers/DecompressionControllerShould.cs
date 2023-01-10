@@ -36,12 +36,13 @@ namespace BubblesDivePlannerTests.Controllers
             divePresenter.VerifyAll();
         }
 
-        [Theory(Skip="Not implemented yet")]
-        [InlineData(12, 12)]
+        [Theory]
+        [InlineData(12, 15)]
         [InlineData(11, 12)]
         [InlineData(5, 6)]
         [InlineData(6.1, 9)]
         [InlineData(10.6, 12)]
+        [InlineData(11.99, 12)]
         public void CalculateNextDiveStep(double depthCeiling, byte depth)
         {
             // Given
