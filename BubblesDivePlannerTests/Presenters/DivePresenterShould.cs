@@ -25,7 +25,7 @@ namespace BubblesDivePlannerTests.Presenters
             presenter.VerifyAll();
         }
 
-         [Fact]
+        [Fact]
         public void DisplayAWelcomeMessage()
         {
             // Given
@@ -83,6 +83,20 @@ namespace BubblesDivePlannerTests.Presenters
             presenter.Verify(p => p.GetUshort("Enter Cylinder Volume:", 3, 15));
             presenter.Verify(p => p.GetUshort("Enter Cylinder Pressure:", 50, 300));
             presenter.Verify(p => p.GetByte("Enter Surface Air Consumption Rate:", 5, 30));
+        }
+
+        [Fact]
+        public void ConfirmDecompression()
+        {
+            // Given
+            presenter.Setup(p => p.GetConfirmation("Run Decompression Steps?"));
+            divePresenter = new DivePresenter(presenter.Object);
+            
+            // When
+            divePresenter.ConfirmDecompression();
+
+            // Then
+            presenter.VerifyAll();
         }
     }
 }
