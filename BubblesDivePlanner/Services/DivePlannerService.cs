@@ -27,7 +27,7 @@ namespace BubblesDivePlannerTests.Services
                 divePlan = diveController.SetupDiveStep((byte)Math.Ceiling(depthCeiling));
                 divePlan = diveController.RunDiveProfile(divePlan);
                 diveController.PrintDiveResults(divePlan);
-                
+
                 fileController.AddDivePlan(divePlan);
             } while (divePresenter.ConfirmContinueWithDive());
 
