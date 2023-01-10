@@ -9,13 +9,13 @@ namespace BubblesDivePlanner.Controllers.Json
     public class FileController : IFileController
     {
         private const string FILE_NAME = "dive_plan.json";
-        private readonly IPresenter presenter;
+        private readonly IFilePresenter filePresenter;
         private readonly IJsonController jsonController;
         private readonly List<IDivePlan> divePlans;
 
-        public FileController(IPresenter presenter, IJsonController jsonController, List<IDivePlan> divePlans)
+        public FileController(IFilePresenter presenter, IJsonController jsonController, List<IDivePlan> divePlans)
         {
-            this.presenter = presenter;
+            this.filePresenter = presenter;
             this.jsonController = jsonController;
             this.divePlans = divePlans;
         }
@@ -27,7 +27,7 @@ namespace BubblesDivePlanner.Controllers.Json
 
         public void SaveFile()
         {
-            if (presenter.GetConfirmation("Save File?"))
+            if (filePresenter.DisplaySaveFile())
             {
                 try
                 {
@@ -37,14 +37,14 @@ namespace BubblesDivePlanner.Controllers.Json
                 }
                 catch (Exception)
                 {
-                    presenter.Print($"{FILE_NAME} could not be found or written to.");
+                    filePresenter.DisplaySaveErrorMessage(FILE_NAME);
                 }
             }
         }
 
         public IDivePlan LoadFile()
         {
-            if (presenter.GetConfirmation("Load File?"))
+            if (filePresenter.DisplayLoadFile())
             {
                 try
                 {
@@ -53,7 +53,7 @@ namespace BubblesDivePlanner.Controllers.Json
                 }
                 catch (Exception)
                 {
-                    presenter.Print($"{FILE_NAME} could not be found or read from.");
+                    filePresenter.DisplayLoadErrorMessage(FILE_NAME);
                 }
             }
 
