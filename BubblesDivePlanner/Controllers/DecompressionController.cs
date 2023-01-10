@@ -41,9 +41,9 @@ namespace BubblesDivePlanner.Controllers
         public IDiveStep NextDiveStep(double depthCeiling)
         {
             var mod = depthCeiling % 3;
-            var depth = (byte)(depthCeiling + (3-mod));
+            var depth = (byte)(depthCeiling + (3 - mod));
 
-            return new DiveStep(depth,1);
+            return new DiveStep(depth, 1);
         }
     }
 }

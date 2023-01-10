@@ -48,7 +48,7 @@ namespace BubblesDivePlannerTests.Controllers
             // Given
             var diveStep = new DiveStep(depth, 1);
             decompressionController = new DecompressionController(divePresenter.Object, diveController.Object);
-            
+
             // When
             var result = decompressionController.NextDiveStep(depthCeiling);
 
