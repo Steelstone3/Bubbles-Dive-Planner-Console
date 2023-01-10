@@ -3,22 +3,37 @@ using BubblesDivePlanner.Presenters;
 using Moq;
 using Xunit;
 
-namespace Name
+namespace BubblesDivePlannerTests.Presenters
 {
-    public class DivePlanShould
+    public class DivePresenterShould
     {
         private readonly Mock<IPresenter> presenter = new();
-        private IDiveSetupPresenter diveSetupPresenter;
+        private IDivePresenter divePresenter;
 
         [Fact]
+        public void CreateADiveStep()
+        {
+            // Given
+            presenter.Setup(p => p.GetByte("Enter Depth:", 0, 56));
+            presenter.Setup(p => p.GetByte("Enter Time:", 1, 60));
+            divePresenter = new DivePresenter(presenter.Object);
+
+            // When
+            divePresenter.CreateDiveStep(0, 56);
+
+            // Then
+            presenter.VerifyAll();
+        }
+
+         [Fact]
         public void DisplayAWelcomeMessage()
         {
             // Given
             presenter.Setup(p => p.Print("Bubbles Dive Planner Console"));
-            diveSetupPresenter = new DiveSetupPresenter(presenter.Object);
+            divePresenter = new DivePresenter(presenter.Object);
 
             // When
-            diveSetupPresenter.WelcomeMessage();
+            divePresenter.WelcomeMessage();
 
             // Then
             presenter.VerifyAll();
@@ -35,10 +50,10 @@ namespace Name
             presenter.Setup(p => p.GetUshort("Enter Cylinder Volume:", 3, 15));
             presenter.Setup(p => p.GetUshort("Enter Cylinder Pressure:", 50, 300));
             presenter.Setup(p => p.GetByte("Enter Surface Air Consumption Rate:", 5, 30));
-            diveSetupPresenter = new DiveSetupPresenter(presenter.Object);
+            divePresenter = new DivePresenter(presenter.Object);
 
             // When
-            diveSetupPresenter.CreateCylinders(DiveModelNames.ZHL16_B.ToString());
+            divePresenter.CreateCylinders(DiveModelNames.ZHL16_B.ToString());
 
             // Then
             presenter.VerifyAll();
@@ -55,10 +70,10 @@ namespace Name
             presenter.Setup(p => p.GetUshort("Enter Cylinder Volume:", 3, 15));
             presenter.Setup(p => p.GetUshort("Enter Cylinder Pressure:", 50, 300));
             presenter.Setup(p => p.GetByte("Enter Surface Air Consumption Rate:", 5, 30));
-            diveSetupPresenter = new DiveSetupPresenter(presenter.Object);
+            divePresenter = new DivePresenter(presenter.Object);
 
             // When
-            diveSetupPresenter.CreateCylinders(DiveModelNames.DCAP_MF11F6.ToString());
+            divePresenter.CreateCylinders(DiveModelNames.DCAP_MF11F6.ToString());
 
             // Then
             presenter.Verify(p => p.GetByte("Enter Helium:", 0, 80), Times.Never);

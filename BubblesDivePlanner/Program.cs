@@ -10,10 +10,9 @@ namespace BubblesDivePlanner
         static void Main(string[] args)
         {
             IPresenter presenter = new Presenter();
-            IDiveSetupPresenter diveSetupPresenter = new DiveSetupPresenter(presenter);
-            IDiveStepPresenter diveStepPresenter = new DiveStepPresenter(presenter);
+            IDivePresenter divePresenter = new DivePresenter(presenter);
             IDiveStagesController diveStagesController = new DiveStagesController();
-            IDiveController diveController = new DiveController(diveStepPresenter, diveSetupPresenter, diveStagesController);
+            IDiveController diveController = new DiveController(divePresenter, diveStagesController);
             IJsonController jsonController = new JsonController();
             IFileController fileController = new FileController(presenter, jsonController, new());
             IDivePlannerService divePlannerService = new DivePlannerService(diveController, fileController);
