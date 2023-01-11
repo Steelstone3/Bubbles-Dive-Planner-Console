@@ -165,7 +165,7 @@ namespace BubblesDivePlannerTests.Controllers
             diveController = new DiveController(divePresenter.Object, diveStagesController.Object);
 
             // When
-            diveController.PrintDiveResults(divePlan);
+            diveController.PrintDiveResult(divePlan);
 
             // Then
             divePresenter.VerifyAll();

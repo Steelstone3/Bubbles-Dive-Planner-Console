@@ -13,20 +13,30 @@ namespace BubblesDivePlanner.Controllers.Json
         private readonly IJsonController jsonController;
         private readonly List<IDivePlan> divePlans;
 
-        public FileController(IFilePresenter presenter, IJsonController jsonController, List<IDivePlan> divePlans)
+        public FileController(IFilePresenter filePresenter, IJsonController jsonController, List<IDivePlan> divePlans)
         {
-            this.filePresenter = presenter;
+            this.filePresenter = filePresenter;
             this.jsonController = jsonController;
             this.divePlans = divePlans;
         }
 
         public void AddDivePlan(IDivePlan divePlan)
         {
+            if (divePlan == null)
+            {
+                return;
+            }
+
             divePlans.Add(divePlan);
         }
 
         public void AddDivePlans(List<IDivePlan> divePlans)
         {
+            if (divePlans == null)
+            {
+                return;
+            }
+
             divePlans.AddRange(divePlans);
         }
 

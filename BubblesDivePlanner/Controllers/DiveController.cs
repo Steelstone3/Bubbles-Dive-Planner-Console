@@ -60,7 +60,7 @@ namespace BubblesDivePlanner.Controllers
             return diveStagesController.Run(divePlan);
         }
 
-        public void PrintDiveResults(IDivePlan divePlan)
+        public void PrintDiveResult(IDivePlan divePlan)
         {
             divePresenter.PrintDiveResults(divePlan);
         }
