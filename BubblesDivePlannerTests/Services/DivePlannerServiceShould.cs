@@ -25,7 +25,7 @@ namespace BubblesDivePlannerTests.Services
             diveController.Setup(dc => dc.SetupDiveStep(0)).Returns(divePlan);
             diveController.Setup(dc => dc.RunDiveProfile(divePlan)).Returns(divePlan);
             diveController.Setup(dc => dc.PrintDiveResult(divePlan));
-            diveController.Setup(dc => dc.PrintDiveResults(divePlans));
+            diveController.Setup(dc => dc.PrintDecompressionResults(divePlans));
             fileController.Setup(fc => fc.LoadFile()).Returns(divePlan);
             fileController.Setup(fc => fc.AddDivePlan(divePlan));
             fileController.Setup(fc => fc.AddDivePlans(divePlans));

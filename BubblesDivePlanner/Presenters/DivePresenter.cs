@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using BubblesDivePlanner.Models;
 using BubblesDivePlanner.Models.Cylinders;
@@ -73,22 +74,25 @@ namespace BubblesDivePlanner.Presenters
             var diveModel = divePlan.DiveModel;
             var diveProfile = diveModel.DiveProfile;
 
-            presenter.Print($"Dive Model: {diveModel.Name}");
-            var diveProfileTable = CreateDiveProfileTable();
+            var diveProfileTable = CreateDiveProfileTable(diveModel.Name);
             diveProfileTable = AssignDiveProfileTableRows(diveProfileTable, diveProfile);
             AnsiConsole.Write(diveProfileTable);
-            presenter.Print($"Depth Ceiling: {diveModel.DiveProfile.DepthCeiling}");
 
-            presenter.Print("Cylinders:");
+            var diveStepTable = CreateDiveStepTable();
+            diveStepTable = AssignDiveStepTableRows(diveStepTable, divePlan.DiveStep);
+            AnsiConsole.Write(diveStepTable);
+
             var cylindersTable = CreateCylindersTable();
             cylindersTable = AssignCylindersTableRows(cylindersTable, divePlan.Cylinders);
             AnsiConsole.Write(cylindersTable);
+            
+            presenter.Print($"Depth Ceiling: {diveModel.DiveProfile.DepthCeiling}");
         }
 
-
-        private static Table CreateDiveProfileTable()
+        private static Table CreateDiveProfileTable(string diveModelName)
         {
             var diveProfileTable = new Table();
+            diveProfileTable.Title($"Dive Model: {diveModelName}");
             diveProfileTable.AddColumn("Compartment");
             diveProfileTable.AddColumn("Total Tissue Pressures");
             diveProfileTable.AddColumn("Tolerated Ambient Pressures");
@@ -98,9 +102,20 @@ namespace BubblesDivePlanner.Presenters
             return diveProfileTable;
         }
 
+        private static Table CreateDiveStepTable()
+        {
+            var diveStepTable = new Table();
+            diveStepTable.Title("Dive Step");
+            diveStepTable.AddColumn("Depth");
+            diveStepTable.AddColumn("Time");
+
+            return diveStepTable;
+        }
+
         private static Table CreateCylindersTable()
         {
             var cylindersTable = new Table();
+            cylindersTable.Title("Cylinders");
             cylindersTable.AddColumn("Cylinder");
             cylindersTable.AddColumn("Initial Pressurised Volume");
             cylindersTable.AddColumn("Remaining Gas");
@@ -129,6 +144,18 @@ namespace BubblesDivePlanner.Presenters
             }
 
             return diveProfileTable;
+        }
+
+        private static Table AssignDiveStepTableRows(Table diveStepTable, IDiveStep diveStep)
+        {
+            var row = new[] {
+                diveStep.Depth.ToString(),
+                diveStep.Time.ToString()
+            };
+
+            diveStepTable.AddRow(row);
+
+            return diveStepTable;
         }
 
         private static Table AssignCylindersTableRows(Table cylindersTable, List<ICylinder> cylinders)

@@ -70,7 +70,7 @@ namespace BubblesDivePlanner.Controllers
             divePresenter.PrintDiveResult(divePlan);
         }
 
-        public void PrintDiveResults(List<IDivePlan> divePlans)
+        public void PrintDecompressionResults(List<IDivePlan> divePlans)
         {
             if (divePlans == null)
             {
