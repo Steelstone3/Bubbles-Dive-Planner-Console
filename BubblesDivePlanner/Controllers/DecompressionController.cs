@@ -28,7 +28,7 @@ namespace BubblesDivePlanner.Controllers
                 {
                     divePlans.Add(RunDecompressionDiveStep(divePlan, selectedCylinder));
                 }
-                
+
                 return divePlans;
             }
 
