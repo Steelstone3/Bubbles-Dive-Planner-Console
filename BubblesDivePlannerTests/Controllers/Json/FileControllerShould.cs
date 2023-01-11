@@ -80,12 +80,10 @@ namespace BubblesDivePlannerTests.Controllers.Json
             fileController = new FileController(filePresenter.Object, new JsonController(), new());
             fileController.AddDivePlan(divePlan);
             fileController.AddDivePlan(divePlan);
-            fileController.AddDivePlans(new List<IDivePlan>() { divePlan, divePlan });
 
             // When
             fileController.AddDivePlan(expectedDivePlan);
             fileController.AddDivePlan(expectedDivePlan);
-            fileController.AddDivePlans(new List<IDivePlan>() { expectedDivePlan, expectedDivePlan });
             fileController.SaveFile();
             var actualDivePlan = fileController.LoadFile();
 
@@ -109,12 +107,10 @@ namespace BubblesDivePlannerTests.Controllers.Json
             fileController = new FileController(filePresenter.Object, new JsonController(), new());
             fileController.AddDivePlan(divePlan);
             fileController.AddDivePlan(divePlan);
-            fileController.AddDivePlans(new List<IDivePlan>() { divePlan, divePlan });
 
             // When
             fileController.AddDivePlan(expectedDivePlan);
             fileController.AddDivePlan(expectedDivePlan);
-            fileController.AddDivePlans(new List<IDivePlan>() { divePlan, divePlan });
 
             fileController.SaveFile();
             var actualDivePlan = fileController.LoadFile();

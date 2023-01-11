@@ -9,6 +9,5 @@ namespace BubblesDivePlanner.Controllers
         IDivePlan SetupDiveStep(byte depthCeiling);
         IDivePlan RunDiveProfile(IDivePlan divePlan);
         void PrintDiveResult(IDivePlan divePlan);
-        void PrintDecompressionResults(List<IDivePlan> divePlans);
     }
 }

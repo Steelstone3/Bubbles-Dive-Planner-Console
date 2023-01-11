@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using BubblesDivePlanner.Controllers.Json;
 using BubblesDivePlanner.Models;
 using BubblesDivePlanner.Models.Cylinders;
 using BubblesDivePlanner.Presenters;
@@ -9,30 +10,28 @@ namespace BubblesDivePlanner.Controllers
     {
         private readonly IDivePresenter divePresenter;
         private readonly IDiveController diveController;
+        private readonly IFileController fileController;
 
-        public DecompressionController(IDivePresenter divePresenter, IDiveController diveController)
+        public DecompressionController(IDivePresenter divePresenter, IDiveController diveController, IFileController fileController)
         {
             this.divePresenter = divePresenter;
             this.diveController = diveController;
+            this.fileController = fileController;
         }
 
-        public List<IDivePlan> RunDecompression(IDivePlan divePlan)
+        public void RunDecompression(IDivePlan divePlan)
         {
             if (divePresenter.ConfirmDecompression(divePlan.DiveModel.DiveProfile.DepthCeiling))
             {
-                List<IDivePlan> divePlans = new();
-
                 var selectedCylinder = divePresenter.SelectCylinder(divePlan.Cylinders);
 
                 while (divePlan.DiveModel.DiveProfile.DepthCeiling > 0.0)
                 {
-                    divePlans.Add(RunDecompressionDiveStep(divePlan, selectedCylinder));
+                    var decoDivePlan = RunDecompressionDiveStep(divePlan, selectedCylinder);
+                    divePresenter.PrintDiveResult(decoDivePlan);
+                    fileController.AddDivePlan(decoDivePlan);
                 }
-
-                return divePlans;
             }
-
-            return null;
         }
 
         private IDivePlan RunDecompressionDiveStep(IDivePlan divePlan, ICylinder selectedCylinder)

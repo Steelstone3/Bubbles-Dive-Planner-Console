@@ -7,7 +7,6 @@ namespace BubblesDivePlanner.Controllers.Json
     {
         IDivePlan LoadFile();
         void AddDivePlan(IDivePlan divePlan);
-        void AddDivePlans(List<IDivePlan> divePlans);
         void SaveFile();
     }
 }

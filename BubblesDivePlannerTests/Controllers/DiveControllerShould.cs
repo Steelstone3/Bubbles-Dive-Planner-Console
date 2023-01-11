@@ -171,21 +171,5 @@ namespace BubblesDivePlannerTests.Controllers
             // Then
             divePresenter.VerifyAll();
         }
-
-        [Fact]
-        public void PrintDiveResults()
-        {
-            // Given
-            var divePlan = new DivePlan(TestFixture.FixtureDiveModel(null), TestFixture.FixtureCylinders(), TestFixture.FixtureDiveStep, TestFixture.FixtureSelectedCylinder);
-            var divePlans = new List<IDivePlan>() { divePlan, divePlan };
-            divePresenter.Setup(dsp => dsp.PrintDiveResult(divePlan));
-            diveController = new DiveController(divePresenter.Object, diveStagesController.Object);
-
-            // When
-            diveController.PrintDecompressionResults(divePlans);
-
-            // Then
-            divePresenter.VerifyAll();
-        }
     }
 }

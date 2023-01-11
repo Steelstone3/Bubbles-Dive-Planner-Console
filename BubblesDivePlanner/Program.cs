@@ -14,9 +14,9 @@ namespace BubblesDivePlanner
             IFilePresenter filePresenter = new FilePresenter(presenter);
             IDiveStagesController diveStagesController = new DiveStagesController();
             IDiveController diveController = new DiveController(divePresenter, diveStagesController);
-            IDecompressionController decompressionController = new DecompressionController(divePresenter, diveController);
             IJsonController jsonController = new JsonController();
             IFileController fileController = new FileController(filePresenter, jsonController, new());
+            IDecompressionController decompressionController = new DecompressionController(divePresenter, diveController, fileController);
             IDivePlannerService divePlannerService = new DivePlannerService(diveController, decompressionController, fileController);
 
             divePlannerService.Run(divePresenter);
