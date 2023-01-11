@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using BubblesDivePlanner.Controllers;
 using BubblesDivePlanner.Models;
 using BubblesDivePlanner.Models.Cylinders;
@@ -148,7 +149,7 @@ namespace BubblesDivePlannerTests.Controllers
             var divePlan = new Mock<IDivePlan>();
             diveStagesController.Setup(dc => dc.Run(divePlan.Object));
             diveController = new DiveController(divePresenter.Object, diveStagesController.Object);
-            
+
             // When
             diveController.RunDiveProfile(divePlan.Object);
 
@@ -157,15 +158,31 @@ namespace BubblesDivePlannerTests.Controllers
         }
 
         [Fact]
-        public void PrintDiveResults()
+        public void PrintDiveResult()
         {
             // Given
             var divePlan = new DivePlan(TestFixture.FixtureDiveModel(null), TestFixture.FixtureCylinders(), TestFixture.FixtureDiveStep, TestFixture.FixtureSelectedCylinder);
-            divePresenter.Setup(dsp => dsp.PrintDiveResults(divePlan));
+            divePresenter.Setup(dsp => dsp.PrintDiveResult(divePlan));
             diveController = new DiveController(divePresenter.Object, diveStagesController.Object);
 
             // When
             diveController.PrintDiveResult(divePlan);
+
+            // Then
+            divePresenter.VerifyAll();
+        }
+
+        [Fact]
+        public void PrintDiveResults()
+        {
+            // Given
+            var divePlan = new DivePlan(TestFixture.FixtureDiveModel(null), TestFixture.FixtureCylinders(), TestFixture.FixtureDiveStep, TestFixture.FixtureSelectedCylinder);
+            var divePlans = new List<IDivePlan>() { divePlan, divePlan };
+            divePresenter.Setup(dsp => dsp.PrintDiveResult(divePlan));
+            diveController = new DiveController(divePresenter.Object, diveStagesController.Object);
+
+            // When
+            diveController.PrintDiveResults(divePlans);
 
             // Then
             divePresenter.VerifyAll();

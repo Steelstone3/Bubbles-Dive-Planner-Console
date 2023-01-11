@@ -62,7 +62,25 @@ namespace BubblesDivePlanner.Controllers
 
         public void PrintDiveResult(IDivePlan divePlan)
         {
-            divePresenter.PrintDiveResults(divePlan);
+            if (divePlan == null)
+            {
+                return;
+            }
+
+            divePresenter.PrintDiveResult(divePlan);
+        }
+
+        public void PrintDiveResults(List<IDivePlan> divePlans)
+        {
+            if (divePlans == null)
+            {
+                return;
+            }
+
+            foreach (var divePlan in divePlans)
+            {
+                divePresenter.PrintDiveResult(divePlan);
+            };
         }
     }
 }

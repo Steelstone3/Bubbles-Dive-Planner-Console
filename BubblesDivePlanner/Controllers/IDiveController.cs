@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using BubblesDivePlanner.Models;
 
 namespace BubblesDivePlanner.Controllers
@@ -8,5 +9,6 @@ namespace BubblesDivePlanner.Controllers
         IDivePlan SetupDiveStep(byte depthCeiling);
         IDivePlan RunDiveProfile(IDivePlan divePlan);
         void PrintDiveResult(IDivePlan divePlan);
+        void PrintDiveResults(List<IDivePlan> divePlans);
     }
 }

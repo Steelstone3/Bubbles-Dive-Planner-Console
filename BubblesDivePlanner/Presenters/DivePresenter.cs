@@ -68,7 +68,7 @@ namespace BubblesDivePlanner.Presenters
             return cylinders;
         }
 
-        public void PrintDiveResults(IDivePlan divePlan)
+        public void PrintDiveResult(IDivePlan divePlan)
         {
             var diveModel = divePlan.DiveModel;
             var diveProfile = diveModel.DiveProfile;
