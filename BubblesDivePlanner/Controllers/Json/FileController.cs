@@ -25,6 +25,11 @@ namespace BubblesDivePlanner.Controllers.Json
             divePlans.Add(divePlan);
         }
 
+        public void AddDivePlans(List<IDivePlan> divePlans)
+        {
+            divePlans.AddRange(divePlans);
+        }
+
         public void SaveFile()
         {
             if (filePresenter.DisplaySaveFile())

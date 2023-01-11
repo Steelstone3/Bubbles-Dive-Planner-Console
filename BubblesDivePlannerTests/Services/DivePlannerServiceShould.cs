@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using BubblesDivePlanner.Controllers;
 using BubblesDivePlanner.Controllers.Json;
 using BubblesDivePlanner.Models;
@@ -17,6 +18,7 @@ namespace BubblesDivePlannerTests.Services
         public DivePlannerServiceShould()
         {
             var divePlan = new DivePlan(TestFixture.FixtureDiveModel(null), TestFixture.FixtureCylinders(), TestFixture.FixtureDiveStep, TestFixture.FixtureSelectedCylinder);
+            var divePlans = new List<IDivePlan>() { divePlan, divePlan };
 
             divePresenter.Setup(p => p.ConfirmContinueWithDive()).Returns(false);
             diveController.Setup(dc => dc.SetupDivePlan(divePlan));
@@ -25,10 +27,11 @@ namespace BubblesDivePlannerTests.Services
             diveController.Setup(dc => dc.PrintDiveResults(divePlan));
             fileController.Setup(fc => fc.LoadFile()).Returns(divePlan);
             fileController.Setup(fc => fc.AddDivePlan(divePlan));
+            fileController.Setup(fc => fc.AddDivePlans(divePlans));
             fileController.Setup(fc => fc.SaveFile());
-            divePlannerService = new DivePlannerService(diveController.Object, fileController.Object);
+            decompressionController.Setup(dc => dc.RunDecompression(divePlan)).Returns(divePlans);
+            divePlannerService = new DivePlannerService(diveController.Object, decompressionController.Object, fileController.Object);
         }
-
 
         [Fact]
         public void RunDivePlannerService()

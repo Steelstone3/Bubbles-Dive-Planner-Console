@@ -1,6 +1,8 @@
 using System;
+using System.Collections.Generic;
 using BubblesDivePlanner.Controllers;
 using BubblesDivePlanner.Controllers.Json;
+using BubblesDivePlanner.Models;
 using BubblesDivePlanner.Presenters;
 
 namespace BubblesDivePlannerTests.Services
@@ -8,11 +10,13 @@ namespace BubblesDivePlannerTests.Services
     public class DivePlannerService : IDivePlannerService
     {
         private readonly IDiveController diveController;
+        private readonly IDecompressionController decompressionController;
         private readonly IFileController fileController;
 
-        public DivePlannerService(IDiveController diveController, IFileController fileController)
+        public DivePlannerService(IDiveController diveController, IDecompressionController decompressionController, IFileController fileController)
         {
             this.diveController = diveController;
+            this.decompressionController = decompressionController;
             this.fileController = fileController;
         }
 
@@ -27,8 +31,9 @@ namespace BubblesDivePlannerTests.Services
                 divePlan = diveController.SetupDiveStep((byte)Math.Ceiling(depthCeiling));
                 divePlan = diveController.RunDiveProfile(divePlan);
                 diveController.PrintDiveResults(divePlan);
-
                 fileController.AddDivePlan(divePlan);
+                var divePlans = decompressionController.RunDecompression(divePlan);
+                fileController.AddDivePlans(divePlans);
             } while (divePresenter.ConfirmContinueWithDive());
 
             fileController.SaveFile();
