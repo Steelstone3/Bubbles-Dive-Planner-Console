@@ -1,5 +1,6 @@
-using System;
+using System.Collections.Generic;
 using BubblesDivePlanner.Models;
+using BubblesDivePlanner.Models.Cylinders;
 using BubblesDivePlanner.Presenters;
 
 namespace BubblesDivePlanner.Controllers
@@ -15,30 +16,39 @@ namespace BubblesDivePlanner.Controllers
             this.diveController = diveController;
         }
 
-        public void RunDecompression(IDivePlan divePlan)
+        public List<IDivePlan> RunDecompression(IDivePlan divePlan)
         {
             if (divePresenter.ConfirmDecompression())
             {
+                List<IDivePlan> divePlans = new();
+
                 var selectedCylinder = divePresenter.SelectCylinder(divePlan.Cylinders);
 
-                if (divePlan.DiveModel.DiveProfile.DepthCeiling > 0.0)
+                while (divePlan.DiveModel.DiveProfile.DepthCeiling > 0.0)
                 {
-                    NextDiveStep(divePlan.DiveModel.DiveProfile.DepthCeiling);
+                    divePlans.Add(RunDecompressionDiveStep(divePlan, selectedCylinder));
                 }
-
-                divePlan = new DivePlan
-                (
-                    divePlan.DiveModel,
-                    divePlan.Cylinders,
-                    new DiveStep(0, 0),
-                    selectedCylinder
-                );
-
-                diveController.RunDiveProfile(divePlan);
+                
+                return divePlans;
             }
+
+            return null;
         }
 
-        public IDiveStep NextDiveStep(double depthCeiling)
+        private IDivePlan RunDecompressionDiveStep(IDivePlan divePlan, ICylinder selectedCylinder)
+        {
+            divePlan = new DivePlan
+            (
+                divePlan.DiveModel,
+                divePlan.Cylinders,
+                NextDiveStep(divePlan.DiveModel.DiveProfile.DepthCeiling),
+                selectedCylinder
+            );
+
+            return diveController.RunDiveProfile(divePlan);
+        }
+
+        private static IDiveStep NextDiveStep(double depthCeiling)
         {
             var mod = depthCeiling % 3;
             var depth = (byte)(depthCeiling + (3 - mod));

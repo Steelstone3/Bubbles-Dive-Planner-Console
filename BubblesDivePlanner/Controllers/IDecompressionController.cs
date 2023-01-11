@@ -1,10 +1,10 @@
+using System.Collections.Generic;
 using BubblesDivePlanner.Models;
 
 namespace BubblesDivePlanner.Controllers
 {
     public interface IDecompressionController
     {
-        IDiveStep NextDiveStep(double depthCeiling);
-        void RunDecompression(IDivePlan divePlan);
+        List<IDivePlan> RunDecompression(IDivePlan divePlan);
     }
 }

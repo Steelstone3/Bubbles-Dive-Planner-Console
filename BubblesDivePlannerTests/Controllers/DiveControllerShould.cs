@@ -148,6 +148,7 @@ namespace BubblesDivePlannerTests.Controllers
             var divePlan = new Mock<IDivePlan>();
             diveStagesController.Setup(dc => dc.Run(divePlan.Object));
             diveController = new DiveController(divePresenter.Object, diveStagesController.Object);
+            
             // When
             diveController.RunDiveProfile(divePlan.Object);
 

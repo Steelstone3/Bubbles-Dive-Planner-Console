@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using BubblesDivePlanner.Controllers;
 using BubblesDivePlanner.Models;
 using BubblesDivePlanner.Models.Cylinders;
@@ -36,25 +34,34 @@ namespace BubblesDivePlannerTests.Controllers
             divePresenter.VerifyAll();
         }
 
-        [Theory]
-        [InlineData(12, 15)]
-        [InlineData(11, 12)]
-        [InlineData(5, 6)]
-        [InlineData(6.1, 9)]
-        [InlineData(10.6, 12)]
-        [InlineData(11.99, 12)]
-        public void CalculateNextDiveStep(double depthCeiling, byte depth)
+        [Fact]
+        public void CalculateNextDiveStep()
         {
             // Given
-            var diveStep = new DiveStep(depth, 1);
-            decompressionController = new DecompressionController(divePresenter.Object, diveController.Object);
+            DivePlan divePlan = new(TestFixture.ExpectedDiveModel, TestFixture.FixtureCylinders(), TestFixture.FixtureDiveStep, TestFixture.FixtureSelectedCylinder);
+            divePresenter.Setup(dp => dp.ConfirmDecompression()).Returns(true);
+            divePresenter.Setup(dp => dp.SelectCylinder(divePlan.Cylinders)).Returns(TestFixture.FixtureSelectedCylinder);
+            DiveController diveController = new(divePresenter.Object, new DiveStagesController());
+            decompressionController = new DecompressionController(divePresenter.Object, diveController);
 
             // When
-            var result = decompressionController.NextDiveStep(depthCeiling);
+            var divePlans = decompressionController.RunDecompression(divePlan);
 
             // Then
-            Assert.Equal(diveStep.Depth, result.Depth);
-            Assert.Equal(diveStep.Time, result.Time);
+            Assert.NotNull(divePlans);
+            Assert.NotEmpty(divePlans);
+            Assert.Equal(6, divePlans[0].DiveStep.Depth);
+            Assert.Equal(1, divePlans[0].DiveStep.Time);
+            Assert.Equivalent(new Cylinder("Air", 12, 200, 12, new GasMixture(21, 0), 2352, 12), divePlans[0].SelectedCylinder);
+            Assert.Equal(3, divePlans[1].DiveStep.Depth);
+            Assert.Equal(1, divePlans[1].DiveStep.Time);
+            Assert.Equivalent(new Cylinder("Air", 12, 200, 12, new GasMixture(21, 0), 2352, 12), divePlans[1].SelectedCylinder);
+            Assert.Equal(3, divePlans[2].DiveStep.Depth);
+            Assert.Equal(1, divePlans[2].DiveStep.Time);
+            Assert.Equivalent(new Cylinder("Air", 12, 200, 12, new GasMixture(21, 0), 2352, 12), divePlans[2].SelectedCylinder);
+            Assert.Equal(3, divePlans[3].DiveStep.Depth);
+            Assert.Equal(1, divePlans[3].DiveStep.Time);
+            Assert.Equivalent(new Cylinder("Air", 12, 200, 12, new GasMixture(21, 0), 2352, 12), divePlans[3].SelectedCylinder);
         }
     }
 }
