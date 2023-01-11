@@ -5,11 +5,15 @@ using BubblesDivePlanner.Models.DiveModels;
 
 namespace BubblesDivePlanner.Presenters
 {
-    public interface IDiveSetupPresenter
+    public interface IDivePresenter
     {
         void WelcomeMessage();
         IDiveModel SelectDiveModel();
         List<ICylinder> CreateCylinders(string diveModelName);
-        void PrintDiveResults(IDivePlan divePlan);
+        IDiveStep CreateDiveStep(byte depthCeiling, byte maximumOperatingDepth);
+        ICylinder SelectCylinder(List<ICylinder> cylinders);
+        void PrintDiveResult(IDivePlan divePlan);
+        bool ConfirmDecompression(double depthCeiling);
+        bool ConfirmContinueWithDive();
     }
 }

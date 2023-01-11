@@ -19,15 +19,11 @@ namespace BubblesDivePlanner.Models.DiveModels
 
         protected void AssignDiveProfile()
         {
-            switch (DiveProfile)
+            DiveProfile = DiveProfile switch
             {
-                case null:
-                    DiveProfile = new DiveProfile(CompartmentCount);
-                    break;
-                default:
-                    DiveProfile = DiveProfile;
-                    break;
-            }
+                null => new DiveProfile(CompartmentCount),
+                _ => DiveProfile,
+            };
         }
     }
 }

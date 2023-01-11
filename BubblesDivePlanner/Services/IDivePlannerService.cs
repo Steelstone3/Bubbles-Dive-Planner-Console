@@ -4,6 +4,6 @@ namespace BubblesDivePlannerTests.Services
 {
     public interface IDivePlannerService
     {
-        void Run(IPresenter presenter);
+        void Run(IDivePresenter presenter);
     }
 }

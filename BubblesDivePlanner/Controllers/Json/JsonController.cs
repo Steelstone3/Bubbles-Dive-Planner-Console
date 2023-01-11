@@ -30,7 +30,7 @@ namespace BubblesDivePlanner.Controllers.Json
             return divePlan ?? null;
         }
 
-        private List<JsonConverter> AddConverters(string expectedDivePlanJson)
+        private static List<JsonConverter> AddConverters(string expectedDivePlanJson)
         {
             List<JsonConverter> jsonConverters = new()
             {
@@ -46,7 +46,7 @@ namespace BubblesDivePlanner.Controllers.Json
             return jsonConverters;
         }
 
-        private void DetermineDiveModel(string expectedDivePlanJson, List<JsonConverter> jsonConverters)
+        private static void DetermineDiveModel(string expectedDivePlanJson, List<JsonConverter> jsonConverters)
         {
             if (expectedDivePlanJson.Contains(DiveModelNames.ZHL16_B.ToString()))
             {

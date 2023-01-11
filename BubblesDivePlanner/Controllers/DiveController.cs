@@ -9,32 +9,30 @@ namespace BubblesDivePlanner.Controllers
 {
     public class DiveController : IDiveController
     {
-        private readonly IDiveStepPresenter diveStepPresenter;
-        private readonly IDiveSetupPresenter diveSetupPresenter;
+        private readonly IDivePresenter divePresenter;
         private readonly IDiveStagesController diveStagesController;
         private IDiveModel diveModel;
         private List<ICylinder> cylinders;
 
-        public DiveController(IDiveStepPresenter diveStepPresenter, IDiveSetupPresenter diveSetupPresenter, IDiveStagesController diveStagesController)
+        public DiveController(IDivePresenter divePresenter, IDiveStagesController diveStagesController)
         {
-            this.diveStepPresenter = diveStepPresenter;
-            this.diveSetupPresenter = diveSetupPresenter;
+            this.divePresenter = divePresenter;
             this.diveStagesController = diveStagesController;
         }
 
         public void SetupDivePlan(IDivePlan divePlan)
         {
-            diveSetupPresenter.WelcomeMessage();
+            divePresenter.WelcomeMessage();
 
             if (divePlan == null)
             {
-                diveModel = diveSetupPresenter.SelectDiveModel();
-                cylinders = diveSetupPresenter.CreateCylinders(diveModel.Name);
+                diveModel = divePresenter.SelectDiveModel();
+                cylinders = divePresenter.CreateCylinders(diveModel.Name);
             }
             else if (divePlan.DiveModel == null || divePlan.Cylinders == null)
             {
-                diveModel = diveSetupPresenter.SelectDiveModel();
-                cylinders = diveSetupPresenter.CreateCylinders(diveModel.Name);
+                diveModel = divePresenter.SelectDiveModel();
+                cylinders = divePresenter.CreateCylinders(diveModel.Name);
             }
             else
             {
@@ -46,7 +44,7 @@ namespace BubblesDivePlanner.Controllers
         public IDivePlan SetupDiveStep(byte depthCeiling)
         {
             var maximumDepth = (byte)100;
-            var selectedCylinder = diveStepPresenter.SelectCylinder(cylinders);
+            var selectedCylinder = divePresenter.SelectCylinder(cylinders);
 
             if (selectedCylinder != null)
             {
@@ -54,7 +52,7 @@ namespace BubblesDivePlanner.Controllers
                    (byte)Math.Floor(selectedCylinder.GasMixture.MaximumOperatingDepth) : (byte)100;
             }
 
-            return new DivePlan(diveModel, cylinders, diveStepPresenter.CreateDiveStep(depthCeiling, maximumDepth), selectedCylinder);
+            return new DivePlan(diveModel, cylinders, divePresenter.CreateDiveStep(depthCeiling, maximumDepth), selectedCylinder);
         }
 
         public IDivePlan RunDiveProfile(IDivePlan divePlan)
@@ -62,9 +60,14 @@ namespace BubblesDivePlanner.Controllers
             return diveStagesController.Run(divePlan);
         }
 
-        public void PrintDiveResults(IDivePlan divePlan)
+        public void PrintDiveResult(IDivePlan divePlan)
         {
-            diveSetupPresenter.PrintDiveResults(divePlan);
+            if (divePlan == null)
+            {
+                return;
+            }
+
+            divePresenter.PrintDiveResult(divePlan);
         }
     }
 }

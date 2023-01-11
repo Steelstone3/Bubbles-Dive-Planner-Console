@@ -7,18 +7,19 @@ namespace BubblesDivePlanner
 {
     class Program
     {
-        static void Main(string[] args)
+        static void Main()
         {
             IPresenter presenter = new Presenter();
-            IDiveSetupPresenter diveSetupPresenter = new DiveSetupPresenter(presenter);
-            IDiveStepPresenter diveStepPresenter = new DiveStepPresenter(presenter);
+            IDivePresenter divePresenter = new DivePresenter(presenter);
+            IFilePresenter filePresenter = new FilePresenter(presenter);
             IDiveStagesController diveStagesController = new DiveStagesController();
-            IDiveController diveController = new DiveController(diveStepPresenter, diveSetupPresenter, diveStagesController);
+            IDiveController diveController = new DiveController(divePresenter, diveStagesController);
             IJsonController jsonController = new JsonController();
-            IFileController fileController = new FileController(presenter, jsonController, new());
-            IDivePlannerService divePlannerService = new DivePlannerService(diveController, fileController);
+            IFileController fileController = new FileController(filePresenter, jsonController, new());
+            IDecompressionController decompressionController = new DecompressionController(divePresenter, diveController, fileController);
+            IDivePlannerService divePlannerService = new DivePlannerService(diveController, decompressionController, fileController);
 
-            divePlannerService.Run(presenter);
+            divePlannerService.Run(divePresenter);
         }
     }
 }

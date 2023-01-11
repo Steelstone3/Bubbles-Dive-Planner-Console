@@ -4,7 +4,7 @@ namespace BubblesDivePlanner.Controllers.DiveStages
 {
     public class DiveCeiling : IDiveStageCommand
     {
-        private IDiveProfile diveProfile;
+        private readonly IDiveProfile diveProfile;
 
         public DiveCeiling(IDiveProfile diveProfile)
         {
