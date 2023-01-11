@@ -26,10 +26,7 @@ namespace BubblesDivePlannerTests.Controllers
             divePlan.Setup(dp => dp.Cylinders).Returns(TestFixture.FixtureCylinders());
             divePresenter.Setup(dp => dp.ConfirmDecompression(0.0)).Returns(true);
             divePresenter.Setup(dp => dp.SelectCylinder(divePlan.Object.Cylinders)).Returns(TestFixture.FixtureSelectedCylinder);
-            // TODO Somehow need a depth ceiling greater than 0 but then will get stuck in a loop for doing so
-            // divePresenter.Setup(dp => dp.PrintDiveResult(new DivePlan(TestFixture.ExpectedDiveModel, TestFixture.ExpectedCylinders(), TestFixture.FixtureDiveStep, TestFixture.ExpectedSelectedCylinder)));
             diveController.Setup(dc => dc.RunDiveProfile(divePlan.Object));
-            // fileController.Setup(fc => fc.AddDivePlan(divePlan.Object));
             decompressionController = new DecompressionController(divePresenter.Object, diveController.Object, fileController.Object);
 
             // When
