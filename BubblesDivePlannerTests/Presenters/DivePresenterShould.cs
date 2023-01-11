@@ -93,7 +93,7 @@ namespace BubblesDivePlannerTests.Presenters
             divePresenter = new DivePresenter(presenter.Object);
 
             // When
-            divePresenter.ConfirmDecompression();
+            divePresenter.ConfirmDecompression(1.0);
 
             // Then
             presenter.VerifyAll();

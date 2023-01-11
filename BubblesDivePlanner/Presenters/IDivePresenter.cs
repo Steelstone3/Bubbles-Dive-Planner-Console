@@ -13,7 +13,7 @@ namespace BubblesDivePlanner.Presenters
         IDiveStep CreateDiveStep(byte depthCeiling, byte maximumOperatingDepth);
         ICylinder SelectCylinder(List<ICylinder> cylinders);
         void PrintDiveResult(IDivePlan divePlan);
-        bool ConfirmDecompression();
+        bool ConfirmDecompression(double depthCeiling);
         bool ConfirmContinueWithDive();
     }
 }

@@ -21,7 +21,7 @@ namespace BubblesDivePlannerTests.Controllers
             divePlan.Setup(dp => dp.DiveModel).Returns(TestFixture.FixtureDiveModel(null));
             divePlan.Setup(dp => dp.DiveStep).Returns(TestFixture.FixtureDiveStep);
             divePlan.Setup(dp => dp.Cylinders).Returns(TestFixture.FixtureCylinders());
-            divePresenter.Setup(dp => dp.ConfirmDecompression()).Returns(true);
+            divePresenter.Setup(dp => dp.ConfirmDecompression(TestFixture.FixtureDiveModel(null).DiveProfile.DepthCeiling)).Returns(true);
             divePresenter.Setup(dp => dp.SelectCylinder(divePlan.Object.Cylinders)).Returns(TestFixture.FixtureSelectedCylinder);
             diveController.Setup(dc => dc.RunDiveProfile(divePlan.Object));
 
@@ -39,7 +39,7 @@ namespace BubblesDivePlannerTests.Controllers
         {
             // Given
             DivePlan divePlan = new(TestFixture.ExpectedDiveModel, TestFixture.FixtureCylinders(), TestFixture.FixtureDiveStep, TestFixture.FixtureSelectedCylinder);
-            divePresenter.Setup(dp => dp.ConfirmDecompression()).Returns(true);
+            divePresenter.Setup(dp => dp.ConfirmDecompression(divePlan.DiveModel.DiveProfile.DepthCeiling)).Returns(true);
             divePresenter.Setup(dp => dp.SelectCylinder(divePlan.Cylinders)).Returns(TestFixture.FixtureSelectedCylinder);
             DiveController diveController = new(divePresenter.Object, new DiveStagesController());
             decompressionController = new DecompressionController(divePresenter.Object, diveController);

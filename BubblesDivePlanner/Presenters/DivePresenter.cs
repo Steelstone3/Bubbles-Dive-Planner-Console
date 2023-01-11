@@ -53,9 +53,13 @@ namespace BubblesDivePlanner.Presenters
 
             var selectionPrompt = new SelectionPrompt<IDiveModel> { Converter = diveModel => diveModel.Name };
 
-            return AnsiConsole.Prompt(selectionPrompt
+            var diveModel = AnsiConsole.Prompt(selectionPrompt
             .Title("Select Dive Model:")
             .AddChoices(diveModels));
+
+            presenter.Print($"Selected Dive Model: {diveModel.Name}");
+
+            return diveModel;
         }
 
         public List<ICylinder> CreateCylinders(string diveModelName)
@@ -79,14 +83,12 @@ namespace BubblesDivePlanner.Presenters
             AnsiConsole.Write(diveProfileTable);
 
             var diveStepTable = CreateDiveStepTable();
-            diveStepTable = AssignDiveStepTableRows(diveStepTable, divePlan.DiveStep);
+            diveStepTable = AssignDiveStepTableRows(diveStepTable, divePlan.DiveStep, diveModel.DiveProfile.DepthCeiling.ToString());
             AnsiConsole.Write(diveStepTable);
 
             var cylindersTable = CreateCylindersTable();
             cylindersTable = AssignCylindersTableRows(cylindersTable, divePlan.Cylinders);
             AnsiConsole.Write(cylindersTable);
-
-            presenter.Print($"Depth Ceiling: {diveModel.DiveProfile.DepthCeiling}");
         }
 
         private static Table CreateDiveProfileTable(string diveModelName)
@@ -108,6 +110,7 @@ namespace BubblesDivePlanner.Presenters
             diveStepTable.Title("Dive Step");
             diveStepTable.AddColumn("Depth");
             diveStepTable.AddColumn("Time");
+            diveStepTable.AddColumn("Depth Ceiling");
 
             return diveStepTable;
         }
@@ -146,11 +149,12 @@ namespace BubblesDivePlanner.Presenters
             return diveProfileTable;
         }
 
-        private static Table AssignDiveStepTableRows(Table diveStepTable, IDiveStep diveStep)
+        private static Table AssignDiveStepTableRows(Table diveStepTable, IDiveStep diveStep, string depthCeiling)
         {
             var row = new[] {
                 diveStep.Depth.ToString(),
-                diveStep.Time.ToString()
+                diveStep.Time.ToString(),
+                depthCeiling
             };
 
             diveStepTable.AddRow(row);
@@ -206,9 +210,13 @@ namespace BubblesDivePlanner.Presenters
             );
         }
 
-        public bool ConfirmDecompression()
+        public bool ConfirmDecompression(double depthCeiling)
         {
-            return presenter.GetConfirmation("Run Decompression Steps?");
+            if(depthCeiling > 0.0){
+                return presenter.GetConfirmation("Run Decompression Steps?");
+            }
+
+            return false;
         }
 
         public bool ConfirmContinueWithDive()

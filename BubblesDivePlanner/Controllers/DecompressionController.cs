@@ -18,7 +18,7 @@ namespace BubblesDivePlanner.Controllers
 
         public List<IDivePlan> RunDecompression(IDivePlan divePlan)
         {
-            if (divePresenter.ConfirmDecompression())
+            if (divePresenter.ConfirmDecompression(divePlan.DiveModel.DiveProfile.DepthCeiling))
             {
                 List<IDivePlan> divePlans = new();
 
