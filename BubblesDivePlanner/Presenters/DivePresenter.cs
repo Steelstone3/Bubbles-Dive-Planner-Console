@@ -212,7 +212,8 @@ namespace BubblesDivePlanner.Presenters
 
         public bool ConfirmDecompression(double depthCeiling)
         {
-            if(depthCeiling > 0.0){
+            if (depthCeiling > 0.0)
+            {
                 return presenter.GetConfirmation("Run Decompression Steps?");
             }
 
