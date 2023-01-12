@@ -23,6 +23,7 @@ namespace BubblesDivePlannerTests.Controllers
             // Given
             var diveModel = new Zhl12Buhlmann(null);
             divePresenter.Setup(dp => dp.WelcomeMessage());
+            divePresenter.Setup(dp => dp.DisplayHelp());
             divePresenter.Setup(dp => dp.SelectDiveModel()).Returns(diveModel);
             divePresenter.Setup(dp => dp.CreateCylinders(diveModel.Name));
             diveController = new DiveController(divePresenter.Object, diveStagesController.Object);

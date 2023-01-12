@@ -23,6 +23,7 @@ namespace BubblesDivePlanner.Controllers
         public void SetupDivePlan(IDivePlan divePlan)
         {
             divePresenter.WelcomeMessage();
+            divePresenter.DisplayHelp();
 
             if (divePlan == null)
             {

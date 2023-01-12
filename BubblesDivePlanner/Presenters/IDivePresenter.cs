@@ -15,5 +15,6 @@ namespace BubblesDivePlanner.Presenters
         void PrintDiveResult(IDivePlan divePlan);
         bool ConfirmDecompression(double depthCeiling);
         bool ConfirmContinueWithDive();
+        void DisplayHelp();
     }
 }
