@@ -123,7 +123,7 @@ namespace BubblesDivePlannerTests.Presenters
 
             // When
             divePresenter.DisplayHelp();
-        
+
             // Then
             presenter.VerifyAll();
         }
