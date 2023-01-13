@@ -17,24 +17,6 @@ namespace BubblesDivePlanner.Presenters
             this.presenter = presenter;
         }
 
-        public IDiveStep CreateDiveStep(byte depthCeiling, byte maximumOperatingDepth)
-        {
-            return new DiveStep(presenter.GetByte("Enter Depth (m):", depthCeiling, maximumOperatingDepth), presenter.GetByte("Enter Time (min):", 1, 60));
-        }
-
-        public ICylinder SelectCylinder(List<ICylinder> cylinders)
-        {
-            var selectionPrompt = new SelectionPrompt<ICylinder> { Converter = cylinder => cylinder.Name };
-
-            var selectedCylinder = AnsiConsole.Prompt(selectionPrompt
-            .Title("Select Cylinder:")
-            .AddChoices(cylinders));
-
-            presenter.Print($"Selected Cylinder: {selectedCylinder.Name}");
-
-            return selectedCylinder;
-        }
-
         public void WelcomeMessage()
         {
             presenter.Print("Bubbles Dive Planner Console");
@@ -71,6 +53,24 @@ namespace BubblesDivePlanner.Presenters
             } while (presenter.GetConfirmation("Create Another Cylinder?"));
 
             return cylinders;
+        }
+
+        public IDiveStep CreateDiveStep(byte depthCeiling, byte maximumOperatingDepth)
+        {
+            return new DiveStep(presenter.GetByte("Enter Depth (m):", depthCeiling, maximumOperatingDepth), presenter.GetByte("Enter Time (min):", 1, 60));
+        }
+
+        public ICylinder SelectCylinder(List<ICylinder> cylinders)
+        {
+            var selectionPrompt = new SelectionPrompt<ICylinder> { Converter = cylinder => cylinder.Name };
+
+            var selectedCylinder = AnsiConsole.Prompt(selectionPrompt
+            .Title("Select Cylinder:")
+            .AddChoices(cylinders));
+
+            presenter.Print($"Selected Cylinder: {selectedCylinder.Name}");
+
+            return selectedCylinder;
         }
 
         public void PrintDiveResult(IDivePlan divePlan)
