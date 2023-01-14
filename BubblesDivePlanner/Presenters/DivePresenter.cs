@@ -113,7 +113,7 @@ namespace BubblesDivePlanner.Presenters
             for (int i = 0; i < diveProfile.CompartmentLoads.Length; i++)
             {
                 double compartmentLoad = diveProfile.CompartmentLoads[i];
-                diveProfileChart.AddItem($"Compartment: {i + 1}", compartmentLoad, DetermineColour(compartmentLoad));
+                diveProfileChart.AddItem($"Tissue Compartment: {i + 1}", compartmentLoad, DetermineColour(compartmentLoad));
             }
 
             return diveProfileChart;
@@ -132,7 +132,7 @@ namespace BubblesDivePlanner.Presenters
             diveProfileTable.AddColumn("Total Tissue Pressures");
             diveProfileTable.AddColumn("Tolerated Ambient Pressures");
             diveProfileTable.AddColumn("MaxSurface Pressures");
-            diveProfileTable.AddColumn("Compartment Loads");
+            diveProfileTable.AddColumn("Compartment Loads (%)");
 
             return diveProfileTable;
         }
@@ -141,9 +141,9 @@ namespace BubblesDivePlanner.Presenters
         {
             var diveStepTable = new Table();
             diveStepTable.Title("Dive Step");
-            diveStepTable.AddColumn("Depth");
-            diveStepTable.AddColumn("Time");
-            diveStepTable.AddColumn("Depth Ceiling");
+            diveStepTable.AddColumn("Depth (m)");
+            diveStepTable.AddColumn("Time (min)");
+            diveStepTable.AddColumn("Depth Ceiling (m)");
 
             return diveStepTable;
         }
@@ -153,13 +153,13 @@ namespace BubblesDivePlanner.Presenters
             var cylindersTable = new Table();
             cylindersTable.Title("Cylinders");
             cylindersTable.AddColumn("Cylinder");
-            cylindersTable.AddColumn("Initial Pressurised Volume");
-            cylindersTable.AddColumn("Remaining Gas");
-            cylindersTable.AddColumn("Used Gas");
-            cylindersTable.AddColumn("Oxygen");
-            cylindersTable.AddColumn("Nitrogen");
-            cylindersTable.AddColumn("Helium");
-            cylindersTable.AddColumn("Maximum Operating Depth");
+            cylindersTable.AddColumn("Initial Pressurised Volume (l)");
+            cylindersTable.AddColumn("Remaining Gas (l)");
+            cylindersTable.AddColumn("Used Gas (l)");
+            cylindersTable.AddColumn("Oxygen (%)");
+            cylindersTable.AddColumn("Nitrogen (%)");
+            cylindersTable.AddColumn("Helium (%)");
+            cylindersTable.AddColumn("Maximum Operating Depth (m)");
 
             return cylindersTable;
         }
