@@ -114,10 +114,14 @@ namespace BubblesDivePlanner.Presenters
             for (int i = 0; i < diveProfile.CompartmentLoads.Length; i++)
             {
                 double compartmentLoad = diveProfile.CompartmentLoads[i];
-                diveProfileChart.AddItem($"Compartment: {i + 1}", compartmentLoad);
+                diveProfileChart.AddItem($"Compartment: {i + 1}", compartmentLoad, DetermineColour(compartmentLoad));
             }
 
             return diveProfileChart;
+        }
+
+        private static Color DetermineColour(double compartmentLoad) {
+            return compartmentLoad > 100.0 ? Color.Red : Color.Green;
         }
 
         private static Table CreateDiveProfileTable(string diveModelName)
