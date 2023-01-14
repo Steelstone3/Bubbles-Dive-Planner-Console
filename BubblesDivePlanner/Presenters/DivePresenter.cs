@@ -121,7 +121,7 @@ namespace BubblesDivePlanner.Presenters
         }
 
         private static Color DetermineColour(double compartmentLoad) {
-            return compartmentLoad > 100.0 ? Color.Red : Color.Green;
+            return compartmentLoad > 100.0 ? Color.DarkRed_1 : Color.SteelBlue1;
         }
 
         private static Table CreateDiveProfileTable(string diveModelName)
