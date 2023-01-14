@@ -119,7 +119,8 @@ namespace BubblesDivePlanner.Presenters
             return diveProfileChart;
         }
 
-        private static Color DetermineColour(double compartmentLoad) {
+        private static Color DetermineColour(double compartmentLoad)
+        {
             return compartmentLoad > 100.0 ? Color.DarkRed_1 : Color.SteelBlue1;
         }
 
