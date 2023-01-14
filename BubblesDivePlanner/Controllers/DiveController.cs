@@ -24,6 +24,7 @@ namespace BubblesDivePlanner.Controllers
         {
             divePresenter.WelcomeMessage();
             divePresenter.DisplayHelp();
+            divePresenter.DisplayResultOption();
 
             if (divePlan == null)
             {
