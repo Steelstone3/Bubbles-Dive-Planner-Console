@@ -10,6 +10,7 @@ namespace BubblesDivePlanner.Presenters
 {
     public class DivePresenter : IDivePresenter
     {
+        private bool isChartDisplay = false;
         private readonly IPresenter presenter;
 
         public DivePresenter(IPresenter presenter)
@@ -20,6 +21,11 @@ namespace BubblesDivePlanner.Presenters
         public void WelcomeMessage()
         {
             presenter.Print("Bubbles Dive Planner Console");
+        }
+
+        public void DisplayResultOption()
+        {
+            isChartDisplay = presenter.GetConfirmation("Use Chart Display?");
         }
 
         public IDiveModel SelectDiveModel()
@@ -78,9 +84,17 @@ namespace BubblesDivePlanner.Presenters
             var diveModel = divePlan.DiveModel;
             var diveProfile = diveModel.DiveProfile;
 
-            var diveProfileTable = CreateDiveProfileTable(diveModel.Name);
-            diveProfileTable = AssignDiveProfileTableRows(diveProfileTable, diveProfile);
-            AnsiConsole.Write(diveProfileTable);
+            if (isChartDisplay)
+            {
+                var diveProfileChart = CreateAndAssignDiveProfileChart(diveModel.Name, diveProfile);
+                AnsiConsole.Write(diveProfileChart);
+            }
+            else
+            {
+                var diveProfileTable = CreateDiveProfileTable(diveModel.Name);
+                diveProfileTable = AssignDiveProfileTableRows(diveProfileTable, diveProfile);
+                AnsiConsole.Write(diveProfileTable);
+            }
 
             var diveStepTable = CreateDiveStepTable();
             diveStepTable = AssignDiveStepTableRows(diveStepTable, divePlan.DiveStep, diveModel.DiveProfile.DepthCeiling.ToString());
@@ -89,6 +103,21 @@ namespace BubblesDivePlanner.Presenters
             var cylindersTable = CreateCylindersTable();
             cylindersTable = AssignCylindersTableRows(cylindersTable, divePlan.Cylinders);
             AnsiConsole.Write(cylindersTable);
+        }
+
+        private static BarChart CreateAndAssignDiveProfileChart(string diveModelName, IDiveProfile diveProfile)
+        {
+            var diveProfileChart = new BarChart();
+            diveProfileChart.Label($"{diveModelName}");
+            diveProfileChart.CenterLabel();
+
+            for (int i = 0; i < diveProfile.CompartmentLoads.Length; i++)
+            {
+                double compartmentLoad = diveProfile.CompartmentLoads[i];
+                diveProfileChart.AddItem($"Compartment: {i + 1}", compartmentLoad);
+            }
+
+            return diveProfileChart;
         }
 
         private static Table CreateDiveProfileTable(string diveModelName)
@@ -227,7 +256,7 @@ namespace BubblesDivePlanner.Presenters
 
         public void DisplayHelp()
         {
-            if(presenter.GetConfirmation("Bubbles Dive Planner Help?"))
+            if (presenter.GetConfirmation("Bubbles Dive Planner Help?"))
             {
                 presenter.Print("Bubbles Dive Planner Console is an all in one tool for planning scuba diving activities. Currently the dive planner only support metric measurements which are used throughout the dive planner.\n\nThe dive planner aims to act like dive tables.\n\nThe dive planner will ask whether to load a file. Provide a y/n answer (default y). If no file is detected then an error will display otherwise the file will be loaded.\n\nWhen planning a dive the dive planner will ask you to select a dive model, set up the cylinders needed for the dive and then will proceed to create \"Dive Steps\" consisting of an amount of time at a given depth. This information is used to create the dive profile which is displayed as a table.\n\nWhen selecting a dive model select one of the options avaliable from the list. Note that some dive models are more conservative than others. A message will be displayed stating the selected dive model.\n\nWhen creating a cylinder provide a name of what the cylinder is to be referred to. This will be used when selecting a cylinder for a \"Dive Step\" such as \"Select Cylinder: Air, EAN32, EAN50\". The cylinder requires a volume. This is the cylinder's size such as a \"10 Litre Cylinder\". The cylinder requires a starting pressure. This is the amount of pressure the cylinder holds such as \"200 BAR of pressure\". The cylinder requires a surface air consumption rate. This is the rate in which a person breaths in litres per minute for example \"12 l/min\". The cylinder then requires a gas mixture of Oxygen and Helium where the remained is calculated for Nitrogen. Enter the desired mix and not that it will limit the maximum operating depth at 1.4 PPO2. The units used are percent for example \"21% Oxygen, 0% Helium and a calculated 79% Nitrogen giving a maximum operating depth of 56.6 Metres\". The dive planner will then ask whether to create another cylinder following the same process. Enter y/n (default y) based on the dive plan's needs the cylinder list cannot be altered past this point without starting a new dive plan.\n\nThe dive planner will now enter into a loop whereby it will ask for a \"dive step\" and provide a result. A \"dive step\" consists of the amount of time to be spent a given depth on a cylinder.\n\nSelect a cylinder from the list to be used as part of the \"dive step\". This will manage both gas management and gas mixture for the \"dive step\". For example \"Select Cylinder: Air, EAN32\". A message will be displayed stating the selected cylinder. Next enter both depth and time values for the dive profile. Validation will warn of out of range values. For example \"Depth: 50 metres, Time: 10 minutes, Oxygen: 32%\" will inform you the maximum range for depth is between 0 and 33 metres.\n\nOnce a valid dive step is entered the results will be displayed. Note the main table. This informs of simulated tissue loads, the pressure that tissue can tolerate in the ambient enviroment, the maximum surface pressure and most importantly the compartment's load. If a compartment load is over 100% then the simulated tissue is in decompression meaning the diver (you) would be in decompression for following this dive profile.\n\nThe next table displays the time at depth spent as part of the \"dive step\" as well as the dive ceiling. If the dive ceiling is greater than 0 then the diver is in decompression. For example \"Depth Ceiling: 3.1\" means that the diver must remain below 3.1 metres.\n\nThe next table displays the selected cylinder for the \"dive step\". This table displays the cylinder name, the initial pressurised volume (volume * pressure) in litres, the remaining gas in litres, the gas used for the \"dive step\" in litres, the gas mixture consisting of a percentage of oxygen, nitrogen and helium and the maximum operating depth or dive floor which a diver must not descend below due to the risk of seizures from CNS toxicity; the maximum operating depth is based on the oxygen percentage of the gas mixture in the selected cylinder.\n\nThe dive planner may ask whether to decompress the diver with a y/n. This is an algorithm that will run decompression proceedures automatically applying \"dive steps\" and displaying the results in 3 metre increments.\n\nThe dive planner will then ask if you wish to contine to create another dive step and will repeat the process.\n\nThe dive planner will ask if the diver wishes to save their dive profile. Selecting y will result in a .json file being created with the contents of the entire dive planner state. This includes the dive model selected, all the dive steps and all the results.");
             }
