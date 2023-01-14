@@ -11,21 +11,6 @@ namespace BubblesDivePlannerTests.Presenters
         private IDivePresenter divePresenter;
 
         [Fact]
-        public void CreateADiveStep()
-        {
-            // Given
-            presenter.Setup(p => p.GetByte("Enter Depth (m):", 0, 56));
-            presenter.Setup(p => p.GetByte("Enter Time (min):", 1, 60));
-            divePresenter = new DivePresenter(presenter.Object);
-
-            // When
-            divePresenter.CreateDiveStep(0, 56);
-
-            // Then
-            presenter.VerifyAll();
-        }
-
-        [Fact]
         public void DisplayAWelcomeMessage()
         {
             // Given
@@ -34,6 +19,20 @@ namespace BubblesDivePlannerTests.Presenters
 
             // When
             divePresenter.WelcomeMessage();
+
+            // Then
+            presenter.VerifyAll();
+        }
+
+        [Fact]
+        public void DisplayResultOption()
+        {
+            // Given
+            presenter.Setup(p => p.GetConfirmation("Use Chart Display?"));
+            divePresenter = new DivePresenter(presenter.Object);
+
+            // When
+            divePresenter.DisplayResultOption();
 
             // Then
             presenter.VerifyAll();
@@ -83,6 +82,21 @@ namespace BubblesDivePlannerTests.Presenters
             presenter.Verify(p => p.GetUshort("Enter Cylinder Volume (l):", 3, 15));
             presenter.Verify(p => p.GetUshort("Enter Cylinder Pressure (bar):", 50, 300));
             presenter.Verify(p => p.GetByte("Enter Surface Air Consumption Rate (l/min):", 5, 30));
+        }
+
+        [Fact]
+        public void CreateADiveStep()
+        {
+            // Given
+            presenter.Setup(p => p.GetByte("Enter Depth (m):", 0, 56));
+            presenter.Setup(p => p.GetByte("Enter Time (min):", 1, 60));
+            divePresenter = new DivePresenter(presenter.Object);
+
+            // When
+            divePresenter.CreateDiveStep(0, 56);
+
+            // Then
+            presenter.VerifyAll();
         }
 
         [Fact]

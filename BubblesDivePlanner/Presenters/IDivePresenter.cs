@@ -8,6 +8,7 @@ namespace BubblesDivePlanner.Presenters
     public interface IDivePresenter
     {
         void WelcomeMessage();
+        void DisplayResultOption();
         IDiveModel SelectDiveModel();
         List<ICylinder> CreateCylinders(string diveModelName);
         IDiveStep CreateDiveStep(byte depthCeiling, byte maximumOperatingDepth);
