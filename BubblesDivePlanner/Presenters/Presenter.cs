@@ -42,7 +42,12 @@ namespace BubblesDivePlanner.Presenters
 
         public bool GetConfirmationDefaultYes(string message)
         {
-            return AnsiConsole.Confirm(message);
+            return AnsiConsole.Confirm(message, true);
+        }
+
+        public bool GetConfirmationDefaultNo(string message)
+        {
+            return AnsiConsole.Confirm(message, false);
         }
     }
 }

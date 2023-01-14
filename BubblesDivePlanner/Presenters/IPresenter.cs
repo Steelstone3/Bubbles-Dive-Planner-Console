@@ -7,5 +7,6 @@ namespace BubblesDivePlanner.Presenters
         ushort GetUshort(string message, ushort lowerBound, ushort upperBound);
         string GetString(string message);
         bool GetConfirmationDefaultYes(string message);
+        bool GetConfirmationDefaultNo(string message);
     }
 }

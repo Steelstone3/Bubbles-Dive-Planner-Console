@@ -16,7 +16,7 @@ namespace BubblesDivePlanner.Presenters
 
         public bool DisplayLoadFile()
         {
-            return presenter.GetConfirmationDefaultYes("Load File?");
+            return presenter.GetConfirmationDefaultNo("Load File?");
         }
 
         public void DisplaySaveErrorMessage(string fileName)

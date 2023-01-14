@@ -28,7 +28,7 @@ namespace BubblesDivePlannerTests.Presenters
         public void DisplayLoadFile()
         {
             // Given
-            presenter.Setup(p => p.GetConfirmationDefaultYes($"Load File?"));
+            presenter.Setup(p => p.GetConfirmationDefaultNo($"Load File?"));
             filePresenter = new FilePresenter(presenter.Object);
 
             // When
