@@ -11,12 +11,12 @@ namespace BubblesDivePlanner.Presenters
 
         public bool DisplaySaveFile()
         {
-            return presenter.GetConfirmation("Save File?");
+            return presenter.GetConfirmationDefaultYes("Save File?");
         }
 
         public bool DisplayLoadFile()
         {
-            return presenter.GetConfirmation("Load File?");
+            return presenter.GetConfirmationDefaultNo("Load File?");
         }
 
         public void DisplaySaveErrorMessage(string fileName)
