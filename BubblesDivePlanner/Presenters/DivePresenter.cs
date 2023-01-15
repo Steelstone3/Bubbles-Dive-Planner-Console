@@ -24,7 +24,7 @@ namespace BubblesDivePlanner.Presenters
 
         public void DisplayResultOption()
         {
-            isChartDisplay = presenter.GetConfirmationDefaultNo("Use Chart Display?");
+            isChartDisplay = presenter.GetConfirmationDefaultNo("Use Simplified Display?");
         }
 
         public IDiveModel SelectDiveModel()
@@ -107,7 +107,7 @@ namespace BubblesDivePlanner.Presenters
         private static BarChart CreateAndAssignDiveProfileChart(string diveModelName, IDiveProfile diveProfile)
         {
             var diveProfileChart = new BarChart();
-            diveProfileChart.Label($"{diveModelName}");
+            diveProfileChart.Label($"Dive Profile Result\nDive Model: {diveModelName}");
             diveProfileChart.CenterLabel();
 
             for (int i = 0; i < diveProfile.CompartmentLoads.Length; i++)
@@ -127,7 +127,7 @@ namespace BubblesDivePlanner.Presenters
         private static Table CreateDiveProfileTable(string diveModelName)
         {
             var diveProfileTable = new Table();
-            diveProfileTable.Title($"Dive Model: {diveModelName}");
+            diveProfileTable.Title($"Dive Profile Result\nDive Model: {diveModelName}");
             diveProfileTable.AddColumn("Compartment");
             diveProfileTable.AddColumn("Total Tissue Pressures");
             diveProfileTable.AddColumn("Tolerated Ambient Pressures");

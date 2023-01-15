@@ -28,7 +28,7 @@ namespace BubblesDivePlannerTests.Presenters
         public void DisplayResultOption()
         {
             // Given
-            presenter.Setup(p => p.GetConfirmationDefaultNo("Use Chart Display?"));
+            presenter.Setup(p => p.GetConfirmationDefaultNo("Use Simplified Display?"));
             divePresenter = new DivePresenter(presenter.Object);
 
             // When
