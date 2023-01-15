@@ -9,7 +9,7 @@ namespace BubblesDivePlanner.Presenters
 {
     public class DivePresenter : IDivePresenter
     {
-        private bool isChartDisplay = false;
+        private bool isChartDisplay;
         private readonly IPresenter presenter;
 
         public DivePresenter(IPresenter presenter)
