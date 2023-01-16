@@ -43,7 +43,7 @@ namespace BubblesDivePlanner.Controllers
             }
         }
 
-        public IDivePlan SetupDiveStep(byte depthCeiling)
+        public IDivePlan SetupDiveStep(double depthCeiling)
         {
             var maximumDepth = (byte)100;
             var selectedCylinder = divePresenter.SelectCylinder(cylinders);
