@@ -8,5 +8,6 @@ namespace BubblesDivePlanner.Presenters
         string GetString(string message);
         bool GetConfirmationDefaultYes(string message);
         bool GetConfirmationDefaultNo(string message);
+        string GenerateHelpMenu();
     }
 }
