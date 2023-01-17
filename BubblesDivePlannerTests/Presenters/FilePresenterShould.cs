@@ -11,20 +11,6 @@ namespace BubblesDivePlannerTests.Presenters
         IFilePresenter filePresenter;
 
         [Fact]
-        public void DisplaySaveFile()
-        {
-            // Given
-            presenter.Setup(p => p.GetConfirmationDefaultYes($"Save File?"));
-            filePresenter = new FilePresenter(presenter.Object);
-
-            // When
-            filePresenter.DisplaySaveFile();
-
-            // Then
-            presenter.VerifyAll();
-        }
-
-        [Fact]
         public void DisplayLoadFile()
         {
             // Given
@@ -39,20 +25,6 @@ namespace BubblesDivePlannerTests.Presenters
         }
 
         [Fact]
-        public void DisplaySaveErrorMessage()
-        {
-            // Given
-            presenter.Setup(p => p.Print($"{FILE_NAME} could not be found or written to."));
-            filePresenter = new FilePresenter(presenter.Object);
-
-            // When
-            filePresenter.DisplaySaveErrorMessage(FILE_NAME);
-
-            // Then
-            presenter.VerifyAll();
-        }
-
-        [Fact]
         public void DisplayLoadErrorMessage()
         {
             // Given
@@ -61,6 +33,34 @@ namespace BubblesDivePlannerTests.Presenters
 
             // When
             filePresenter.DisplayLoadErrorMessage(FILE_NAME);
+
+            // Then
+            presenter.VerifyAll();
+        }
+
+        [Fact]
+        public void DisplaySaveFile()
+        {
+            // Given
+            presenter.Setup(p => p.GetConfirmationDefaultYes($"Save File?"));
+            filePresenter = new FilePresenter(presenter.Object);
+
+            // When
+            filePresenter.DisplaySaveFile();
+
+            // Then
+            presenter.VerifyAll();
+        }
+
+        [Fact]
+        public void DisplaySaveErrorMessage()
+        {
+            // Given
+            presenter.Setup(p => p.Print($"{FILE_NAME} could not be found or written to."));
+            filePresenter = new FilePresenter(presenter.Object);
+
+            // When
+            filePresenter.DisplaySaveErrorMessage(FILE_NAME);
 
             // Then
             presenter.VerifyAll();

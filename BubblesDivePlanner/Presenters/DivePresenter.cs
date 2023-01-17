@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using BubblesDivePlanner.Models;
 using BubblesDivePlanner.Models.Cylinders;
 using BubblesDivePlanner.Models.DiveModels;
-using BubblesDivePlanner.Models.DiveModels.Types;
 using Spectre.Console;
 
 namespace BubblesDivePlanner.Presenters
@@ -17,9 +16,23 @@ namespace BubblesDivePlanner.Presenters
             this.presenter = presenter;
         }
 
+        #region Welcome
+
         public void WelcomeMessage()
         {
             presenter.Print("Bubbles Dive Planner Console");
+        }
+
+        public void DisplayHelp()
+        {
+            if (presenter.GetConfirmationDefaultNo("Bubbles Dive Planner Help?"))
+            {
+                do
+                {
+                    var helpOption = presenter.HelpMenuSelection();
+                    DisplayHelpMessage(helpOption);
+                } while (presenter.GetConfirmationDefaultYes("Continue With Help?"));
+            }
         }
 
         public void DisplayResultOption()
@@ -27,23 +40,13 @@ namespace BubblesDivePlanner.Presenters
             isChartDisplay = presenter.GetConfirmationDefaultNo("Use Simplified Display?");
         }
 
+        #endregion
+
+        #region Dive Plan Setup
+
         public IDiveModel SelectDiveModel()
         {
-            List<IDiveModel> diveModels = new()
-            {
-                // TODO re-enable when ready for production
-                new Zhl16Buhlmann(null),
-                // new Zhl12Buhlmann(null),
-                new UsnRevision6(null),
-                new DcapMf11f6(null),
-            };
-
-            var selectionPrompt = new SelectionPrompt<IDiveModel> { Converter = diveModel => diveModel.Name };
-
-            var diveModel = AnsiConsole.Prompt(selectionPrompt
-            .Title("Select Dive Model:")
-            .AddChoices(diveModels));
-
+            IDiveModel diveModel = presenter.DiveModelSelection();
             presenter.Print($"Selected Dive Model: {diveModel.Name}");
 
             return diveModel;
@@ -60,6 +63,10 @@ namespace BubblesDivePlanner.Presenters
             return cylinders;
         }
 
+        #endregion
+
+        #region Dive Plan Step
+
         public IDiveStep CreateDiveStep(double depthCeiling, byte maximumOperatingDepth)
         {
             return new DiveStep(presenter.GetByte("Enter Depth (m):", (byte)(depthCeiling > 1 ? depthCeiling : 1), maximumOperatingDepth), presenter.GetByte("Enter Time (min):", 1, 60));
@@ -67,16 +74,15 @@ namespace BubblesDivePlanner.Presenters
 
         public ICylinder SelectCylinder(List<ICylinder> cylinders)
         {
-            var selectionPrompt = new SelectionPrompt<ICylinder> { Converter = cylinder => cylinder.Name };
-
-            var selectedCylinder = AnsiConsole.Prompt(selectionPrompt
-            .Title("Select Cylinder:")
-            .AddChoices(cylinders));
-
+            var selectedCylinder = presenter.CylinderSelection(cylinders);
             presenter.Print($"Selected Cylinder: {selectedCylinder.Name}");
 
             return selectedCylinder;
         }
+
+        #endregion
+
+        #region Results
 
         public void PrintDiveResult(IDivePlan divePlan)
         {
@@ -85,162 +91,25 @@ namespace BubblesDivePlanner.Presenters
 
             if (isChartDisplay)
             {
-                var diveProfileChart = CreateAndAssignDiveProfileChart(diveModel.Name, diveProfile);
-                AnsiConsole.Write(diveProfileChart);
+                var diveProfileChart = presenter.AssignDiveProfileChart(diveModel.Name, diveProfile);
+                presenter.WriteResult(diveProfileChart);
             }
             else
             {
-                var diveProfileTable = CreateDiveProfileTable(diveModel.Name);
-                diveProfileTable = AssignDiveProfileTableRows(diveProfileTable, diveProfile);
-                AnsiConsole.Write(diveProfileTable);
+                var diveProfileTable = presenter.AssignDiveProfileTable(diveModel.Name, diveProfile);
+                presenter.WriteResult(diveProfileTable);
             }
 
-            var diveStepTable = CreateDiveStepTable();
-            diveStepTable = AssignDiveStepTableRows(diveStepTable, divePlan.DiveStep, diveModel.DiveProfile.DepthCeiling.ToString());
-            AnsiConsole.Write(diveStepTable);
+            var diveStepTable = presenter.AssignDiveStepTable(divePlan.DiveStep, diveModel.DiveProfile.DepthCeiling.ToString());
+            presenter.WriteResult(diveStepTable);
 
-            var cylindersTable = CreateCylindersTable();
-            cylindersTable = AssignCylindersTableRows(cylindersTable, divePlan.Cylinders);
-            AnsiConsole.Write(cylindersTable);
+            var cylindersTable = presenter.AssignCylindersTable(divePlan.Cylinders);
+            presenter.WriteResult(cylindersTable);
         }
 
-        private static BarChart CreateAndAssignDiveProfileChart(string diveModelName, IDiveProfile diveProfile)
+        public bool ConfirmContinueWithDive()
         {
-            var diveProfileChart = new BarChart();
-            diveProfileChart.Label($"Dive Profile Result\nDive Model: {diveModelName}");
-            diveProfileChart.CenterLabel();
-
-            for (int i = 0; i < diveProfile.CompartmentLoads.Length; i++)
-            {
-                double compartmentLoad = diveProfile.CompartmentLoads[i];
-                diveProfileChart.AddItem($"Tissue Compartment: {i + 1}", compartmentLoad, DetermineColour(compartmentLoad));
-            }
-
-            return diveProfileChart;
-        }
-
-        private static Color DetermineColour(double compartmentLoad)
-        {
-            return compartmentLoad > 100.0 ? Color.DarkRed_1 : Color.SteelBlue1;
-        }
-
-        private static Table CreateDiveProfileTable(string diveModelName)
-        {
-            var diveProfileTable = new Table();
-            diveProfileTable.Title($"Dive Profile Result\nDive Model: {diveModelName}");
-            diveProfileTable.AddColumn("Compartment");
-            diveProfileTable.AddColumn("Total Tissue Pressures");
-            diveProfileTable.AddColumn("Tolerated Ambient Pressures");
-            diveProfileTable.AddColumn("MaxSurface Pressures");
-            diveProfileTable.AddColumn("Compartment Loads (%)");
-
-            return diveProfileTable;
-        }
-
-        private static Table CreateDiveStepTable()
-        {
-            var diveStepTable = new Table();
-            diveStepTable.Title("Dive Step");
-            diveStepTable.AddColumn("Depth (m)");
-            diveStepTable.AddColumn("Time (min)");
-            diveStepTable.AddColumn("Depth Ceiling (m)");
-
-            return diveStepTable;
-        }
-
-        private static Table CreateCylindersTable()
-        {
-            var cylindersTable = new Table();
-            cylindersTable.Title("Cylinders");
-            cylindersTable.AddColumn("Cylinder");
-            cylindersTable.AddColumn("Initial Pressurised Volume (l)");
-            cylindersTable.AddColumn("Remaining Gas (l)");
-            cylindersTable.AddColumn("Used Gas (l)");
-            cylindersTable.AddColumn("Oxygen (%)");
-            cylindersTable.AddColumn("Nitrogen (%)");
-            cylindersTable.AddColumn("Helium (%)");
-            cylindersTable.AddColumn("Maximum Operating Depth (m)");
-
-            return cylindersTable;
-        }
-
-        private static Table AssignDiveProfileTableRows(Table diveProfileTable, IDiveProfile diveProfile)
-        {
-            for (int compartment = 0; compartment < diveProfile.CompartmentLoads.Length; compartment++)
-            {
-                string[] row = new[] {
-                    (compartment + 1).ToString(),
-                    diveProfile.TotalTissuePressures[compartment].ToString(),
-                    diveProfile.ToleratedAmbientPressures[compartment].ToString(),
-                    diveProfile.MaxSurfacePressures[compartment].ToString(),
-                    diveProfile.CompartmentLoads[compartment].ToString(),
-                };
-
-                diveProfileTable.AddRow(row);
-            }
-
-            return diveProfileTable;
-        }
-
-        private static Table AssignDiveStepTableRows(Table diveStepTable, IDiveStep diveStep, string depthCeiling)
-        {
-            var row = new[] {
-                diveStep.Depth.ToString(),
-                diveStep.Time.ToString(),
-                depthCeiling
-            };
-
-            diveStepTable.AddRow(row);
-
-            return diveStepTable;
-        }
-
-        private static Table AssignCylindersTableRows(Table cylindersTable, List<ICylinder> cylinders)
-        {
-            foreach (var cylinder in cylinders)
-            {
-                var row = new[] {
-                    cylinder.Name,
-                    cylinder.InitialPressurisedVolume.ToString(),
-                    cylinder.RemainingGas.ToString(),
-                    cylinder.UsedGas.ToString(),
-                    cylinder.GasMixture.Oxygen.ToString(),
-                    cylinder.GasMixture.Nitrogen.ToString(),
-                    cylinder.GasMixture.Helium.ToString(),
-                    cylinder.GasMixture.MaximumOperatingDepth.ToString(),
-                };
-                cylindersTable.AddRow(row);
-            }
-
-            return cylindersTable;
-        }
-
-        private Cylinder CreateCylinder(string diveModelName)
-        {
-            IGasMixture gasMixture;
-            var name = presenter.GetString("Enter Cylinder Name:");
-            var cylinderVolume = presenter.GetUshort("Enter Cylinder Volume (l):", 3, 15);
-            var cylinderPressure = presenter.GetUshort("Enter Cylinder Pressure (bar):", 50, 300);
-            var surfaceAirConsumption = presenter.GetByte("Enter Surface Air Consumption Rate (l/min):", 5, 30);
-            var oxygenPercentage = presenter.GetByte("Enter Oxygen (%):", 5, 100);
-            if (diveModelName == DiveModelNames.DCAP_MF11F6.ToString())
-            {
-                gasMixture = new GasMixture(oxygenPercentage, 0);
-            }
-            else
-            {
-                gasMixture = new GasMixture(oxygenPercentage, presenter.GetByte("Enter Helium (%):", 0, (byte)(100 - oxygenPercentage)));
-            }
-
-            return new Cylinder(
-                name,
-                cylinderVolume,
-                cylinderPressure,
-                surfaceAirConsumption,
-                gasMixture,
-                0,
-                0
-            );
+            return presenter.GetConfirmationDefaultYes("Continue?");
         }
 
         public bool ConfirmDecompression(double depthCeiling)
@@ -253,22 +122,9 @@ namespace BubblesDivePlanner.Presenters
             return false;
         }
 
-        public bool ConfirmContinueWithDive()
-        {
-            return presenter.GetConfirmationDefaultYes("Continue?");
-        }
+        #endregion
 
-        public void DisplayHelp()
-        {
-            if (presenter.GetConfirmationDefaultNo("Bubbles Dive Planner Help?"))
-            {
-                do
-                {
-                    var helpOption = presenter.GenerateHelpMenu();
-                    DisplayHelpMessage(helpOption);
-                } while (presenter.GetConfirmationDefaultYes("Continue With Help?"));
-            }
-        }
+        #region Private Methods
 
         private void DisplayHelpMessage(string helpOption)
         {
@@ -306,5 +162,35 @@ namespace BubblesDivePlanner.Presenters
                     break;
             }
         }
+
+        private Cylinder CreateCylinder(string diveModelName)
+        {
+            IGasMixture gasMixture;
+            var name = presenter.GetString("Enter Cylinder Name:");
+            var cylinderVolume = presenter.GetUshort("Enter Cylinder Volume (l):", 3, 15);
+            var cylinderPressure = presenter.GetUshort("Enter Cylinder Pressure (bar):", 50, 300);
+            var surfaceAirConsumption = presenter.GetByte("Enter Surface Air Consumption Rate (l/min):", 5, 30);
+            var oxygenPercentage = presenter.GetByte("Enter Oxygen (%):", 5, 100);
+            if (diveModelName == DiveModelNames.DCAP_MF11F6.ToString())
+            {
+                gasMixture = new GasMixture(oxygenPercentage, 0);
+            }
+            else
+            {
+                gasMixture = new GasMixture(oxygenPercentage, presenter.GetByte("Enter Helium (%):", 0, (byte)(100 - oxygenPercentage)));
+            }
+
+            return new Cylinder(
+                name,
+                cylinderVolume,
+                cylinderPressure,
+                surfaceAirConsumption,
+                gasMixture,
+                0,
+                0
+            );
+        }
+
+        #endregion
     }
 }

@@ -1,6 +1,11 @@
+using System.Collections.Generic;
+using BubblesDivePlanner.Models;
+using BubblesDivePlanner.Models.Cylinders;
 using BubblesDivePlanner.Models.DiveModels;
+using BubblesDivePlanner.Models.DiveModels.Types;
 using BubblesDivePlanner.Presenters;
 using Moq;
+using Spectre.Console;
 using Xunit;
 
 namespace BubblesDivePlannerTests.Presenters
@@ -9,6 +14,8 @@ namespace BubblesDivePlannerTests.Presenters
     {
         private readonly Mock<IPresenter> presenter = new();
         private IDivePresenter divePresenter;
+
+        #region Welcome
 
         [Fact]
         public void DisplayAWelcomeMessage()
@@ -25,6 +32,23 @@ namespace BubblesDivePlannerTests.Presenters
         }
 
         [Fact]
+        public void DisplayHelp()
+        {
+            // Given
+            presenter.Setup(p => p.GetConfirmationDefaultNo("Bubbles Dive Planner Help?")).Returns(true);
+            presenter.Setup(p => p.GetConfirmationDefaultYes("Continue With Help?")).Returns(false);
+            presenter.Setup(p => p.HelpMenuSelection()).Returns("Loading A File");
+            presenter.Setup(p => p.Print("Bubbles dive planner saves files in JSON format. The default file name is dive_plan.json. When running the application a choice of \"yes\" or \"no\" will be presented with the message \"Load File:\". Selecting yes will load the file contained in the base of the program file structure."));
+            divePresenter = new DivePresenter(presenter.Object);
+
+            // When
+            divePresenter.DisplayHelp();
+
+            // Then
+            presenter.VerifyAll();
+        }
+
+        [Fact]
         public void DisplayResultOption()
         {
             // Given
@@ -33,6 +57,26 @@ namespace BubblesDivePlannerTests.Presenters
 
             // When
             divePresenter.DisplayResultOption();
+
+            // Then
+            presenter.VerifyAll();
+        }
+
+        #endregion Welcome
+
+        #region Dive Plan Setup
+
+        [Fact]
+        public void SelectDiveModel()
+        {
+            // Given
+            var diveModel = new Zhl12Buhlmann(null);
+            presenter.Setup(p => p.DiveModelSelection()).Returns(diveModel);
+            presenter.Setup(p => p.Print($"Selected Dive Model: {diveModel.Name}"));
+            divePresenter = new DivePresenter(presenter.Object);
+
+            // When
+            divePresenter.SelectDiveModel();
 
             // Then
             presenter.VerifyAll();
@@ -84,6 +128,10 @@ namespace BubblesDivePlannerTests.Presenters
             presenter.Verify(p => p.GetByte("Enter Surface Air Consumption Rate (l/min):", 5, 30));
         }
 
+        #endregion
+
+        #region Dive Plan Step
+
         [Fact]
         public void CreateADiveStep()
         {
@@ -100,14 +148,73 @@ namespace BubblesDivePlannerTests.Presenters
         }
 
         [Fact]
-        public void ConfirmDecompression()
+        public void SelectCylinder()
         {
             // Given
-            presenter.Setup(p => p.GetConfirmationDefaultYes("Run Decompression Steps?"));
+            var cylinder = TestFixture.FixtureSelectedCylinder;
+            var cylinders = new List<ICylinder> { cylinder, cylinder };
+            presenter.Setup(p => p.CylinderSelection(cylinders)).Returns(cylinder);
+            presenter.Setup(p => p.Print($"Selected Cylinder: {cylinder.Name}"));
             divePresenter = new DivePresenter(presenter.Object);
 
             // When
-            divePresenter.ConfirmDecompression(1.0);
+            divePresenter.SelectCylinder(cylinders);
+
+            // Then
+            presenter.VerifyAll();
+        }
+
+        #endregion
+
+        #region Results
+
+        [Fact]
+        public void PrintDiveResult()
+        {
+            // Given
+            var table = new Table();
+            var diveProfile = TestFixture.ExpectedDiveProfile;
+            var diveModel = TestFixture.FixtureDiveModel(diveProfile);
+            var diveStep = TestFixture.FixtureDiveStep;
+            var cylinder = TestFixture.FixtureSelectedCylinder;
+            var cylinders = new List<ICylinder> { cylinder, cylinder };
+            var divePlan = new DivePlan(diveModel, cylinders, diveStep, cylinder);
+            presenter.Setup(p => p.AssignDiveProfileTable(diveModel.Name, diveProfile)).Returns(table);
+            presenter.Setup(p => p.AssignDiveStepTable(divePlan.DiveStep, divePlan.DiveModel.DiveProfile.DepthCeiling.ToString())).Returns(table);
+            presenter.Setup(p => p.AssignCylindersTable(cylinders)).Returns(table);
+            presenter.Setup(p => p.WriteResult(table));
+            divePresenter = new DivePresenter(presenter.Object);
+
+            // When
+            divePresenter.PrintDiveResult(divePlan);
+
+            // Then
+            presenter.VerifyAll();
+        }
+
+        [Fact]
+        public void PrintSimplfiedDiveResult()
+        {
+            // Given
+            var table = new Table();
+            var barChart = new BarChart();
+            var diveProfile = TestFixture.ExpectedDiveProfile;
+            var diveModel = TestFixture.FixtureDiveModel(diveProfile);
+            var diveStep = TestFixture.FixtureDiveStep;
+            var cylinder = TestFixture.FixtureSelectedCylinder;
+            var cylinders = new List<ICylinder> { cylinder, cylinder };
+            var divePlan = new DivePlan(diveModel, cylinders, diveStep, cylinder);
+            presenter.Setup(p => p.GetConfirmationDefaultNo("Use Simplified Display?")).Returns(true);
+            presenter.Setup(p => p.AssignDiveProfileChart(diveModel.Name, diveProfile)).Returns(barChart);
+            presenter.Setup(p => p.AssignDiveStepTable(divePlan.DiveStep, divePlan.DiveModel.DiveProfile.DepthCeiling.ToString())).Returns(table);
+            presenter.Setup(p => p.AssignCylindersTable(cylinders)).Returns(table);
+            presenter.Setup(p => p.WriteResult(table));
+            presenter.Setup(p => p.WriteResult(barChart));
+            divePresenter = new DivePresenter(presenter.Object);
+
+            // When
+            divePresenter.DisplayResultOption();
+            divePresenter.PrintDiveResult(divePlan);
 
             // Then
             presenter.VerifyAll();
@@ -128,20 +235,19 @@ namespace BubblesDivePlannerTests.Presenters
         }
 
         [Fact]
-        public void DisplayHelp()
+        public void ConfirmDecompression()
         {
             // Given
-            presenter.Setup(p => p.GetConfirmationDefaultNo("Bubbles Dive Planner Help?")).Returns(true);
-            presenter.Setup(p => p.GetConfirmationDefaultYes("Continue With Help?")).Returns(false);
-            presenter.Setup(p => p.GenerateHelpMenu()).Returns("Loading A File");
-            presenter.Setup(p => p.Print("Bubbles dive planner saves files in JSON format. The default file name is dive_plan.json. When running the application a choice of \"yes\" or \"no\" will be presented with the message \"Load File:\". Selecting yes will load the file contained in the base of the program file structure."));
+            presenter.Setup(p => p.GetConfirmationDefaultYes("Run Decompression Steps?"));
             divePresenter = new DivePresenter(presenter.Object);
 
             // When
-            divePresenter.DisplayHelp();
+            divePresenter.ConfirmDecompression(1.0);
 
             // Then
             presenter.VerifyAll();
         }
+
+        #endregion
     }
 }
