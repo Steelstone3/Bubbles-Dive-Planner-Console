@@ -48,19 +48,19 @@ namespace BubblesDivePlanner.Controllers.Json
 
         private static void DetermineDiveModel(string expectedDivePlanJson, List<JsonConverter> jsonConverters)
         {
-            if (expectedDivePlanJson.Contains(DiveModelNames.ZHL16_B.ToString()))
+            if (expectedDivePlanJson.Contains(nameof(DiveModelNames.ZHL16_B)))
             {
                 jsonConverters.Add(new AbstractConverter<Zhl16Buhlmann, IDiveModel>());
             }
-            else if (expectedDivePlanJson.Contains(DiveModelNames.ZHL12.ToString()))
+            else if (expectedDivePlanJson.Contains(nameof(DiveModelNames.ZHL12)))
             {
                 jsonConverters.Add(new AbstractConverter<Zhl12Buhlmann, IDiveModel>());
             }
-            else if (expectedDivePlanJson.Contains(DiveModelNames.USN_REVISION_6.ToString()))
+            else if (expectedDivePlanJson.Contains(nameof(DiveModelNames.USN_REVISION_6)))
             {
                 jsonConverters.Add(new AbstractConverter<UsnRevision6, IDiveModel>());
             }
-            else if (expectedDivePlanJson.Contains(DiveModelNames.DCAP_MF11F6.ToString()))
+            else if (expectedDivePlanJson.Contains(nameof(DiveModelNames.DCAP_MF11F6)))
             {
                 jsonConverters.Add(new AbstractConverter<DcapMf11f6, IDiveModel>());
             }

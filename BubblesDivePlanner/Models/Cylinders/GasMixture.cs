@@ -12,8 +12,8 @@ namespace BubblesDivePlanner.Models.Cylinders
             CalculateNitrogen();
         }
 
-        public byte Oxygen { get; private set; }
-        public byte Helium { get; private set; }
+        public byte Oxygen { get; }
+        public byte Helium { get; }
         public byte Nitrogen { get; private set; }
         public double MaximumOperatingDepth { get; private set; }
 
@@ -24,7 +24,7 @@ namespace BubblesDivePlanner.Models.Cylinders
             const double toleratedPartialPressure = 1.4;
             double oxygenPartialPressure = Oxygen != 0 ? (double)Oxygen / 100 : 0;
             double toleratedPressure = oxygenPartialPressure != 0 ? toleratedPartialPressure / oxygenPartialPressure : 0;
-            MaximumOperatingDepth = toleratedPressure != 0 ? Math.Round(toleratedPressure * 10 - 10, 2) : 0;
+            MaximumOperatingDepth = toleratedPressure != 0 ? Math.Round((toleratedPressure * 10) - 10, 2) : 0;
         }
     }
 }

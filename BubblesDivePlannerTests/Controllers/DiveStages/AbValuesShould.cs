@@ -5,7 +5,6 @@ namespace BubblesDivePlannerTests.Controllers.DiveStages
 {
     public class AbValuesShould
     {
-
         [Fact]
         public void RunAbValuesStage()
         {

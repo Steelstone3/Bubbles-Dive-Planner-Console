@@ -5,7 +5,7 @@ using BubblesDivePlannerTests.Services;
 
 namespace BubblesDivePlanner
 {
-    class Program
+    static class Program
     {
         static void Main()
         {

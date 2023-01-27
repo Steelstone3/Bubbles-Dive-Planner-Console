@@ -6,7 +6,7 @@ namespace BubblesDivePlanner.Models.DiveModels.Types
 
         public UsnRevision6(IDiveProfile diveProfile) : base(diveProfile)
         {
-            Name = DiveModelNames.USN_REVISION_6.ToString();
+            Name = nameof(DiveModelNames.USN_REVISION_6);
             CompartmentCount = NUMBER_OF_COMPARTMENTS;
             NitrogenHalfTimes = new double[NUMBER_OF_COMPARTMENTS] { 5.0, 10.0, 20.0, 40.0, 80.0, 120.0, 160.0, 200.0, 240.0 };
             HeliumHalfTimes = new double[NUMBER_OF_COMPARTMENTS] { 5.0, 10.0, 20.0, 40.0, 80.0, 120.0, 160.0, 200.0, 240.0 };

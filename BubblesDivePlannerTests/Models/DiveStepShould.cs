@@ -12,7 +12,7 @@ namespace Name
         public void ContainsDepth(byte depth, byte expectedDepth)
         {
             // Given
-            byte time = 10;
+            const byte time = 10;
 
             // When
             IDiveStep diveStep = new DiveStep(depth, time);
@@ -27,7 +27,7 @@ namespace Name
         public void ContainsTime(byte time, byte expectedTime)
         {
             // Given
-            byte depth = 50;
+            const byte depth = 50;
 
             // When
             IDiveStep diveStep = new DiveStep(depth, time);

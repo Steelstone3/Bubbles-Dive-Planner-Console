@@ -6,7 +6,7 @@ namespace BubblesDivePlanner.Models.DiveModels.Types
 
         public Zhl12Buhlmann(IDiveProfile diveProfile) : base(diveProfile)
         {
-            Name = DiveModelNames.ZHL12.ToString();
+            Name = nameof(DiveModelNames.ZHL12);
             CompartmentCount = NUMBER_OF_COMPARTMENTS;
             NitrogenHalfTimes = new double[NUMBER_OF_COMPARTMENTS] { 2.65, 7.94, 12.2, 18.5, 26.5, 37.0, 53.0, 79.0, 114.0, 146.0, 185.0, 238.0, 304.0, 397.0, 503.0, 635.0 };
             HeliumHalfTimes = new double[NUMBER_OF_COMPARTMENTS] { 1.0, 3.0, 4.6, 7.0, 10.0, 14.0, 20.0, 30.0, 43.0, 55.0, 70.0, 90.0, 115.0, 150.0, 190.0, 240.0 };

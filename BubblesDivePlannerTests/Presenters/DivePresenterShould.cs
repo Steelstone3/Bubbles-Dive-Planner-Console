@@ -96,7 +96,7 @@ namespace BubblesDivePlannerTests.Presenters
             divePresenter = new DivePresenter(presenter.Object);
 
             // When
-            divePresenter.CreateCylinders(DiveModelNames.ZHL16_B.ToString());
+            divePresenter.CreateCylinders(nameof(DiveModelNames.ZHL16_B));
 
             // Then
             presenter.VerifyAll();
@@ -116,7 +116,7 @@ namespace BubblesDivePlannerTests.Presenters
             divePresenter = new DivePresenter(presenter.Object);
 
             // When
-            divePresenter.CreateCylinders(DiveModelNames.DCAP_MF11F6.ToString());
+            divePresenter.CreateCylinders(nameof(DiveModelNames.DCAP_MF11F6));
 
             // Then
             presenter.Verify(p => p.GetByte("Enter Helium (%):", 0, 80), Times.Never);

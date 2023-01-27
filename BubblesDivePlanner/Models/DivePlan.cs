@@ -14,9 +14,9 @@ namespace BubblesDivePlanner.Models
             SelectedCylinder = selectedCylinder;
         }
 
-        public IDiveModel DiveModel { get; private set; }
-        public List<ICylinder> Cylinders { get; private set; }
-        public IDiveStep DiveStep { get; private set; }
-        public ICylinder SelectedCylinder { get; private set; }
+        public IDiveModel DiveModel { get; }
+        public List<ICylinder> Cylinders { get; }
+        public IDiveStep DiveStep { get; }
+        public ICylinder SelectedCylinder { get; }
     }
 }

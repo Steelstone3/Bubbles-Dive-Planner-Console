@@ -14,7 +14,7 @@ namespace BubblesDivePlannerTests.Presenters
         public void DisplayLoadFile()
         {
             // Given
-            presenter.Setup(p => p.GetConfirmationDefaultNo($"Load File?"));
+            presenter.Setup(p => p.GetConfirmationDefaultNo("Load File?"));
             filePresenter = new FilePresenter(presenter.Object);
 
             // When
@@ -42,7 +42,7 @@ namespace BubblesDivePlannerTests.Presenters
         public void DisplaySaveFile()
         {
             // Given
-            presenter.Setup(p => p.GetConfirmationDefaultYes($"Save File?"));
+            presenter.Setup(p => p.GetConfirmationDefaultYes("Save File?"));
             filePresenter = new FilePresenter(presenter.Object);
 
             // When

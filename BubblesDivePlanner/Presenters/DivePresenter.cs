@@ -171,7 +171,7 @@ namespace BubblesDivePlanner.Presenters
             var cylinderPressure = presenter.GetUshort("Enter Cylinder Pressure (bar):", 50, 300);
             var surfaceAirConsumption = presenter.GetByte("Enter Surface Air Consumption Rate (l/min):", 5, 30);
             var oxygenPercentage = presenter.GetByte("Enter Oxygen (%):", 5, 100);
-            if (diveModelName == DiveModelNames.DCAP_MF11F6.ToString())
+            if (diveModelName == nameof(DiveModelNames.DCAP_MF11F6))
             {
                 gasMixture = new GasMixture(oxygenPercentage, 0);
             }

@@ -50,14 +50,14 @@ namespace BubblesDivePlanner.Models.DiveModels
             DepthCeiling = depthCeiling;
         }
 
-        public double[] NitrogenTissuePressures { get; private set; }
-        public double[] HeliumTissuePressures { get; private set; }
-        public double[] TotalTissuePressures { get; private set; }
-        public double[] MaxSurfacePressures { get; private set; }
-        public double[] ToleratedAmbientPressures { get; private set; }
-        public double[] AValues { get; private set; }
-        public double[] BValues { get; private set; }
-        public double[] CompartmentLoads { get; private set; }
+        public double[] NitrogenTissuePressures { get; }
+        public double[] HeliumTissuePressures { get; }
+        public double[] TotalTissuePressures { get; }
+        public double[] MaxSurfacePressures { get; }
+        public double[] ToleratedAmbientPressures { get; }
+        public double[] AValues { get; }
+        public double[] BValues { get; }
+        public double[] CompartmentLoads { get; }
         public double OxygenPressureAtDepth { get; private set; }
         public double HeliumPressureAtDepth { get; private set; }
         public double NitrogenPressureAtDepth { get; private set; }

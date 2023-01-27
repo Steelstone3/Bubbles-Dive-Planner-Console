@@ -44,7 +44,7 @@ namespace BubblesDivePlannerTests.Controllers
             divePlan.Setup(dp => dp.Cylinders).Returns(TestFixture.FixtureCylinders());
             divePresenter.Setup(dp => dp.WelcomeMessage());
             divePresenter.Setup(dp => dp.SelectDiveModel());
-            divePresenter.Setup(dp => dp.CreateCylinders(DiveModelNames.ZHL16_B.ToString()));
+            divePresenter.Setup(dp => dp.CreateCylinders(nameof(DiveModelNames.ZHL16_B)));
             diveController = new DiveController(divePresenter.Object, diveStagesController.Object);
 
             // When
@@ -53,7 +53,7 @@ namespace BubblesDivePlannerTests.Controllers
             // Then
             divePresenter.Verify(dsp => dsp.WelcomeMessage(), Times.Once);
             divePresenter.Verify(dsp => dsp.SelectDiveModel(), Times.Never);
-            divePresenter.Verify(dsp => dsp.CreateCylinders(DiveModelNames.ZHL16_B.ToString()), Times.Never);
+            divePresenter.Verify(dsp => dsp.CreateCylinders(nameof(DiveModelNames.ZHL16_B)), Times.Never);
         }
 
         [Fact]
@@ -63,7 +63,7 @@ namespace BubblesDivePlannerTests.Controllers
             divePlan.Setup(dp => dp.DiveModel).Returns(TestFixture.FixtureDiveModel(null));
             divePresenter.Setup(dp => dp.WelcomeMessage());
             divePresenter.Setup(dp => dp.SelectDiveModel()).Returns(new Zhl16Buhlmann(null));
-            divePresenter.Setup(dp => dp.CreateCylinders(DiveModelNames.ZHL16_B.ToString()));
+            divePresenter.Setup(dp => dp.CreateCylinders(nameof(DiveModelNames.ZHL16_B)));
             diveController = new DiveController(divePresenter.Object, diveStagesController.Object);
 
             // When
@@ -80,7 +80,7 @@ namespace BubblesDivePlannerTests.Controllers
             divePlan.Setup(dp => dp.Cylinders).Returns(TestFixture.FixtureCylinders());
             divePresenter.Setup(dp => dp.WelcomeMessage());
             divePresenter.Setup(dp => dp.SelectDiveModel()).Returns(new Zhl16Buhlmann(null));
-            divePresenter.Setup(dp => dp.CreateCylinders(DiveModelNames.ZHL16_B.ToString()));
+            divePresenter.Setup(dp => dp.CreateCylinders(nameof(DiveModelNames.ZHL16_B)));
             diveController = new DiveController(divePresenter.Object, diveStagesController.Object);
 
             // When

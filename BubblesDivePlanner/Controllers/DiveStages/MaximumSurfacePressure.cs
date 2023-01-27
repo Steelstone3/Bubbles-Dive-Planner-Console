@@ -22,7 +22,7 @@ namespace BubblesDivePlanner.Controllers.DiveStages
 
         private void CalculateMaximumSurfacePressure(int compartment)
         {
-            diveModel.DiveProfile.MaxSurfacePressures[compartment] = Math.Round(1.0f / diveModel.DiveProfile.BValues[compartment] + diveModel.DiveProfile.AValues[compartment], 4);
+            diveModel.DiveProfile.MaxSurfacePressures[compartment] = Math.Round((1.0f / diveModel.DiveProfile.BValues[compartment]) + diveModel.DiveProfile.AValues[compartment], 4);
         }
     }
 }

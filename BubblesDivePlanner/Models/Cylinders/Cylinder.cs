@@ -18,7 +18,7 @@ namespace BubblesDivePlanner.Models.Cylinders
         public string Name { get; }
         public ushort CylinderVolume { get; }
         public ushort CylinderPressure { get; }
-        public ushort InitialPressurisedVolume { get; private set; }
+        public ushort InitialPressurisedVolume { get; }
         public ushort RemainingGas { get; private set; }
         public ushort UsedGas { get; private set; }
         public byte SurfaceAirConsumptionRate { get; }

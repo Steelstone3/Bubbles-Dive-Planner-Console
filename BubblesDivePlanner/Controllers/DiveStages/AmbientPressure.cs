@@ -25,7 +25,7 @@ namespace BubblesDivePlanner.Controllers.DiveStages
 
         private double CalculateAmbientPressure()
         {
-            return 1.0 + diveStep.Depth / 10.0;
+            return 1.0 + (diveStep.Depth / 10.0);
         }
 
         private void CalculateAdjustedGasPressures(double pressureAmbient)

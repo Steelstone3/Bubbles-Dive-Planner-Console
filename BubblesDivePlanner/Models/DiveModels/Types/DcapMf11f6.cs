@@ -6,7 +6,7 @@ namespace BubblesDivePlanner.Models.DiveModels.Types
 
         public DcapMf11f6(IDiveProfile diveProfile) : base(diveProfile)
         {
-            Name = DiveModelNames.DCAP_MF11F6.ToString();
+            Name = nameof(DiveModelNames.DCAP_MF11F6);
             CompartmentCount = NUMBER_OF_COMPARTMENTS;
             NitrogenHalfTimes = new double[NUMBER_OF_COMPARTMENTS] { 5.0, 10.0, 25.0, 55.0, 95.0, 145.0, 200.0, 285.0, 385.0, 520.0, 670.0 };
             HeliumHalfTimes = new double[NUMBER_OF_COMPARTMENTS];
