@@ -31,7 +31,7 @@ This application has been tested to run on debain derived Linux, Windows 10 and 
 
 Follow the steps for installing dotnet runtime for your given operating system.
 
-> https://dotnet.microsoft.com/en-us/download/dotnet/6.0
+> https://dotnet.microsoft.com/en-us/download/dotnet/7.0
 
 Install the following .net tool and use its upgrade feature to keep 3rd party packages updated
 
