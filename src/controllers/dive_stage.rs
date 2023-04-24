@@ -53,16 +53,10 @@ fn update_dive_profile_model(
     dive_model.dive_profile
 }
 
-pub fn update_cylinder_gas_usage(mut cylinder: Cylinder, dive_step: DiveStep) -> Cylinder {
-    cylinder.gas_management = cylinder.gas_management.update_gas_management(dive_step);
-
-    cylinder
-}
-
 #[cfg(test)]
 mod dive_stage_should {
     use super::*;
-    use crate::models::gas_mixture::GasMixture;
+    use crate::models::{gas_management::GasManagement, gas_mixture::GasMixture};
 
     #[test]
     fn run_dive_profile() {
@@ -76,8 +70,6 @@ mod dive_stage_should {
         let dive_profile = super::run_dive_profile(zhl16, dive_step, cylinder);
 
         //Assert
-        // assert_eq!(expected_dive_profile, dive_profile);
-
         assert_eq!(
             format!("{:.2}", expected_dive_profile.oxygen_at_pressure),
             format!("{:.2}", dive_profile.oxygen_at_pressure)
@@ -148,22 +140,6 @@ mod dive_stage_should {
         }
     }
 
-    #[test]
-    fn update_cylinder_gas_usage() {
-        //Arrange
-        let dive_step = dive_step_test_fixture();
-        let mut expected_cylinder = cylinder_test_fixture();
-
-        //Act
-        let cylinder = super::update_cylinder_gas_usage(expected_cylinder, dive_step);
-
-        //Expected (updated from fixutre)
-        expected_cylinder.gas_management.gas_used = 720;
-
-        //Assert
-        assert_eq!(expected_cylinder, cylinder);
-    }
-
     fn dive_step_test_fixture() -> DiveStep {
         DiveStep {
             depth: 50,
@@ -172,39 +148,47 @@ mod dive_stage_should {
     }
 
     fn cylinder_test_fixture() -> Cylinder {
-        Cylinder::new(12, 200, GasMixture::new(21, 10), 12)
+        Cylinder {
+            cylinder_volume: 12,
+            cylinder_pressure: 200,
+            initial_pressurised_cylinder_volume: 2400,
+            gas_mixture: GasMixture {
+                oxygen: 21,
+                helium: 10,
+                nitrogen: 69,
+            },
+            gas_management: GasManagement {
+                gas_used: 0,
+                surface_air_consumption_rate: 12,
+            },
+        }
     }
 
     fn dive_profile_test_fixture() -> DiveProfile {
         DiveProfile {
             maximum_surface_pressures: [
-                3.35, 2.63, 2.33, 2.1, 1.95, 1.79, 1.68, 1.6, 1.54, 1.48, 1.44, 1.4,
-                1.35, 1.33, 1.3, 1.28,
+                3.35, 2.63, 2.33, 2.1, 1.95, 1.79, 1.68, 1.6, 1.54, 1.48, 1.44, 1.4, 1.35, 1.33, 1.3, 1.28,
             ],
             compartment_loads: [
-                124.0, 124.0, 115.0, 105.0, 94.0, 88.0, 81.0, 75.0, 71.0, 69.0,
-                67.0, 67.0, 67.0, 66.0, 66.0, 66.0,
+                124.0, 124.0, 115.0, 105.0, 94.0, 88.0, 81.0, 75.0, 71.0, 69.0, 67.0, 67.0, 67.0, 66.0, 66.0, 66.0,
             ],
             tissue_pressures_nitrogen: [
                 3.5, 2.7, 2.2, 1.8, 1.5, 1.3, 1.2, 1.1, 1.0, 0.9, 0.9, 0.9, 0.9, 0.8, 0.8, 0.8,
             ],
             tissue_pressures_helium: [
-                0.594, 0.540, 0.462, 0.377, 0.296, 0.228, 0.172, 0.127, 0.093, 0.071, 0.056, 0.044,
-                0.035, 0.028, 0.022, 0.017,
+                0.594, 0.540, 0.462, 0.377, 0.296, 0.228, 0.172, 0.127, 0.093, 0.071, 0.056, 0.044, 0.035, 0.028, 0.022, 0.017,
             ],
             tissue_pressures_total: [
-                4.14, 3.27, 2.68, 2.21, 1.84, 1.57, 1.36, 1.21, 1.09, 1.02, 0.97, 0.93, 0.90, 0.88,
-                0.86, 0.84,
+                4.14, 3.27, 2.68, 2.21, 1.84, 1.57, 1.36, 1.21, 1.09, 1.02, 0.97, 0.93, 0.90, 0.88, 0.86, 0.84,
             ],
             tolerated_ambient_pressures: [
-                1.39, 1.41, 1.25, 1.09, 0.91, 0.82, 0.72, 0.65, 0.59, 0.57, 0.57,
-                0.56, 0.57, 0.57, 0.57, 0.58,
+                1.39, 1.41, 1.25, 1.09, 0.91, 0.82, 0.72, 0.65, 0.59, 0.57, 0.57, 0.56, 0.57, 0.57, 0.57, 0.58,
             ],
             a_values: [
                 1.3, 1.1, 0.9, 0.8, 0.7, 0.6, 0.5, 0.5, 0.4, 0.4, 0.4, 0.3, 0.3, 0.3, 0.3, 0.2,
             ],
             b_values: [
-                0.49, 0.64, 0.71, 0.77, 0.8, 0.84, 0.86, 0.89, 0.91, 0.92, 0.93, 0.94, 0.95, 0.95, 0.96, 0.96,
+                0.49, 0.64, 0.71, 0.77, 0.80, 0.84, 0.86, 0.89, 0.91, 0.92, 0.93, 0.94, 0.95, 0.95, 0.96, 0.96,
             ],
             oxygen_at_pressure: 1.26,
             helium_at_pressure: 0.600,

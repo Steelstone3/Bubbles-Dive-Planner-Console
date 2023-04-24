@@ -1,4 +1,7 @@
-#[derive(PartialEq, Debug, Copy, Clone)]
+use crate::presenters::presenter::{parse_numeric_value, text_prompt};
+use serde::{Deserialize, Serialize};
+
+#[derive(PartialEq, Debug, Copy, Clone, Serialize, Deserialize, Default)]
 pub struct GasMixture {
     pub oxygen: u32,
     pub helium: u32,
@@ -6,7 +9,18 @@ pub struct GasMixture {
 }
 
 impl GasMixture {
-    pub fn new(oxygen: u32, helium: u32) -> Self {
+    pub fn new() -> Self {
+        let oxygen = parse_numeric_value(text_prompt(
+            "Enter oxygen (%):",
+            "Enter a value 5 - 100",
+            "21",
+        ));
+        let helium = parse_numeric_value(text_prompt(
+            "Enter helium (%):",
+            "Enter a value 0 - 100",
+            "0",
+        ));
+
         GasMixture::assign_gas_mixture(oxygen, helium)
     }
 
@@ -31,19 +45,13 @@ impl GasMixture {
     }
 }
 
-impl Default for GasMixture {
-    fn default() -> Self {
-        Self::new(Default::default(), Default::default())
-    }
-}
-
 #[cfg(test)]
 mod gas_mixture_should {
     use super::*;
 
     #[test]
     fn allow_assignment_of_oxygen() {
-        let gas_mixture = GasMixture::new(70, 0);
+        let gas_mixture = GasMixture::assign_gas_mixture(70, 0);
 
         assert_eq!(70, gas_mixture.oxygen);
         assert_eq!(0, gas_mixture.helium);
@@ -52,7 +60,7 @@ mod gas_mixture_should {
 
     #[test]
     fn allow_overflow_assignment_of_oxygen() {
-        let gas_mixture = GasMixture::new(120, 5);
+        let gas_mixture = GasMixture::assign_gas_mixture(120, 5);
 
         assert_eq!(95, gas_mixture.oxygen);
         assert_eq!(5, gas_mixture.helium);
@@ -61,7 +69,7 @@ mod gas_mixture_should {
 
     #[test]
     fn allow_assignment_of_helium() {
-        let gas_mixture = GasMixture::new(21, 70);
+        let gas_mixture = GasMixture::assign_gas_mixture(21, 70);
 
         assert_eq!(70, gas_mixture.helium);
         assert_eq!(21, gas_mixture.oxygen);
@@ -70,7 +78,7 @@ mod gas_mixture_should {
 
     #[test]
     fn allow_overflow_assignment_of_helium() {
-        let gas_mixture = GasMixture::new(5, 120);
+        let gas_mixture = GasMixture::assign_gas_mixture(5, 120);
 
         assert_eq!(95, gas_mixture.helium);
         assert_eq!(5, gas_mixture.oxygen);
@@ -79,7 +87,7 @@ mod gas_mixture_should {
 
     #[test]
     fn calculate_nitrogen_percentage() {
-        let gas_mixture = GasMixture::new(40, 40);
+        let gas_mixture = GasMixture::assign_gas_mixture(40, 40);
 
         assert_eq!(40, gas_mixture.oxygen);
         assert_eq!(40, gas_mixture.helium);

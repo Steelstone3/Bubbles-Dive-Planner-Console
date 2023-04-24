@@ -1,11 +1,4 @@
-use controllers::dive_stage::run_dive_profile;
-use presenters::presenter::select_cylinder;
-use presenters::{
-    dive_setup::{create_cylinders, create_dive_step, welcome_message},
-    presenter::select_dive_model,
-};
-
-use crate::controllers::dive_stage::update_cylinder_gas_usage;
+use crate::{controllers::file::FileController, models::dive_stage::DiveStage};
 
 mod commands;
 mod controllers;
@@ -13,19 +6,20 @@ mod models;
 mod presenters;
 
 fn main() {
-    // let mut state = DivePlanState::default();
+    println!("Welcome to Bubbles Dive Planner Console Rust");
 
-    welcome_message();
+    let mut file = FileController::default();
+    let mut dive_stages: Vec<DiveStage> = Vec::new();
 
-    let mut dive_model = select_dive_model();
-    let cylinders = create_cylinders();
+    let mut dive_stage = file.load_dive_plan();
+    let cylinders = file.load_cylinders();
 
     loop {
-        let dive_step = create_dive_step();
-        let mut cylinder = select_cylinder(cylinders.to_owned());
-        dive_model.dive_profile = run_dive_profile(dive_model, dive_step, cylinder);
-        cylinder = update_cylinder_gas_usage(cylinder, dive_step);
-        println!("{}", dive_model.dive_profile);
-        println!("{}", cylinder);
+        dive_stage = dive_stage.update(cylinders.to_owned());
+        dive_stage.print_result();
+
+        dive_stages.push(dive_stage);
+
+        file.upsert_dive_stage(&dive_stages).unwrap();
     }
 }

@@ -1,16 +1,22 @@
 use super::dive_step::DiveStep;
+use crate::presenters::presenter::{parse_numeric_value, text_prompt};
+use serde::{Deserialize, Serialize};
 
-#[derive(PartialEq, Debug, Copy, Clone)]
+#[derive(PartialEq, Debug, Copy, Clone, Serialize, Deserialize, Default)]
 pub struct GasManagement {
     pub gas_used: u32,
     pub surface_air_consumption_rate: u32,
 }
 
 impl GasManagement {
-    pub fn new(surface_air_consumption_rate: u32) -> Self {
-        GasManagement {
+    pub fn new() -> Self {
+        Self {
             gas_used: 0,
-            surface_air_consumption_rate,
+            surface_air_consumption_rate: parse_numeric_value(text_prompt(
+                "Enter surface air consumption rate (L/min):",
+                "Enter a value 3 - 30",
+                "12",
+            )),
         }
     }
 
@@ -25,15 +31,6 @@ impl GasManagement {
 
     fn calculate_gas_used(dive_step: DiveStep, surface_air_consumption_rate: u32) -> u32 {
         ((dive_step.depth / 10) + 1) * dive_step.time * surface_air_consumption_rate
-    }
-}
-
-impl Default for GasManagement {
-    fn default() -> Self {
-        Self {
-            gas_used: Default::default(),
-            surface_air_consumption_rate: 12,
-        }
     }
 }
 

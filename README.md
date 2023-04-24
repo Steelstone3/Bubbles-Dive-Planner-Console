@@ -25,3 +25,7 @@ This application has been tested to run on debain derived Linux, Windows 10 and 
 Follow the steps for installing rustc runtime for your given operating system.
 
 > <https://www.rust-lang.org/tools/install>
+
+## Legal
+
+I nor any contributors to this project can guarantee absolute safety when using "Bubbles Dive Planner Console" for recreational or technical scuba diving activities. Please seek proper training from a recognised agency before partaking in any scuba diving activities. In addition please consult published dive tables, use a dive computer and other such guarantee's to "sanity check" "Bubbles Dive Planner Console".

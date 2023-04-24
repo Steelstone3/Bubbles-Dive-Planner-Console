@@ -1,6 +1,7 @@
+use serde::{Deserialize, Serialize};
 use std::fmt::Display;
 
-#[derive(PartialEq, Debug, Default, Copy, Clone)]
+#[derive(PartialEq, Default, Debug, Copy, Clone, Serialize, Deserialize)]
 pub struct DiveProfile {
     pub maximum_surface_pressures: [f32; 16],
     pub compartment_loads: [f32; 16],
@@ -20,9 +21,15 @@ impl DiveProfile {
         Self {
             maximum_surface_pressures: Default::default(),
             compartment_loads: Default::default(),
-            tissue_pressures_nitrogen: [0.79,0.79,0.79,0.79,0.79,0.79,0.79,0.79,0.79,0.79,0.79,0.79,0.79,0.79,0.79,0.79,],
+            tissue_pressures_nitrogen: [
+                0.79, 0.79, 0.79, 0.79, 0.79, 0.79, 0.79, 0.79, 0.79, 0.79, 0.79, 0.79, 0.79, 0.79,
+                0.79, 0.79,
+            ],
             tissue_pressures_helium: Default::default(),
-            tissue_pressures_total: [0.79,0.79,0.79,0.79,0.79,0.79,0.79,0.79,0.79,0.79,0.79,0.79,0.79,0.79,0.79,0.79,],
+            tissue_pressures_total: [
+                0.79, 0.79, 0.79, 0.79, 0.79, 0.79, 0.79, 0.79, 0.79, 0.79, 0.79, 0.79, 0.79, 0.79,
+                0.79, 0.79,
+            ],
             tolerated_ambient_pressures: Default::default(),
             a_values: Default::default(),
             b_values: Default::default(),
@@ -225,7 +232,8 @@ mod gas_management_should {
 
     fn default_compartment_value_test_fixture() -> [f32; 16] {
         [
-            0.79,0.79,0.79,0.79,0.79,0.79,0.79,0.79,0.79,0.79,0.79,0.79,0.79,0.79,0.79,0.79,
+            0.79, 0.79, 0.79, 0.79, 0.79, 0.79, 0.79, 0.79, 0.79, 0.79, 0.79, 0.79, 0.79, 0.79,
+            0.79, 0.79,
         ]
     }
 
