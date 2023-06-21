@@ -1,7 +1,6 @@
 package divestage
 
 import (
-	"fmt"
 	"math"
 
 	"github.com/Steelstone3/Bubbles-Dive-Planner-Console/presenters"
@@ -17,7 +16,7 @@ type Cylinder struct {
 }
 
 func SelectCylinder(cylinders []Cylinder) Cylinder {
-	fmt.Println()
+	presenters.Print("\n")
 
 	for _, cylinder := range cylinders {
 		cylinder.displayCylinder()
@@ -33,13 +32,12 @@ func SelectCylinder(cylinders []Cylinder) Cylinder {
 }
 
 func (cylinder *Cylinder) displayCylinder() {
-	cylinderString := "| Name: {Name} | Volume: {Volume} | O2: {Oxygen} N: {Nitrogen} He: {Helium} |"
+	cylinderString := "\n| Name: {Name} | Volume: {Volume} | O2: {Oxygen} N: {Nitrogen} He: {Helium} |"
 
 	cylinderString = presenters.StringReplace(cylinderString, "{Name}", cylinder.Name)
 	cylinderString = presenters.UintStringReplace(cylinderString, "{Volume}", cylinder.InitialPressurisedVolume)
 	cylinderString = cylinder.GasMixture.appendGasMixture(cylinderString)
 
-	presenters.Print("")
 	presenters.Print(cylinderString)
 }
 

@@ -1,5 +1,11 @@
 package divemodels
 
+import (
+	"math"
+
+	"github.com/Steelstone3/Bubbles-Dive-Planner-Console/presenters"
+)
+
 type DiveModel struct {
 	name              string
 	CompartmentCount  uint
@@ -12,7 +18,83 @@ type DiveModel struct {
 	DiveProfile       DiveProfile
 }
 
-// TODO add USNRev6 dive model
+// TODO Use this in a selection menu
+func constructUsnDiveModel() DiveModel {
+	const compartmentCount = 9
+
+	return DiveModel{
+		name:             "USN Revision 6",
+		CompartmentCount: compartmentCount,
+		NitrogenHalfTimes: []float64{
+			5.0,
+			10.0,
+			20.0,
+			40.0,
+			80.0,
+			120.0,
+			160.0,
+			200.0,
+			240.0,
+		},
+		HeliumHalfTimes: []float64{
+			5.0,
+			10.0,
+			20.0,
+			40.0,
+			80.0,
+			120.0,
+			160.0,
+			200.0,
+			240.0,
+		},
+		NitrogenAValues: []float64{
+			1.37,
+			1.08,
+			0.69,
+			0.3,
+			0.34,
+			0.38,
+			0.4,
+			0.45,
+			0.42,
+		},
+		NitrogenBValues: []float64{
+			0.555,
+			0.625,
+			0.666,
+			0.714,
+			0.769,
+			0.833,
+			0.870,
+			0.909,
+			0.909,
+		},
+		HeliumAValues: []float64{
+			1.12,
+			0.85,
+			0.71,
+			0.63,
+			0.5,
+			0.44,
+			0.54,
+			0.61,
+			0.61,
+		},
+		HeliumBValues: []float64{
+			0.67,
+			0.714,
+			0.769,
+			0.83,
+			0.83,
+			0.91,
+			1.0,
+			1.0,
+			1.0,
+		},
+		DiveProfile: ConstructDiveProfile(compartmentCount),
+	}
+}
+
 func constructZhl16DiveModel() DiveModel {
 	const compartmentCount = 16
 
@@ -131,7 +213,26 @@ func constructZhl16DiveModel() DiveModel {
 	}
 }
 
+func (diveModel *DiveModel) displayDiveModel() {
+	diveModelString := "\n{Name}"
+
+	diveModelString = presenters.StringReplace(diveModelString, "{Name}", diveModel.name)
+
+	presenters.Print(diveModelString)
+}
+
 func selectDiveModel() DiveModel {
-	// TODO provide a means to select from a list of different dive models
-	return constructZhl16DiveModel()
+	var diveModels = []DiveModel{constructZhl16DiveModel(), constructUsnDiveModel()}
+
+	for _, diveModel := range diveModels {
+		diveModel.displayDiveModel()
+	}
+
+	index := uint(math.MaxUint64)
+
+	for index >= uint(len(diveModels)) {
+		index = presenters.GetUintFromConsole("\nSelect dive model:")
+	}
+
+	return diveModels[index]
 }
