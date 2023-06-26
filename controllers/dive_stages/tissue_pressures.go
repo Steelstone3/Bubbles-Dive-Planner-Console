@@ -1,10 +1,9 @@
 package divestages
 
 import (
-	"math"
-
 	diveProfile "github.com/Steelstone3/Bubbles-Dive-Planner-Console/models/dive_models"
 	divestage "github.com/Steelstone3/Bubbles-Dive-Planner-Console/models/dive_stage"
+	"math"
 )
 
 func calculateTotalTissuePressure(compartment uint, diveProfile diveProfile.DiveProfile) float64 {

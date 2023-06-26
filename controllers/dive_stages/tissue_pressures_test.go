@@ -1,11 +1,10 @@
 package divestages
 
 import (
-	"testing"
-
 	divemodels "github.com/Steelstone3/Bubbles-Dive-Planner-Console/models/dive_models"
 	divestage "github.com/Steelstone3/Bubbles-Dive-Planner-Console/models/dive_stage"
 	"github.com/stretchr/testify/assert"
+	"testing"
 )
 
 func TestCalculateTotalTissuePressure(t *testing.T) {

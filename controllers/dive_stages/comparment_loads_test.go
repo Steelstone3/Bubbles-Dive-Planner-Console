@@ -1,10 +1,9 @@
 package divestages
 
 import (
-	"testing"
-
 	divemodels "github.com/Steelstone3/Bubbles-Dive-Planner-Console/models/dive_models"
 	"github.com/stretchr/testify/assert"
+	"testing"
 )
 
 func TestCalculateCompartmentLoad(t *testing.T) {
