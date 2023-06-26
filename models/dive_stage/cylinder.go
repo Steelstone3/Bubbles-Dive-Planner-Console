@@ -25,7 +25,7 @@ func SelectCylinder(cylinders []Cylinder) Cylinder {
 	index := uint(math.MaxUint64)
 
 	for index >= uint(len(cylinders)) {
-		index = presenters.GetUintFromConsole("\nSelect cylinder:")
+		index = presenters.GetUintFromConsoleInRange("\nSelect cylinder:", 0, uint(len(cylinders))-1)
 	}
 
 	return cylinders[index]
@@ -53,40 +53,13 @@ func ConstructCylinders() []Cylinder {
 }
 
 func constructCylinder() Cylinder {
-	name := presenters.GetStringFromConsole("\nEnter cylinder name:")
-	volume := presenters.GetUintFromConsole("Enter volume:")
-	pressure := presenters.GetUintFromConsole("Enter pressure:")
-	surfaceAirConsumptionRate := presenters.GetUintFromConsole("Enter SAC rate:")
-	cylinder := verifyCylinder(volume, pressure, surfaceAirConsumptionRate)
-	cylinder.Name = name
+	cylinder := Cylinder{}
+	cylinder.Name = presenters.GetValidStringFromConsole("\nEnter cylinder name:")
+	cylinder.Volume = presenters.GetUintFromConsoleInRange("Enter volume:", 3, 30)
+	cylinder.Pressure = presenters.GetUintFromConsoleInRange("Enter pressure:", 50, 300)
+	cylinder.SurfaceAirConsumptionRate = presenters.GetUintFromConsoleInRange("Enter SAC rate:", 6, 30)
+	cylinder.InitialPressurisedVolume = cylinder.Volume * cylinder.Pressure
 	cylinder.GasMixture = constructGasMixture()
 
 	return cylinder
-}
-
-func verifyCylinder(volume uint, pressure uint, surfaceAirConsumptionRate uint) Cylinder {
-	if volume > 30 {
-		volume = 30
-	} else if volume < 3 {
-		volume = 3
-	}
-
-	if pressure > 300 {
-		pressure = 300
-	} else if pressure < 50 {
-		pressure = 50
-	}
-
-	if surfaceAirConsumptionRate > 30 {
-		surfaceAirConsumptionRate = 30
-	} else if surfaceAirConsumptionRate < 6 {
-		surfaceAirConsumptionRate = 6
-	}
-
-	return Cylinder{
-		InitialPressurisedVolume:  volume * pressure,
-		Volume:                    volume,
-		Pressure:                  pressure,
-		SurfaceAirConsumptionRate: surfaceAirConsumptionRate,
-	}
 }

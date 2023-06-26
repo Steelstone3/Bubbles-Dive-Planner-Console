@@ -222,7 +222,7 @@ func (diveModel *DiveModel) displayDiveModel() {
 }
 
 func selectDiveModel() DiveModel {
-	var diveModels = []DiveModel{constructZhl16DiveModel(), constructUsnDiveModel()}
+	diveModels := []DiveModel{constructZhl16DiveModel(), constructUsnDiveModel()}
 
 	for _, diveModel := range diveModels {
 		diveModel.displayDiveModel()
@@ -231,7 +231,7 @@ func selectDiveModel() DiveModel {
 	index := uint(math.MaxUint64)
 
 	for index >= uint(len(diveModels)) {
-		index = presenters.GetUintFromConsole("\nSelect dive model:")
+		index = presenters.GetUintFromConsoleInRange("\nSelect dive model:", 0, uint(len(diveModels))-1)
 	}
 
 	return diveModels[index]

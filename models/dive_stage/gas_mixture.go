@@ -17,25 +17,10 @@ func (gasMixture *GasMixture) appendGasMixture(cylinderString string) string {
 }
 
 func constructGasMixture() GasMixture {
-	oxygen := presenters.GetUintFromConsole("\nEnter oxygen:")
-	helium := presenters.GetUintFromConsole("Enter helium:")
+	gasMixture := GasMixture{}
+	gasMixture.Oxygen = presenters.GetUintFromConsoleInRange("\nEnter oxygen:", 5, 100)
+	gasMixture.Helium = presenters.GetUintFromConsoleInRange("Enter helium:", 0, 100-gasMixture.Oxygen)
+	gasMixture.Nitrogen = 100 - gasMixture.Oxygen - gasMixture.Helium
 
-	return verifyGasMixture(oxygen, helium)
-}
-
-func verifyGasMixture(oxygen uint, helium uint) GasMixture {
-	if oxygen > 100 {
-		oxygen = 100
-		helium = 0
-	} else if oxygen+helium > 100 {
-		helium = 100 - oxygen
-	} else if oxygen < 5 {
-		oxygen = 5
-	}
-
-	return GasMixture{
-		Oxygen:   oxygen,
-		Helium:   helium,
-		Nitrogen: 100 - oxygen - helium,
-	}
+	return gasMixture
 }
