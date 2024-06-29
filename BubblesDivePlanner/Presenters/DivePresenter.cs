@@ -37,7 +37,7 @@ namespace BubblesDivePlanner.Presenters
 
         public void DisplayResultOption()
         {
-            isChartDisplay = presenter.GetConfirmationDefaultNo("Use Simplified Display?");
+            isChartDisplay = !presenter.GetConfirmationDefaultYes("Use Table View?");
         }
 
         #endregion

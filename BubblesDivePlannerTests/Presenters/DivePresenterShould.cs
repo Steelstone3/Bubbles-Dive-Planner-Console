@@ -52,7 +52,7 @@ namespace BubblesDivePlannerTests.Presenters
         public void DisplayResultOption()
         {
             // Given
-            presenter.Setup(p => p.GetConfirmationDefaultNo("Use Simplified Display?"));
+            presenter.Setup(p => p.GetConfirmationDefaultYes("Use Table View?"));
             divePresenter = new DivePresenter(presenter.Object);
 
             // When
@@ -204,7 +204,7 @@ namespace BubblesDivePlannerTests.Presenters
             var cylinder = TestFixture.FixtureSelectedCylinder;
             var cylinders = new List<ICylinder> { cylinder, cylinder };
             var divePlan = new DivePlan(diveModel, cylinders, diveStep, cylinder);
-            presenter.Setup(p => p.GetConfirmationDefaultNo("Use Simplified Display?")).Returns(true);
+            presenter.Setup(p => p.GetConfirmationDefaultYes("Use Table View?")).Returns(false);
             presenter.Setup(p => p.AssignDiveProfileChart(diveModel.Name, diveProfile)).Returns(barChart);
             presenter.Setup(p => p.AssignDiveStepTable(divePlan.DiveStep, divePlan.DiveModel.DiveProfile.DepthCeiling.ToString())).Returns(table);
             presenter.Setup(p => p.AssignCylindersTable(cylinders)).Returns(table);
