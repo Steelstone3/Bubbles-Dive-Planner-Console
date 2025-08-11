@@ -15,6 +15,12 @@ pub struct DiveModel {
     pub dive_profile: DiveProfile,
 }
 
+impl Default for DiveModel {
+    fn default() -> Self {
+        DiveModel::create_zhl16_dive_model()
+    }
+}
+
 impl DiveModel {
     pub fn select() -> DiveModel {
         Select::new(
@@ -22,7 +28,7 @@ impl DiveModel {
             vec![DiveModel::create_zhl16_dive_model()],
         )
         .prompt()
-        .unwrap()
+        .unwrap_or_default()
     }
 
     pub fn create_zhl16_dive_model() -> DiveModel {

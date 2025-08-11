@@ -27,7 +27,7 @@ impl Cylinder {
     }
 
     pub fn select(cylinders: Vec<Cylinder>) -> Cylinder {
-        Select::new("Select cylinder:", cylinders).prompt().unwrap()
+        Select::new("Select cylinder:", cylinders).prompt().unwrap_or_default()
     }
 
     pub fn update_gas_usage(mut cylinder: Cylinder, dive_step: DiveStep) -> Cylinder {

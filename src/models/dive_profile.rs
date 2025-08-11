@@ -43,7 +43,7 @@ impl DiveProfile {
         println!();
         let mut dive_results = "".to_string();
 
-        for (_, compartment) in (0..self.compartment_loads.len()).enumerate() {
+        for compartment in 0..self.compartment_loads.len() {
             let dive_result = format!(
                 "\nC: {} | TPt: {} | TAP: {} | MSP: {} | CLp: {}",
                 compartment + 1,

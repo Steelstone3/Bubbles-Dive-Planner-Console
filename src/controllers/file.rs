@@ -34,7 +34,7 @@ impl FileController {
 
             if cylinders.is_empty() {
                 cylinders = Cylinder::new_collection();
-                self.upsert_cylinders(&cylinders).unwrap();
+                self.upsert_cylinders(&cylinders).unwrap_or_default();
             }
 
             cylinders
@@ -49,9 +49,8 @@ impl FileController {
 
         if is_using_file {
             let mut file = self.create_file(&self.dive_plan_file_name);
-            let json = serde_json::ser::to_string_pretty(&dive_stages)
-                .expect("Can't parse application data to string");
-            write!(file, "{}", json).expect("Can't update file with application data");
+            let json = serde_json::ser::to_string_pretty(&dive_stages).unwrap_or_default();
+            write!(file, "{json}").unwrap_or_default();
         }
 
         Ok(())
@@ -62,9 +61,8 @@ impl FileController {
 
         if is_using_file {
             let mut file = self.create_file(&self.cylinders_file_name);
-            let json = serde_json::ser::to_string_pretty(&cylinders)
-                .expect("Can't parse application data to string");
-            write!(file, "{}", json).expect("Can't update file with application data");
+            let json = serde_json::ser::to_string_pretty(&cylinders).unwrap_or_default();
+            write!(file, "{json}").unwrap_or_default();
         }
 
         Ok(())
@@ -77,7 +75,7 @@ impl FileController {
         if dive_stages.is_empty() {
             DiveStage::new()
         } else {
-            *dive_stages.last().expect("File content is empty")
+            *dive_stages.last().unwrap_or(&DiveStage::default())
         }
     }
 
@@ -86,37 +84,38 @@ impl FileController {
         FileController::parse_cylinders_to_application_data(&contents)
     }
 
-    fn create_file(&self, file_name: &String) -> File {
-        File::create(file_name).expect("Can't create file")
+    fn create_file(&self, file_name: &str) -> File {
+        #[allow(clippy::unwrap_used)]
+        File::create(file_name).unwrap()
     }
 
     fn get_file_contents(&self, file_name: &String) -> String {
         let mut contents = String::new();
 
         if let Ok(mut file) = self.open_file(&(file_name.to_owned())) {
-            file.read_to_string(&mut contents).expect("Can't read file");
+            file.read_to_string(&mut contents).unwrap_or_default();
         }
 
         contents
     }
 
-    fn open_file(&self, file_name: &String) -> io::Result<File> {
+    fn open_file(&self, file_name: &str) -> io::Result<File> {
         File::open(file_name)
     }
 
-    fn parse_dive_plan_to_application_data(contents: &String) -> Vec<DiveStage> {
+    fn parse_dive_plan_to_application_data(contents: &str) -> Vec<DiveStage> {
         if contents.is_empty() {
             return Vec::new();
         }
 
-        serde_json::from_str(contents).expect("Can't parse file contents to application data")
+        serde_json::from_str(contents).unwrap_or_default()
     }
 
-    fn parse_cylinders_to_application_data(contents: &String) -> Vec<Cylinder> {
+    fn parse_cylinders_to_application_data(contents: &str) -> Vec<Cylinder> {
         if contents.is_empty() {
             return Vec::new();
         }
 
-        serde_json::from_str(contents).expect("Can't parse file contents to application data")
+        serde_json::from_str(contents).unwrap_or_default()
     }
 }

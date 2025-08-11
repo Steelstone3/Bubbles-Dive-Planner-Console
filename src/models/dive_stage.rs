@@ -2,7 +2,7 @@ use super::{cylinder::Cylinder, dive_model::DiveModel, dive_step::DiveStep};
 use crate::controllers::dive_stage::run_dive_profile;
 use serde::{Deserialize, Serialize};
 
-#[derive(Clone, Copy, Serialize, Deserialize)]
+#[derive(Clone, Copy, Serialize, Deserialize, Default)]
 pub struct DiveStage {
     pub dive_model: DiveModel,
     pub dive_step: DiveStep,

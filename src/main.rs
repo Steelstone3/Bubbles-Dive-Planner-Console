@@ -20,6 +20,8 @@ fn main() {
 
         dive_stages.push(dive_stage);
 
-        file.upsert_dive_stage(&dive_stages).unwrap();
+        if file.upsert_dive_stage(&dive_stages).is_err() {
+            println!("Failed to create dive profile file")
+        };
     }
 }
